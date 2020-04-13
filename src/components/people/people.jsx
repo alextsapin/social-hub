@@ -9,32 +9,36 @@ import * as axios from 'axios';
 import {followAC, unfollowAC, setUserDataAC} from '../../redux/people-reducer.js';
 
 // Презентацинная компонента Profile
-const People = (props) => {
+class People extends React.Component {
 
-    if(props.people.length === 0) {
-        // Запрос на сервер
+    constructor(props) {
+        
+        super(props);
+
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setUsers(responce.data.items);
+            //this.props.setUserData(response.data.items);
         });
 
-        props.setUserData([
+        this.props.setUserData([
             {id:1, name:'Chloe', image:'chloe', status:'I`d like a cup of coffe', location:{country:'England', city:'London'}, followed:true},
             {id:2, name:'Won', image:'won', status:'Samsung the best', location:{country:'Korea', city:'Seul'}, followed:false},
             {id:3, name:'Matt', image:'matt', status:'I like spanish girls', location:{country:'Spain', city:'Barcelona'}, followed:false}
         ]);
     }
-    
-    return (
+
+    render() {
+        return (
         <div id="content">
-            {props.people.map(item => 
+            <button onClick={this.getPeople}>Get Users</button>
+            {this.props.people.map(item => 
                 <div className="people__person">
                     <div className="people__avatar">
                         <img src={'/images/' + item.image + '.png'} alt=""/>
                         <div>
                             {
                                 item.followed ? 
-                                <button className="people__follow" onClick={()=> {props.unfollow(item.id)}}>UNFOLLOW</button> :
-                                <button className="people__follow" onClick={()=> {props.follow(item.id)}}>FOLLOW</button>
+                                <button className="people__follow" onClick={()=> {this.props.unfollow(item.id)}}>UNFOLLOW</button> :
+                                <button className="people__follow" onClick={()=> {this.props.follow(item.id)}}>FOLLOW</button>
                             }
                         </div>
                     </div>
@@ -45,11 +49,12 @@ const People = (props) => {
                     </div>
                 </div>
             )}
-
             <button className="people__follow people__follow_show">SHOW MORE</button>
         </div>
-    );
+        );
+    }
 }
+
 
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
