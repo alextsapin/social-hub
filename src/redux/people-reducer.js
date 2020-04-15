@@ -1,6 +1,9 @@
 // Первичный state
 let initialState = {
-    userData: []
+    userData: [],
+    pageSize: 5,
+    totalCount: 15,
+    currentPage: 1
 }
 
 const userReducer = (state = initialState, action) => {
@@ -36,8 +39,16 @@ const userReducer = (state = initialState, action) => {
         }
         
         case 'SET_USERS': {
-            return {...state, userData: [...state.userData, ...action.userData]}
+            return {...state, userData: action.userData}
         } 
+
+        case 'SET_CURRENT_PAGE': {
+            return {...state, currentPage: action.currentPage} 
+        }
+
+        case 'SET_TOTAL_USER_COUNT': {
+            return {...state, totalCount: action.count} 
+        }
         
         default: break;  
     }
@@ -62,6 +73,20 @@ export const setUserDataAC = (userData) => {
     return {
         type: 'SET_USERS',
         userData
+    }
+}
+
+export const setCurrentPageAC = (currentPage) => {
+    return {
+        type: 'SET_CURRENT_PAGE',
+        currentPage
+    }
+}
+
+export const setTotalUserCountAC = (count) => {
+    return {
+        type: 'SET_TOTAL_USER_COUNT',
+        count
     }
 }
 

@@ -6,29 +6,51 @@ import * as axios from 'axios';
 
 
 // ACTION CREATOR
-import {followAC, unfollowAC, setUserDataAC} from '../../redux/people-reducer.js';
+import {followAC, unfollowAC, setUserDataAC, setCurrentPageAC, setTotalUserCountAC} from '../../redux/people-reducer.js';
 
 // Презентацинная компонента Profile
 class People extends React.Component {
 
     constructor(props) {
-        
         super(props);
+    }
 
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            //this.props.setUserData(response.data.items);
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setTotalUserCount(20);
         });
 
         this.props.setUserData([
             {id:1, name:'Chloe', image:'chloe', status:'I`d like a cup of coffe', location:{country:'England', city:'London'}, followed:true},
             {id:2, name:'Won', image:'won', status:'Samsung the best', location:{country:'Korea', city:'Seul'}, followed:false},
             {id:3, name:'Matt', image:'matt', status:'I like spanish girls', location:{country:'Spain', city:'Barcelona'}, followed:false}
-        ]);
+        ]); 
+    }
+
+    onPageChanged = (page) => {
+        this.props.setCurrentPage(page)
     }
 
     render() {
+
+        let pageCount = Math.ceil(this.props.totalCount / this.props.pageSize);
+        let pages = [];
+
+        for(let i = 1; i <= pageCount; i++) {
+            pages.push(i);
+        }
+
         return (
         <div id="content">
+        
+            <div>
+                {
+                    pages.map(p => {
+                        return <span onClick={(e) => {this.onPageChanged(p)}}className={this.props.currentPage === p && 'selected'}>{p}</span>}
+                    )
+                }
+            </div>
+
             <button onClick={this.getPeople}>Get Users</button>
             {this.props.people.map(item => 
                 <div className="people__person">
@@ -50,6 +72,7 @@ class People extends React.Component {
                 </div>
             )}
             <button className="people__follow people__follow_show">SHOW MORE</button>
+            
         </div>
         );
     }
@@ -59,7 +82,10 @@ class People extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
-        people: state.people.userData
+        people: state.people.userData,
+        pageSize: state.people.pageSize,
+        totalCount: state.people.totalCount,
+        currentPage: state.people.currentPage
     }
 }
 
@@ -73,6 +99,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         setUserData: (userData) => {
             dispatch(setUserDataAC(userData));
+        },
+        setCurrentPage: (page) => {
+            dispatch(setCurrentPageAC(page))
+        },
+        setTotalUserCount: (totalCount) => {
+            dispatch(setTotalUserCountAC(totalCount))
         }
     }
 }
