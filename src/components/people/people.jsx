@@ -8,11 +8,60 @@ import * as axios from 'axios';
 // ACTION CREATOR
 import {followAC, unfollowAC, setUserDataAC, setCurrentPageAC, setTotalUserCountAC} from '../../redux/people-reducer.js';
 
+let People = (props) => {
+
+    let pageCount = Math.ceil(props.totalCount / props.pageSize);
+    let pages = [];
+
+    for(let i = 1; i <= pageCount; i++) {
+        pages.push(i);
+    }
+
+    return (
+        <div id="content">
+        
+            <div>
+                {
+                    pages.map(p => {
+                        return <span onClick={(e) => {props.onPageChanged(p)}}className={props.currentPage === p && 'selected'}>{p}</span>}
+                    )
+                }
+            </div>
+
+            {props.people.map(item => 
+                <div className="people__person">
+                    <div className="people__avatar">
+                        <img src={'/images/' + item.image + '.png'} alt=""/>
+                        <div>
+                            {
+                                item.followed ? 
+                                <button className="people__follow" onClick={()=> {props.unfollow(item.id)}}>UNFOLLOW</button> :
+                                <button className="people__follow" onClick={()=> {props.follow(item.id)}}>FOLLOW</button>
+                            }
+                        </div>
+                    </div>
+                    <div className="people__info">
+                        <h2 className="people__name">{item.name}</h2>
+                        <p className="people__location">{item.location.country}, {item.location.city}</p>
+                        <p className="people__status">{item.status}</p>
+                    </div>
+                </div>
+            )}
+            <button className="people__follow people__follow_show">SHOW MORE</button>
+            
+        </div>
+    )
+}
+
 // Презентацинная компонента Profile
-class People extends React.Component {
+class PeopleAjax extends React.Component {
 
     constructor(props) {
         super(props);
+    }
+
+    onPageChanged = (page) => {
+        this.props.setCurrentPage(page)
     }
 
     componentDidMount() {
@@ -27,57 +76,20 @@ class People extends React.Component {
         ]); 
     }
 
-    onPageChanged = (page) => {
-        this.props.setCurrentPage(page)
-    }
-
     render() {
-
-        let pageCount = Math.ceil(this.props.totalCount / this.props.pageSize);
-        let pages = [];
-
-        for(let i = 1; i <= pageCount; i++) {
-            pages.push(i);
-        }
-
-        return (
-        <div id="content">
-        
-            <div>
-                {
-                    pages.map(p => {
-                        return <span onClick={(e) => {this.onPageChanged(p)}}className={this.props.currentPage === p && 'selected'}>{p}</span>}
-                    )
-                }
-            </div>
-
-            <button onClick={this.getPeople}>Get Users</button>
-            {this.props.people.map(item => 
-                <div className="people__person">
-                    <div className="people__avatar">
-                        <img src={'/images/' + item.image + '.png'} alt=""/>
-                        <div>
-                            {
-                                item.followed ? 
-                                <button className="people__follow" onClick={()=> {this.props.unfollow(item.id)}}>UNFOLLOW</button> :
-                                <button className="people__follow" onClick={()=> {this.props.follow(item.id)}}>FOLLOW</button>
-                            }
-                        </div>
-                    </div>
-                    <div className="people__info">
-                        <h2 className="people__name">{item.name}</h2>
-                        <p className="people__location">{item.location.country}, {item.location.city}</p>
-                        <p className="people__status">{item.status}</p>
-                    </div>
-                </div>
-            )}
-            <button className="people__follow people__follow_show">SHOW MORE</button>
-            
-        </div>
+        return ( 
+            <People 
+                totalCount={this.props.totalCount} 
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                people={this.props.people}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                onPageChanged={this.onPageChanged}
+            />
         );
     }
 }
-
 
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
@@ -109,6 +121,6 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-const PeopleBox = connect(mapStateToProps, mapDispatchToProps)(People);
+const PeopleBox = connect(mapStateToProps, mapDispatchToProps)(PeopleAjax);
 
 export default PeopleBox;
