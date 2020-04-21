@@ -220,3 +220,34 @@
     margin-top: 20px;
 }
 
+/*--------------------------------*/
+/***** ПОСТРАНИЧНАЯ НАВИГАЦИЯ *****/
+/*--------------------------------*/
+.pagination {
+    margin: 80px auto 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination span {
+    background-color: #f4f4f4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 5px;
+    .center();
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.pagination__link {
+    background-color: @border !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    .center();
+}

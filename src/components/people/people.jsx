@@ -19,19 +19,10 @@ let People = (props) => {
 
     return (
         <div id="content">
-        
-            <div>
-                {
-                    pages.map(p => {
-                        return <span onClick={(e) => {props.onPageChanged(p)}}className={props.currentPage === p && 'selected'}>{p}</span>}
-                    )
-                }
-            </div>
-
             {props.people.map(item => 
                 <div className="people__person">
                     <div className="people__avatar">
-                        <img src={'/images/' + item.image + '.png'} alt=""/>
+                        <ImageLoader src={'/images/' + item.image + '.png'} wrapper={React.createFactory('div')} preloader={preloader}></ImageLoader>
                         <div>
                             {
                                 item.followed ? 
@@ -47,7 +38,13 @@ let People = (props) => {
                     </div>
                 </div>
             )}
-            <button className="people__follow people__follow_show">SHOW MORE</button>
+            <div className="pagination">
+                {
+                    pages.map(p => {
+                        return <span onClick={() => {props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>}
+                    )
+                }
+            </div>
             
         </div>
     )
