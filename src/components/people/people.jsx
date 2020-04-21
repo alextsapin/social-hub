@@ -6,7 +6,7 @@ import * as axios from 'axios';
 
 
 // ACTION CREATOR
-import {followAC, unfollowAC, setUserDataAC, setCurrentPageAC, setTotalUserCountAC} from '../../redux/people-reducer.js';
+import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount} from '../../redux/people-reducer.js';
 
 let People = (props) => {
 
@@ -51,7 +51,7 @@ let People = (props) => {
 }
 
 // Презентацинная компонента Profile
-class PeopleAjax extends React.Component {
+class PeopleServer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -98,26 +98,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (id) => {
-            dispatch(followAC(id));
-        },
-        unfollow: (id) => {
-            dispatch(unfollowAC(id)); 
-        },
-        setUserData: (userData) => {
-            dispatch(setUserDataAC(userData));
-        },
-        setCurrentPage: (page) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        setTotalUserCount: (totalCount) => {
-            dispatch(setTotalUserCountAC(totalCount))
-        }
-    }
-}
-
-const PeopleBox = connect(mapStateToProps, mapDispatchToProps)(PeopleAjax);
+const PeopleBox = connect(mapStateToProps, {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount})(PeopleServer);
 
 export default PeopleBox;
