@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import preloader from '../preloader/preloader.jsx';
 
 // ACTION CREATOR
-import {sendMessageActionCreator, updateMessageActionCreator} from '../../redux/state.js';
+import {sendMessage, updateMessage} from '../../redux/chat-reducer.js';
 
 const Chatter = (props) => {
     let path = "/chat/" + props.id;
@@ -50,24 +50,13 @@ const Chat = (props) => {
 }
 
 // Контейнерная компонента Chat
-let mapStateToPropsChat = (state) => {
+let mapStateToProps = (state) => {
     return {
         chatData: state.chat.chatData,
         newMessage: state.chat.newMessage
     }
 }
 
-let mapDispatchToPropsChat = (dispatch) => {
-    return {
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator());
-        },
-        updateMessage: (newMessage) => {
-            dispatch(updateMessageActionCreator(newMessage)); 
-        }
-    }
-}
+const ChatBox = connect(mapStateToProps, {sendMessage, updateMessage})(Chat);
 
-const Chat__box = connect(mapStateToPropsChat, mapDispatchToPropsChat)(Chat);
-
-export default Chat__box;
+export default ChatBox;

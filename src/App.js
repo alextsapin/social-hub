@@ -10,7 +10,7 @@ import ChatBox from './components/chat/chat.jsx';
 import PeopleBox from './components/people/people.jsx';
 
 // CSS
-import './font/comfortaa.css';
+import './font/roboto.css';
 import './css/main.css';
 
 // Главная компонента
@@ -20,9 +20,9 @@ const App = (props) => {
             <div id="wrapper">
                 <Header/>
                 <Sidebar/>
-                <Route path='/profile' render={() => <ProfileBox store={props.store} />} />
-                <Route path='/chat' render={() => <ChatBox store={props.store} />}  />
-                <Route path='/users' render={() => <PeopleBox store={props.store} />}  />
+                <Route path='/profile/:id?' render={() => <ProfileBox/>} />
+                <Route path='/chat' render={() => <ChatBox/>}  />
+                <Route path='/users' render={() => <PeopleBox/>}  />
             </div>
         </BrowserRouter>
     );

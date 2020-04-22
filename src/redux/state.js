@@ -38,29 +38,3 @@ let store = {
 } // End store
 
 export default store;
-
-export const addPostActionCreator = () => {
-    return {
-        type: 'ADD_POST'
-    }
-}
-
-export const updatePostActionCreator = (newPost) => {
-    return {
-        type: 'UPDATE_POST', 
-        post: newPost
-    }
-}
-
-export const sendMessageActionCreator = () => {
-    return {
-        type: 'SEND_MESSAGE'
-    }
-}
-
-export const updateMessageActionCreator = (newMessage) => {
-    return {
-        type: 'UPDATE_MESSAGE', 
-        message: newMessage
-    }
-}

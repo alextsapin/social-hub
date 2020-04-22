@@ -42,3 +42,16 @@ const chatReducer = (state = initialState, action) => {
 }
 
 export default chatReducer;
+
+export const sendMessage = () => {
+    return {
+        type: 'SEND_MESSAGE'
+    }
+}
+
+export const updateMessage = (newMessage) => {
+    return {
+        type: 'UPDATE_MESSAGE', 
+        message: newMessage
+    }
+}

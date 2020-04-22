@@ -5,7 +5,8 @@ let initialState = {
         {id:2, text:"Разработана система борьбы с астеройдами."},
         {id:3, text:"В Монголии нашли нефть."}
     ],
-    newPost: ''
+    newPost: '',
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -33,6 +34,9 @@ const profileReducer = (state = initialState, action) => {
         case 'UPDATE_POST': 
             stateCopy.newPost = action.post;
             return stateCopy; 
+
+        case 'SET_USER_PROFILE': 
+            return {...state, profile: action.profile}
         
         default: break;  
     }
@@ -40,3 +44,23 @@ const profileReducer = (state = initialState, action) => {
 }
 
 export default profileReducer;
+
+export const addPost = () => {
+    return {
+        type: 'ADD_POST'
+    }
+}
+
+export const updatePost = (newPost) => {
+    return {
+        type: 'UPDATE_POST', 
+        post: newPost
+    }
+}
+
+export const setUserProfile = (profile) => {
+    return {
+        type: 'SET_USER_PROFILE', 
+        profile
+    }
+}

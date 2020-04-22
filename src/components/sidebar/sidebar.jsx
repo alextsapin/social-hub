@@ -12,9 +12,6 @@ import settings from '../../images/settings.png';
 const Sidebar = () => {
     return (
         <aside>
-            <NavLink className="arrow" exact to="/">
-                <img className="arrow__img" src={arrow} alt="img"/>
-            </NavLink>
             <div className="panelbox">
                 <ul className="panelbox__list">
                     <li className="panelbox__item">
