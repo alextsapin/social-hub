@@ -1,13 +1,12 @@
 // Первичный state
 let initialState = {
     userData: [],
-    pageSize: 5,
-    totalCount: 15,
+    pageSize: 10,
+    totalCount: 0,
     currentPage: 1
 }
 
 const userReducer = (state = initialState, action) => {
-
     switch(action.type) {
         case 'FOLLOW': 
             let stateCopy = {

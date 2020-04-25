@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import preloader from '../preloader/preloader.jsx';
@@ -7,6 +7,8 @@ import * as axios from 'axios';
 
 // ACTION CREATOR
 import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount} from '../../redux/people-reducer.js';
+// DAL
+import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 
 let People = (props) => {
 
@@ -28,14 +30,23 @@ let People = (props) => {
                         <div>
                             {
                                 item.followed ? 
-                                <button className="people__follow" onClick={()=> {props.unfollow(item.id)}}>UNFOLLOW</button> :
-                                <button className="people__follow" onClick={()=> {props.follow(item.id)}}>FOLLOW</button>
+                                <button className="people__follow" onClick={()=> {
+                                    unfollowAPI().then(response => {
+                                        props.unfollow(item.id);
+                                    });
+                                }}>UNFOLLOW</button> :
+
+                                <button className="people__follow" onClick={()=> {
+                                    followAPI().then(data => {
+                                        props.follow(item.id);
+                                    });
+                                
+                                }}>FOLLOW</button>
                             }
                         </div>
                     </div>
                     <div className="people__info">
                         <NavLink to={'/profile/' + item.id}><h2 className="people__name">{item.name}</h2></NavLink>
-                        <p className="people__location">{item.location.country}, {item.location.city}</p>
                         <p className="people__status">{item.status}</p>
                     </div>
                 </div>
@@ -43,7 +54,7 @@ let People = (props) => {
             <div className="pagination">
                 {
                     pages.map(p => {
-                        return <span onClick={() => {props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>}
+                        return <span onClick={(e) => {props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>}
                     )
                 }
             </div>
@@ -54,24 +65,19 @@ let People = (props) => {
 // Презентацинная компонента Profile
 class PeopleServer extends React.Component {
 
-    constructor(props) {
-        super(props);
+    componentDidMount() {
+        peopleAPI(this.props.currentPage, this.props.pageSize).then(data => {
+            //this.props.setTotalUserCount(response.data.totalCount);
+            this.props.setTotalUserCount(25);
+            this.props.setUserData(data.items);
+        });
     }
 
     onPageChanged = (page) => {
-        this.props.setCurrentPage(page)
-    }
-
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.setTotalUserCount(25);
+        this.props.setCurrentPage(page);
+        peopleAPI(page, this.props.pageSize).then(data => {
+            this.props.setUserData(data.items);
         });
-
-        this.props.setUserData([
-            {id:1, name:'Chloe', image:'chloe', status:'I`d like a cup of coffe', location:{country:'England', city:'London'}, followed:true},
-            {id:2, name:'Won', image:'won', status:'Samsung the best', location:{country:'Korea', city:'Seul'}, followed:false},
-            {id:3, name:'Matt', image:'matt', status:'I like spanish girls', location:{country:'Spain', city:'Barcelona'}, followed:false}
-        ]); 
     }
 
     render() {

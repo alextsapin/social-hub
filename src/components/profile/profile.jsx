@@ -21,8 +21,6 @@ const Post = (props) => {
 
 // Презентацинная компонента Profile
 const Profile = (props) => {
-
-    console.log(props.profile);
     
     let postBox = props.postData.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
