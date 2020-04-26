@@ -3,7 +3,8 @@ let initialState = {
     userData: [],
     pageSize: 10,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    followProgress: [7502]
 }
 
 const userReducer = (state = initialState, action) => {
@@ -49,11 +50,20 @@ const userReducer = (state = initialState, action) => {
             return {...state, totalCount: action.count} 
         }
         
+        case 'TOGGLE_PROGRESS': {
+            return {
+                ...state, 
+                followProgress: action.isFetching ? [...state.followProgress, action.id]: 
+                state.followProgress.filter(id => id != action.id)
+            } 
+        }
+
         default: break;  
     }
     return state;
 }
 
+// ACTION CREATORS
 export const follow = (id) => {
     return {
         type: 'FOLLOW',
@@ -86,6 +96,13 @@ export const setTotalUserCount = (count) => {
     return {
         type: 'SET_TOTAL_USER_COUNT',
         count
+    }
+}
+
+export const toggleFollowProgress = (isFetching) => {
+    return {
+        type: 'TOGGLE_PROGRESS',
+        isFetching
     }
 }
 
