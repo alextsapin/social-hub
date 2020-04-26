@@ -5,8 +5,11 @@ import {connect} from 'react-redux';
 import preloader from '../preloader/preloader.jsx';
 import * as axios from 'axios';
 
+// IMG
+import loading from '../../images/loading.gif';
+
 // ACTION CREATOR
-import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleFollowProgress} from '../../redux/people-reducer.js';
+import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress} from '../../redux/people-reducer.js';
 // DAL
 import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 
@@ -30,16 +33,17 @@ let People = (props) => {
                         <div>
                             {
                                 item.followed ? 
-                                <button disabled={props.followProgress.some(id => id === item.id)}  
+                                <button disabled={props.followingInProgress.some(id => id === item.id)}  
                                 onClick={()=> {
                                     unfollowAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.unfollow(item.id);
                                         }
                                     });
-                                }}>UNFOLLOW</button> :
+                                }}>UNFOLLOW</button>:
 
-                                <button disabled={props.followProgress.some(id => id === item.id)} /* className="people__follow" */ onClick={()=> {
+                                <button disabled={props.followingInProgress.some(id => id === item.id)} /* className="people__follow" */ 
+                                onClick={()=> {
                                     followAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.follow(item.id);
@@ -69,7 +73,7 @@ let People = (props) => {
 // Презентацинная компонента Profile
 class PeopleServer extends React.Component {
 
-    componentDidMount() {
+    componentDidMount() {       
         peopleAPI(this.props.currentPage, this.props.pageSize).then(data => {
             //this.props.setTotalUserCount(response.data.totalCount);
             this.props.setTotalUserCount(25);
@@ -86,15 +90,18 @@ class PeopleServer extends React.Component {
 
     render() {
         return ( 
+            /* this.props.isFetching ? <img src={loading}/> :  */
             <People 
-                totalCount={this.props.totalCount} 
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                people={this.props.people}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                followProgress={this.props.followProgress}
-                onPageChanged={this.onPageChanged}
+                totalCount              = {this.props.totalCount} 
+                pageSize                = {this.props.pageSize}
+                currentPage             = {this.props.currentPage}
+                people                  = {this.props.people}
+                follow                  = {this.props.follow}
+                unfollow                = {this.props.unfollow}
+                isFetching              = {this.props.isFetching}
+                onPageChanged           = {this.onPageChanged}
+                followingInProgress     = {this.props.followingInProgress}
+                toggleFollowingProgress = {this.props.toggleFollowingProgress}
             />
         );
     }
@@ -103,14 +110,15 @@ class PeopleServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
-        people: state.people.userData,
-        pageSize: state.people.pageSize,
-        totalCount: state.people.totalCount,
-        currentPage: state.people.currentPage,
-        followProgress: state.people.followProgress
+        people:              state.people.userData,
+        pageSize:            state.people.pageSize,
+        totalCount:          state.people.totalCount,
+        currentPage:         state.people.currentPage,
+        isFetching:          state.people.isFetching,
+        followingInProgress: state.people.followingInProgress
     }
 }
 
-const PeopleBox = connect(mapStateToProps, {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleFollowProgress})(PeopleServer);
+const PeopleBox = connect(mapStateToProps, {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress})(PeopleServer);
 
 export default PeopleBox;
