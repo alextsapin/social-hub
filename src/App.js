@@ -1,6 +1,7 @@
 // React
 import React from 'react';
 import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
+import ScrollToTop from 'react-router-scroll-top';
 
 // Компоненты
 import Header from './components/header/header.jsx';
@@ -17,13 +18,15 @@ import './css/main.css';
 const App = (props) => {
     return (
         <BrowserRouter>
-            <div id="wrapper">
-                <Header/>
-                <Sidebar/>
-                <Route path='/profile/:id?' render={() => <ProfileBox/>} />
-                <Route path='/chat' render={() => <ChatBox/>}  />
-                <Route path='/users' render={() => <PeopleBox/>}  />
-            </div>
+            <ScrollToTop>
+                <div id="wrapper">
+                    <Header/>
+                    <Sidebar/>
+                    <Route path='/profile/:id?' render={() => <ProfileBox/>} />
+                    <Route path='/chat' render={() => <ChatBox/>}  />
+                    <Route path='/users' render={() => <PeopleBox/>}  />
+                </div>
+            </ScrollToTop>
         </BrowserRouter>
     );
 }

@@ -1,11 +1,11 @@
 // Первичный state
 let initialState = {
     userData: [],
-    pageSize: 10,
+    pageSize: 5,
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [7539]
 }
 
 const userReducer = (state = initialState, action) => {

@@ -3,10 +3,10 @@ import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import preloader from '../preloader/preloader.jsx';
-import * as axios from 'axios';
 
 // IMG
 import loading from '../../images/loading.gif';
+import stub from '../../images/stub-small.png';
 
 // ACTION CREATOR
 import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress} from '../../redux/people-reducer.js';
@@ -14,6 +14,8 @@ import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggle
 import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 
 let People = (props) => {
+
+    console.log(props);
 
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
     let pages = [];
@@ -27,7 +29,7 @@ let People = (props) => {
             {props.people.map(item => 
                 <div className="people__person">
                     <div className="people__avatar">
-                        <ImageLoader src={'/images/' + item.image + '.png'} wrapper={React.createFactory('div')} 
+                        <ImageLoader src={item.photos.small == null ? stub : item.photos.small} wrapper={React.createFactory('div')} 
                             preloader={preloader}>
                         </ImageLoader>
                         <div>
@@ -75,22 +77,33 @@ class PeopleServer extends React.Component {
 
     componentDidMount() {       
         peopleAPI(this.props.currentPage, this.props.pageSize).then(data => {
-            //this.props.setTotalUserCount(response.data.totalCount);
+            // Покажем прелоадер
+            this.props.toggleIsFetching(true);
+            // Получим количество пользователей
+            this.props.setTotalUserCount(data.totalCount);
             this.props.setTotalUserCount(25);
+            // Получим пользователей
             this.props.setUserData(data.items);
+            // Убрем прелоадер
+            this.props.toggleIsFetching(false);
         });
     }
 
     onPageChanged = (page) => {
+        // Покажем прелоадер
+        this.props.toggleIsFetching(true);
+        // Установим текущую страницу
         this.props.setCurrentPage(page);
         peopleAPI(page, this.props.pageSize).then(data => {
             this.props.setUserData(data.items);
+            // Покажем прелоадер
+            this.props.toggleIsFetching(false);
         });
     }
 
     render() {
         return ( 
-            /* this.props.isFetching ? <img src={loading}/> :  */
+            this.props.isFetching ? <img src={loading}/> :
             <People 
                 totalCount              = {this.props.totalCount} 
                 pageSize                = {this.props.pageSize}
