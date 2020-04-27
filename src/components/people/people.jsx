@@ -10,12 +10,11 @@ import stub from '../../images/stub-small.png';
 
 // ACTION CREATOR
 import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress} from '../../redux/people-reducer.js';
+
 // DAL
 import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 
 let People = (props) => {
-
-    console.log(props);
 
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
     let pages = [];
@@ -29,22 +28,22 @@ let People = (props) => {
             {props.people.map(item => 
                 <div className="people__person">
                     <div className="people__avatar">
-                        <ImageLoader src={item.photos.small == null ? stub : item.photos.small} wrapper={React.createFactory('div')} 
+                        <ImageLoader className="people__image" src={item.photos.small == null ? stub : item.photos.small} wrapper={React.createFactory('div')} 
                             preloader={preloader}>
                         </ImageLoader>
                         <div>
                             {
-                                item.followed ? 
-                                <button disabled={props.followingInProgress.some(id => id === item.id)}  
+                                item.followed
+                                ? <button disabled={props.followingInProgress.some(id => id === item.id)} className="people__follow" 
                                 onClick={()=> {
                                     unfollowAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.unfollow(item.id);
                                         }
                                     });
-                                }}>UNFOLLOW</button>:
+                                }}>UNFOLLOW</button>
 
-                                <button disabled={props.followingInProgress.some(id => id === item.id)} /* className="people__follow" */ 
+                                : <button disabled={props.followingInProgress.some(id => id === item.id)} className="people__follow"
                                 onClick={()=> {
                                     followAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
@@ -57,14 +56,14 @@ let People = (props) => {
                     </div>
                     <div className="people__info">
                         <NavLink to={'/profile/' + item.id}><h2 className="people__name">{item.name}</h2></NavLink>
-                        <p className="people__status">{item.status}</p>
+                        <p className="people__status">{item.status == null ? '.............' : item.status}</p>
                     </div>
                 </div>
             )}
             <div className="pagination">
                 {
                     pages.map(p => {
-                        return <span onClick={(e) => {props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>}
+                        return <span onClick={() => {props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>}
                     )
                 }
             </div>

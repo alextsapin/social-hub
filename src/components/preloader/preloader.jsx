@@ -1,5 +1,5 @@
 /* Подключим компоненты */
-import React, { Component } from 'react';
+import React from 'react';
 
 // Подключим стили
 import style from './preloader.module.css';
