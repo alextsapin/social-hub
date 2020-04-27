@@ -5,7 +5,7 @@ let initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [7539]
+    followingInProgress: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -114,10 +114,11 @@ export const toggleIsFetching = (isFetching) => {
     }
 }
 
-export const toggleFollowingProgress = (isFetching) => {
+export const toggleFollowingProgress = (isFetching, id) => {
     return {
         type: 'TOGGLE_FOLLOWING_PROGRESS',
-        isFetching
+        isFetching,
+        id
     }
 }
 

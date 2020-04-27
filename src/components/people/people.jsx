@@ -36,18 +36,26 @@ let People = (props) => {
                                 item.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === item.id)} className="people__follow" 
                                 onClick={()=> {
+                                    // Заблокируем кнопку
+                                    props.toggleFollowingProgress(true, item.id);
                                     unfollowAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.unfollow(item.id);
+                                            // Разблокируем кнопку
+                                            props.toggleFollowingProgress(false, item.id);
                                         }
                                     });
                                 }}>UNFOLLOW</button>
 
                                 : <button disabled={props.followingInProgress.some(id => id === item.id)} className="people__follow"
                                 onClick={()=> {
+                                    // Заблокируем кнопку
+                                    props.toggleFollowingProgress(true, item.id);
                                     followAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.follow(item.id);
+                                            // Разблокируем кнопку
+                                            props.toggleFollowingProgress(false, item.id);
                                         }
                                     });                                
                                 }}>FOLLOW</button>
