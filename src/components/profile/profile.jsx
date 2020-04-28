@@ -7,9 +7,14 @@ import { withRouter } from 'react-router-dom';
 
 // IMG
 import kaleb from '../../images/kaleb.png';
+// IMG
+import loading from '../../images/loading.gif';
+import stub from '../../images/stub-small.png';
 
 // ACTION CREATOR
 import {addPost, updatePost, setUserProfile} from '../../redux/profile-reducer.js';
+// DAL
+import {profileAPI} from '../../api/api.js';
 
 const Post = (props) => {
     return (
@@ -21,7 +26,12 @@ const Post = (props) => {
 
 // Презентацинная компонента Profile
 const Profile = (props) => {
+
+    if(props.profile == null) {
+        return <div>111</div>
+    }
     
+    console.log(props);
     let postBox = props.postData.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
 
@@ -47,7 +57,7 @@ const Profile = (props) => {
             <div className="userbox">
                 <div className="userbox__user">
                     <ImageLoader src={picture} wrapper={React.createFactory('div')} preloader={preloader}></ImageLoader>
-                    <p className="userbox__name">Jason Kaleb</p>
+                    <p className="userbox__name">8888888888</p>
                 </div>
 
                 <div>
@@ -86,11 +96,9 @@ class ProfileServer extends React.Component {
             id = 2;
         }
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + id).then(response => {
-            //this.props.toggleIsFetching(false);
-            //this.props.setTotalUserCount(response.data.totalCount);
-            //this.props.setUserData(response.data.items);
-            this.props.setUserProfile(response.data);
+        // Получим данные пользователя
+        profileAPI(id).then(data => {
+            this.props.setUserProfile(data);
         });
     }
 

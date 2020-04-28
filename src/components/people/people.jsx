@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
+import Pagination from '../pagination/pagination.jsx';
 import preloader from '../preloader/preloader.jsx';
 
 // IMG
@@ -63,18 +64,16 @@ let People = (props) => {
                         </div>
                     </div>
                     <div className="people__info">
-                        <NavLink to={'/profile/' + item.id}><h2 className="people__name">{item.name}</h2></NavLink>
+                        <NavLink className="people__name" to={'/profile/' + item.id}>
+                            {item.name}
+                        </NavLink>
                         <p className="people__status">{item.status == null ? '.............' : item.status}</p>
                     </div>
                 </div>
             )}
-            <div className="pagination">
-                {
-                    pages.map(p => {
-                        return <span onClick={() => {props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>}
-                    )
-                }
-            </div>
+
+            <Pagination pages={pages} onPageChanged={props.onPageChanged} currentPage={props.currentPage}/>
+            
         </div>
     )
 }
@@ -82,10 +81,10 @@ let People = (props) => {
 // Презентацинная компонента Profile
 class PeopleServer extends React.Component {
 
-    componentDidMount() {       
+    componentDidMount() {   
+        // Покажем прелоадер
+        this.props.toggleIsFetching(true);    
         peopleAPI(this.props.currentPage, this.props.pageSize).then(data => {
-            // Покажем прелоадер
-            this.props.toggleIsFetching(true);
             // Получим количество пользователей
             this.props.setTotalUserCount(data.totalCount);
             this.props.setTotalUserCount(25);
@@ -110,7 +109,7 @@ class PeopleServer extends React.Component {
 
     render() {
         return ( 
-            this.props.isFetching ? <img src={loading}/> :
+            this.props.isFetching ? <img class="spinner" src={loading}/> :
             <People 
                 totalCount              = {this.props.totalCount} 
                 pageSize                = {this.props.pageSize}

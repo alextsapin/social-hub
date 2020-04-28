@@ -8,11 +8,13 @@ const instance = axios.create({
     }
 });
 
+// Получим всех пользователей
 export const peopleAPI = (page, limit) => {
     return instance.get(`users?page=${page}&count=${limit}`)
     .then(response => response.data);
 }
 
+// Функция ля подписки
 export const followAPI = (id) => {
     return instance.post(`follow/${id}`, {})
     .then(response => {
@@ -20,8 +22,17 @@ export const followAPI = (id) => {
     });
 }
 
+// Функция для отписки
 export const unfollowAPI = (id) => {
     return instance.delete(`follow/${id}`)
+    .then(response => {
+        return response.data;
+    });
+}
+
+// Получим профиль пользователя
+export const profileAPI = (id) => {
+    return instance.get(`profile/${id}`)
     .then(response => {
         return response.data;
     });
