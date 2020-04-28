@@ -1,19 +1,13 @@
-/* Подключим компоненты */
 import React from 'react';
-
-// Подключим стили
 import style from './preloader.module.css';
+import loading from './loading.gif';
 
-/* Прелоадер */
-const preloader = () => {
+const Preloader = () => {
 	return (
-		<div className={style.container}>
-			<div className={style.rings}>
-				<div></div>
-				<div></div>
-			</div>
+		<div id="content">
+			<img className={style.image} src={loading}/>
 		</div>
 	);
 }
 
-export default preloader;
+export default Preloader;

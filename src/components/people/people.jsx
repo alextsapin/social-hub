@@ -3,13 +3,13 @@ import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import Pagination from '../pagination/pagination.jsx';
-import preloader from '../preloader/preloader.jsx';
+import Preloader from '../preloader/preloader.jsx';
+import spinner from '../spinner/spinner.jsx';
 
 // IMG
-import loading from '../../images/loading.gif';
 import stub from '../../images/stub-small.png';
 
-// ACTION CREATOR
+// ACTION CREATORS
 import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress} from '../../redux/people-reducer.js';
 
 // DAL
@@ -30,7 +30,7 @@ let People = (props) => {
                 <div className="people__person">
                     <div className="people__avatar">
                         <ImageLoader className="people__image" src={item.photos.small == null ? stub : item.photos.small} wrapper={React.createFactory('div')} 
-                            preloader={preloader}>
+                            preloader={spinner}>
                         </ImageLoader>
                         <div>
                             {
@@ -109,7 +109,7 @@ class PeopleServer extends React.Component {
 
     render() {
         return ( 
-            this.props.isFetching ? <img class="spinner" src={loading}/> :
+            this.props.isFetching ? <Preloader/> :
             <People 
                 totalCount              = {this.props.totalCount} 
                 pageSize                = {this.props.pageSize}

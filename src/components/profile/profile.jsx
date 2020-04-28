@@ -1,14 +1,12 @@
 import React from 'react';
 import ImageLoader from 'react-imageloader';
+import Preloader from '../preloader/preloader.jsx';
 import {connect} from 'react-redux';
-import preloader from '../preloader/preloader.jsx';
-import * as axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import spinner from '../spinner/spinner.jsx';
+import {withRouter} from 'react-router-dom';
 
 // IMG
 import kaleb from '../../images/kaleb.png';
-// IMG
-import loading from '../../images/loading.gif';
 import stub from '../../images/stub-small.png';
 
 // ACTION CREATOR
@@ -28,7 +26,7 @@ const Post = (props) => {
 const Profile = (props) => {
 
     if(props.profile == null) {
-        return <div>111</div>
+        return <Preloader/>
     }
     
     console.log(props);
@@ -56,8 +54,8 @@ const Profile = (props) => {
         <div id="content">
             <div className="userbox">
                 <div className="userbox__user">
-                    <ImageLoader src={picture} wrapper={React.createFactory('div')} preloader={preloader}></ImageLoader>
-                    <p className="userbox__name">8888888888</p>
+                    <ImageLoader src={picture} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                    <p className="userbox__name">User Name</p>
                 </div>
 
                 <div>
@@ -116,8 +114,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-let UrlData = withRouter(ProfileServer);
+let ProfileData = withRouter(ProfileServer);
 
-const ProfileBox = connect(mapStateToProps, {addPost, updatePost, setUserProfile})(UrlData);
+const ProfileBox = connect(mapStateToProps, {addPost, updatePost, setUserProfile})(ProfileData);
 
 export default ProfileBox;
