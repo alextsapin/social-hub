@@ -6,11 +6,11 @@ import spinner from '../spinner/spinner.jsx';
 import {withRouter} from 'react-router-dom';
 
 // IMG
-import kaleb from '../../images/kaleb.png';
-import stub from '../../images/stub-small.png';
+import stub from '../../images/stub.png';
 
-// ACTION CREATOR
+// ACTION CREATORS
 import {addPost, updatePost, setUserProfile} from '../../redux/profile-reducer.js';
+
 // DAL
 import {profileAPI} from '../../api/api.js';
 
@@ -24,12 +24,9 @@ const Post = (props) => {
 
 // Презентацинная компонента Profile
 const Profile = (props) => {
+    console.log(props)
 
-    if(props.profile == null) {
-        return <Preloader/>
-    }
-    
-    console.log(props);
+    // Посты пользователя
     let postBox = props.postData.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
 
@@ -41,42 +38,47 @@ const Profile = (props) => {
         props.updatePost(textarea.current.value); 
     }
 
-    let picture = '';
-
-    if(!props.profile) {
-        picture = '../../images/kaleb.png';
-    }
-    else {
-        picture = props.profile.photos.small;
+    // Заглушка, если профиль не загрузился
+    if(props.profile == null) {
+        return <Preloader/>
     }
 
     return (
-        <div id="content">
-            <div className="userbox">
-                <div className="userbox__user">
-                    <ImageLoader src={picture} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-                    <p className="userbox__name">User Name</p>
+        <div className="container">
+            <div className="person">
+                <div className="person__profile">
+                    <ImageLoader className="person__image" src={props.profile.photos.large == null ? stub : props.profile.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                    <h1>{props.profile.fullName}</h1>
                 </div>
+                
+                <div className="person__data">
+                    {props.profile.aboutMe == null ? '' : <h2 className="person__status">{props.profile.aboutMe}</h2>}
+                    
+                    <p className="person__info">
+                        <span className="person__item">Поиск работы:</span> 
+                        {props.profile.lookingForAJob == false ? 'Нет' : 'Да'}
+                    </p>
 
-                <div>
-                    <p className="userbox__data">
-                        <span className="userbox__item">Age:</span> 28
+                    <p className="person__info">
+                        <span className="person__item">Facebook:</span> 
+                        {props.profile.contacts.facebook == null ? '...' : props.profile.contacts.facebook}
                     </p>
-                    <p className="userbox__data">
-                        <span className="userbox__item">Birthday:</span> 16 june
+
+                    <p className="person__info">
+                        <span className="person__item">Vkontacte:</span> 
+                        {props.profile.contacts.vk == null ? '...' : props.profile.contacts.vk}
                     </p>
-                    <p className="userbox__data">
-                        <span className="userbox__item">Living in:</span> Manchester
-                    </p>
-                    <p className="userbox__data">
-                        <span className="userbox__item">Relationship:</span> Single
+
+                    <p className="person__info">
+                        <span className="person__item">Twitter:</span> 
+                        {props.profile.contacts.twitter == null ? '...' : props.profile.contacts.twitter}
                     </p>
                 </div>
             </div>
 
-            <h1>My posts:</h1>
+            <h1>Мои посты:</h1>
             {postBox}
-            <h2>Add new post</h2>
+            <h2>Добавить новый пост</h2>
             <div className="form">
                 <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
                 <button onClick={addPost} className="form__submit" type="submit">SEND</button>
@@ -89,10 +91,6 @@ class ProfileServer extends React.Component {
 
     componentDidMount() {
         let id = this.props.match.params.id;
-
-        if(!id) {
-            id = 2;
-        }
 
         // Получим данные пользователя
         profileAPI(id).then(data => {

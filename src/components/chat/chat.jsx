@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, NavLink, Link} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
-import preloader from '../preloader/preloader.jsx';
+import spinner from '../spinner/spinner.jsx';
 
 // ACTION CREATOR
 import {sendMessage, updateMessage} from '../../redux/chat-reducer.js';
@@ -15,7 +15,7 @@ const Chatter = (props) => {
         <div className="chat">
             <div className="chat__user">
                 <NavLink to={path}>
-                    <ImageLoader src={avatar} wrapper={React.createFactory('div')} preloader={preloader}></ImageLoader>
+                    <ImageLoader src={avatar} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
                 </NavLink>
                 <p className="chat__name">{props.name}</p>
             </div>

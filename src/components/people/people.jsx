@@ -7,7 +7,7 @@ import Preloader from '../preloader/preloader.jsx';
 import spinner from '../spinner/spinner.jsx';
 
 // IMG
-import stub from '../../images/stub-small.png';
+import stub from '../../images/stub.png';
 
 // ACTION CREATORS
 import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress} from '../../redux/people-reducer.js';

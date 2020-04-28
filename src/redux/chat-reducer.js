@@ -1,9 +1,9 @@
 // Первичный state
 let initialState = {
     chatData: [
-        {id: 1, name: "Chloe", image: "chloe", message: "Hello!"},
-        {id: 2, name: "Won", image: "won", message: "bla...bla...bla..."},
-        {id: 3, name: "Matt", image: "matt", message:"Yo! Yo! Yo!"}
+        {id: 1, name: "Chloe", image: "chloe", message: "Advertisements want to persuade us to buy particular products. How do they do it?"},
+        {id: 2, name: "Won", image: "won", message: "저는 한국어를 배웁니다 커피를 마십니다 공원에 자주 가요 영화를 봅니다"},
+        {id: 3, name: "Matt", image: "matt", message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."}
     ],
     newMessage: ''
 }
