@@ -24,7 +24,6 @@ const Post = (props) => {
 
 // Презентацинная компонента Profile
 const Profile = (props) => {
-    console.log(props)
 
     // Посты пользователя
     let postBox = props.postData.map(item => (<Post key={item.id} post={item.text}/>));
@@ -48,30 +47,31 @@ const Profile = (props) => {
             <div className="person">
                 <div className="person__profile">
                     <ImageLoader className="person__image" src={props.profile.photos.large == null ? stub : props.profile.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-                    <h1>{props.profile.fullName}</h1>
                 </div>
                 
                 <div className="person__data">
+                    <h1>{props.profile.fullName}</h1>
+                    
                     {props.profile.aboutMe == null ? '' : <h2 className="person__status">{props.profile.aboutMe}</h2>}
                     
                     <p className="person__info">
-                        <span className="person__item">Поиск работы:</span> 
-                        {props.profile.lookingForAJob == false ? 'Нет' : 'Да'}
+                        <span className="person__point">Поиск работы:</span> 
+                        <span className="person__item">{props.profile.lookingForAJob == false ? 'Нет' : 'Да'}</span>
                     </p>
 
                     <p className="person__info">
-                        <span className="person__item">Facebook:</span> 
-                        {props.profile.contacts.facebook == null ? '...' : props.profile.contacts.facebook}
+                        <span className="person__point">Facebook:</span> 
+                        <span className="person__item">{props.profile.contacts.facebook == null ? '...' : props.profile.contacts.facebook}</span> 
                     </p>
 
                     <p className="person__info">
-                        <span className="person__item">Vkontacte:</span> 
-                        {props.profile.contacts.vk == null ? '...' : props.profile.contacts.vk}
+                        <span className="person__point">VK:</span>
+                        <span className="person__item">{props.profile.contacts.vk == null ? '...' : props.profile.contacts.vk}</span> 
                     </p>
 
                     <p className="person__info">
-                        <span className="person__item">Twitter:</span> 
-                        {props.profile.contacts.twitter == null ? '...' : props.profile.contacts.twitter}
+                        <span className="person__point">Twitter:</span> 
+                        <span className="person__item">{props.profile.contacts.twitter == null ? '...' : props.profile.contacts.twitter}</span> 
                     </p>
                 </div>
             </div>
@@ -81,7 +81,7 @@ const Profile = (props) => {
             <h2>Добавить новый пост</h2>
             <div className="form">
                 <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
-                <button onClick={addPost} className="form__submit" type="submit">SEND</button>
+                <button onClick={addPost} className="form__submit" type="submit">Добавить</button>
             </div>
         </div>
     );

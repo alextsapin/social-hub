@@ -10,13 +10,14 @@ import spinner from '../spinner/spinner.jsx';
 import stub from '../../images/stub.png';
 
 // ACTION CREATORS
-import { follow, 
-         unfollow, 
-         setUserData, 
-         setCurrentPage, 
-         setTotalUserCount, 
-         toggleIsFetching, 
-         toggleFollowingProgress
+import { 
+    follow, 
+    unfollow, 
+    setUserData, 
+    setCurrentPage, 
+    setTotalUserCount, 
+    toggleIsFetching, 
+    toggleFollowingProgress
 } from '../../redux/people-reducer.js';
 
 // DAL
@@ -25,7 +26,7 @@ import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 let People = (props) => {
 
     return (
-        <div id="content">
+        <div className="container">
             {props.people.map(item => 
                 <div className="people__person">
                     <div className="people__avatar">

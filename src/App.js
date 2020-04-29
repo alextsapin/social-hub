@@ -22,9 +22,9 @@ const App = (props) => {
                 <div id="wrapper">
                     <Header/>
                     <Sidebar/>
-                    <Route path='/profile/:id?' render={() => <ProfileBox/>} />
-                    <Route path='/chat' render={() => <ChatBox/>}  />
-                    <Route path='/users' render={() => <PeopleBox/>}  />
+                    <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
+                    <Route path='/chat' render={() => <ChatBox/>} />
+                    <Route path='/users' render={() => <PeopleBox/>} />
                 </div>
             </ScrollToTop>
         </BrowserRouter>
