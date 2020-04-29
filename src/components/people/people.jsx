@@ -10,19 +10,19 @@ import spinner from '../spinner/spinner.jsx';
 import stub from '../../images/stub.png';
 
 // ACTION CREATORS
-import {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress} from '../../redux/people-reducer.js';
+import { follow, 
+         unfollow, 
+         setUserData, 
+         setCurrentPage, 
+         setTotalUserCount, 
+         toggleIsFetching, 
+         toggleFollowingProgress
+} from '../../redux/people-reducer.js';
 
 // DAL
 import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 
 let People = (props) => {
-
-    let pageCount = Math.ceil(props.totalCount / props.pageSize);
-    let pages = [];
-
-    for(let i = 1; i <= pageCount; i++) {
-        pages.push(i);
-    }
 
     return (
         <div id="content">
@@ -72,7 +72,7 @@ let People = (props) => {
                 </div>
             )}
 
-            <Pagination pages={pages} onPageChanged={props.onPageChanged} currentPage={props.currentPage}/>
+            <Pagination onPageChanged={props.onPageChanged} currentPage={props.currentPage} size={props.pageSize} count={props.totalCount}/>
             
         </div>
     )
