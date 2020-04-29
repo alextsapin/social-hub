@@ -16,8 +16,8 @@ import {
     setUserData, 
     setCurrentPage, 
     setTotalUserCount, 
-    toggleIsFetching, 
-    toggleFollowingProgress
+    TOGGLE_IS_CONNECT_AC, 
+    TOGGLE_FOLLOWING_AC
 } from '../../redux/people-reducer.js';
 
 // DAL
@@ -36,28 +36,28 @@ let People = (props) => {
                         <div>
                             {
                                 item.followed
-                                ? <button disabled={props.followingInProgress.some(id => id === item.id)} className="people__follow" 
+                                ? <button disabled={props.FOLLOW_ARRAY.some(id => id === item.id)} className="people__follow" 
                                 onClick={()=> {
                                     // Заблокируем кнопку
-                                    props.toggleFollowingProgress(true, item.id);
+                                    props.TOGGLE_FOLLOWING_AC(true, item.id);
                                     unfollowAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.unfollow(item.id);
                                             // Разблокируем кнопку
-                                            props.toggleFollowingProgress(false, item.id);
+                                            props.TOGGLE_FOLLOWING_AC(false, item.id);
                                         }
                                     });
                                 }}>UNFOLLOW</button>
 
-                                : <button disabled={props.followingInProgress.some(id => id === item.id)} className="people__follow"
+                                : <button disabled={props.FOLLOW_ARRAY.some(id => id === item.id)} className="people__follow"
                                 onClick={()=> {
                                     // Заблокируем кнопку
-                                    props.toggleFollowingProgress(true, item.id);
+                                    props.TOGGLE_FOLLOWING_AC(true, item.id);
                                     followAPI(item.id).then(data => {
                                         if(data.resultCode == 0) {
                                             props.follow(item.id);
                                             // Разблокируем кнопку
-                                            props.toggleFollowingProgress(false, item.id);
+                                            props.TOGGLE_FOLLOWING_AC(false, item.id);
                                         }
                                     });                                
                                 }}>FOLLOW</button>
@@ -84,7 +84,7 @@ class PeopleServer extends React.Component {
 
     componentDidMount() {   
         // Покажем прелоадер
-        this.props.toggleIsFetching(true);    
+        this.props.TOGGLE_IS_CONNECT_AC(true);    
         peopleAPI(this.props.currentPage, this.props.pageSize).then(data => {
             // Получим количество пользователей
             this.props.setTotalUserCount(data.totalCount);
@@ -92,25 +92,25 @@ class PeopleServer extends React.Component {
             // Получим пользователей
             this.props.setUserData(data.items);
             // Убрем прелоадер
-            this.props.toggleIsFetching(false);
+            this.props.TOGGLE_IS_CONNECT_AC(false);
         });
     }
 
     onPageChanged = (page) => {
         // Покажем прелоадер
-        this.props.toggleIsFetching(true);
+        this.props.TOGGLE_IS_CONNECT_AC(true);
         // Установим текущую страницу
         this.props.setCurrentPage(page);
         peopleAPI(page, this.props.pageSize).then(data => {
             this.props.setUserData(data.items);
             // Покажем прелоадер
-            this.props.toggleIsFetching(false);
+            this.props.TOGGLE_IS_CONNECT_AC(false);
         });
     }
 
     render() {
         return ( 
-            this.props.isFetching ? <Preloader/> :
+            this.props.IS_CONNECT ? <Preloader/> :
             <People 
                 totalCount              = {this.props.totalCount} 
                 pageSize                = {this.props.pageSize}
@@ -118,10 +118,10 @@ class PeopleServer extends React.Component {
                 people                  = {this.props.people}
                 follow                  = {this.props.follow}
                 unfollow                = {this.props.unfollow}
-                isFetching              = {this.props.isFetching}
+                IS_CONNECT              = {this.props.IS_CONNECT}
                 onPageChanged           = {this.onPageChanged}
-                followingInProgress     = {this.props.followingInProgress}
-                toggleFollowingProgress = {this.props.toggleFollowingProgress}
+                FOLLOW_ARRAY            = {this.props.FOLLOW_ARRAY}
+                TOGGLE_FOLLOWING_AC     = {this.props.TOGGLE_FOLLOWING_AC}
             />
         );
     }
@@ -130,15 +130,15 @@ class PeopleServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
-        people:              state.people.userData,
-        pageSize:            state.people.pageSize,
-        totalCount:          state.people.totalCount,
+        people:              state.people.USER_DATA,
+        pageSize:            state.people.PAGE_SIZE,
+        totalCount:          state.people.TOTAL_COUNT,
         currentPage:         state.people.currentPage,
-        isFetching:          state.people.isFetching,
-        followingInProgress: state.people.followingInProgress
+        IS_CONNECT:          state.people.IS_CONNECT,
+        FOLLOW_ARRAY:        state.people.FOLLOW_ARRAY
     }
 }
 
-const PeopleBox = connect(mapStateToProps, {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress})(PeopleServer);
+const PeopleBox = connect(mapStateToProps, {follow, unfollow, setUserData, setCurrentPage, setTotalUserCount, TOGGLE_IS_CONNECT_AC, TOGGLE_FOLLOWING_AC})(PeopleServer);
 
 export default PeopleBox;

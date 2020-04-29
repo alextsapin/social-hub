@@ -1,20 +1,20 @@
 // Первичный state
-let initialState = {
-    userData: [],
-    pageSize: 5,
-    totalCount: 0,
-    currentPage: 1,
-    isFetching: false,
-    followingInProgress: []
+let INITIAL_STATE = {
+    USER_DATA: [],
+    PAGE_SIZE: 5,
+    TOTAL_COUNT: 0,
+    CURRENT_PAGE: 1,
+    IS_CONNECT: false,
+    FOLLOW_ARRAY: []
 }
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case 'FOLLOW': 
             let stateCopy = {
                 ...state,
-                userData: [...state.userData],
-                userData: state.userData.map(user => {
+                USER_DATA: [...state.USER_DATA],
+                USER_DATA: state.USER_DATA.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: true}
                     } else {
@@ -27,8 +27,8 @@ const userReducer = (state = initialState, action) => {
         case 'UNFOLLOW': {
             let stateCopy = {
                 ...state,
-                userData: [...state.userData],
-                userData: state.userData.map(user => {
+                USER_DATA: [...state.USER_DATA],
+                USER_DATA: state.USER_DATA.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: false}
                     } else {
@@ -40,29 +40,29 @@ const userReducer = (state = initialState, action) => {
         }
         
         case 'SET_USERS': {
-            return {...state, userData: action.userData}
+            return {...state, USER_DATA: action.USER_DATA}
         } 
 
         case 'SET_CURRENT_PAGE': {
-            return {...state, currentPage: action.currentPage} 
+            return {...state, CURRENT_PAGE: action.CURRENT_PAGE} 
         }
 
         case 'SET_TOTAL_USER_COUNT': {
-            return {...state, totalCount: action.count} 
+            return {...state, TOTAL_COUNT: action.count} 
         }
 
         case 'TOGGLE_IS_FETCHING': {
             return {
-                ...state, isFetching: action.isFetching 
+                ...state, IS_CONNECT: action.IS_CONNECT 
             } 
         }
         
-        case 'TOGGLE_FOLLOWING_PROGRESS': {
+        case 'TOGGLE_FOLLOWING': {
             return {
                 ...state, 
-                followingInProgress: action.isFetching 
-                ? [...state.followingInProgress, action.id]
-                : state.followingInProgress.filter(id => id != action.id)
+                FOLLOW_ARRAY: action.IS_CONNECT 
+                ? [...state.FOLLOW_ARRAY, action.ID]
+                : state.FOLLOW_ARRAY.filter(id => id != action.ID)
             } 
         }
 
@@ -86,17 +86,17 @@ export const unfollow = (id) => {
     }
 }
 
-export const setUserData = (userData) => {
+export const setUserData = (USER_DATA) => {
     return {
         type: 'SET_USERS',
-        userData
+        USER_DATA
     }
 }
 
-export const setCurrentPage = (currentPage) => {
+export const setCurrentPage = (CURRENT_PAGE) => {
     return {
         type: 'SET_CURRENT_PAGE',
-        currentPage
+        CURRENT_PAGE
     }
 }
 
@@ -107,18 +107,18 @@ export const setTotalUserCount = (count) => {
     }
 }
 
-export const toggleIsFetching = (isFetching) => {
+export const TOGGLE_IS_CONNECT_AC = (IS_CONNECT) => {
     return {
         type: 'TOGGLE_IS_FETCHING',
-        isFetching
+        IS_CONNECT
     }
 }
 
-export const toggleFollowingProgress = (isFetching, id) => {
+export const TOGGLE_FOLLOWING_AC = (IS_CONNECT, ID) => {
     return {
-        type: 'TOGGLE_FOLLOWING_PROGRESS',
-        isFetching,
-        id
+        type: 'TOGGLE_FOLLOWING',
+        IS_CONNECT,
+        ID
     }
 }
 
