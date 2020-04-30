@@ -12,7 +12,7 @@ import stub from '../../images/stub.png';
 import {addPost, updatePost, setUserProfile} from '../../redux/profile-reducer.js';
 
 // DAL
-import {profileAPI} from '../../api/api.js';
+import {PROFILE_API} from '../../api/api.js';
 
 const Post = (props) => {
     return (
@@ -93,7 +93,7 @@ class ProfileServer extends React.Component {
         let id = this.props.match.params.id;
 
         // Получим данные пользователя
-        profileAPI(id).then(data => {
+        PROFILE_API(id).then(data => {
             this.props.setUserProfile(data);
         });
     }

@@ -8,7 +8,7 @@ let INITIAL_STATE = {
     FOLLOW_ARRAY: []
 }
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const PEOPLE_REDUCER = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case 'FOLLOW': 
             let stateCopy = {
@@ -72,35 +72,35 @@ const userReducer = (state = INITIAL_STATE, action) => {
 }
 
 // ACTION CREATORS
-export const follow = (id) => {
+export const FOLLOW_AC = (id) => {
     return {
         type: 'FOLLOW',
         id
     }
 }
 
-export const unfollow = (id) => {
+export const UNFOLLOW_AC = (id) => {
     return {
         type: 'UNFOLLOW',
         id
     }
 }
 
-export const setUserData = (USER_DATA) => {
+export const SET_USERS_DATA_AC = (USER_DATA) => {
     return {
         type: 'SET_USERS',
         USER_DATA
     }
 }
 
-export const setCurrentPage = (CURRENT_PAGE) => {
+export const SET_CURRENT_PAGE_AC = (CURRENT_PAGE) => {
     return {
         type: 'SET_CURRENT_PAGE',
         CURRENT_PAGE
     }
 }
 
-export const setTotalUserCount = (count) => {
+export const SET_USERS_COUNT_AC = (count) => {
     return {
         type: 'SET_TOTAL_USER_COUNT',
         count
@@ -122,4 +122,4 @@ export const TOGGLE_FOLLOWING_AC = (IS_CONNECT, ID) => {
     }
 }
 
-export default userReducer;
+export default PEOPLE_REDUCER;

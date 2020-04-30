@@ -9,13 +9,13 @@ const instance = axios.create({
 });
 
 // Получим всех пользователей
-export const peopleAPI = (page, limit) => {
+export const PEOPLE_API = (page, limit) => {
     return instance.get(`users?page=${page}&count=${limit}`)
     .then(response => response.data);
 }
 
 // Функция ля подписки
-export const followAPI = (id) => {
+export const FOLLOW_API = (id) => {
     return instance.post(`follow/${id}`, {})
     .then(response => {
         return response.data;
@@ -23,7 +23,7 @@ export const followAPI = (id) => {
 }
 
 // Функция для отписки
-export const unfollowAPI = (id) => {
+export const UNFOLLOW_API = (id) => {
     return instance.delete(`follow/${id}`)
     .then(response => {
         return response.data;
@@ -31,7 +31,7 @@ export const unfollowAPI = (id) => {
 }
 
 // Получим профиль пользователя
-export const profileAPI = (id) => {
+export const PROFILE_API = (id) => {
     return instance.get(`profile/${id}`)
     .then(response => {
         return response.data;
