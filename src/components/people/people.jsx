@@ -27,62 +27,77 @@ import {
     UNFOLLOW_API
 } from '../../api/api.js';
 
+let Person = (props) => {
+    return (
+        <div className="people__person">
+            <div className="people__avatar">
+                <ImageLoader className="people__image" src={props.image} wrapper={React.createFactory('div')} 
+                    preloader={spinner}>
+                </ImageLoader>
+                <div>
+                    {
+                        props.followed
+                        ? <button disabled={props.FOLLOW_ARRAY.some(id => id === props.id)} className="people__follow" 
+                        onClick={()=> {
+                            // Заблокируем кнопку
+                            props.TOGGLE_FOLLOWING_AC(true, props.id);
+                            UNFOLLOW_API(props.id).then(data => {
+                                if(data.resultCode == 0) {
+                                    props.UNFOLLOW_AC (props.id);
+                                    // Разблокируем кнопку
+                                    props.TOGGLE_FOLLOWING_AC(false, props.id);
+                                }
+                            });
+                        }}>UNFOLLOW</button>
+
+                        : <button disabled={props.FOLLOW_ARRAY.some(id => id === props.id)} className="people__follow"
+                        onClick={()=> {
+                            // Заблокируем кнопку
+                            props.TOGGLE_FOLLOWING_AC(true, props.id);
+                            FOLLOW_API(props.id).then(data => {
+                                if(data.resultCode == 0) {
+                                    props.FOLLOW_AC(props.id);
+                                    // Разблокируем кнопку
+                                    props.TOGGLE_FOLLOWING_AC(false, props.id);
+                                }
+                            });                                
+                        }}>FOLLOW</button>
+                    }
+                </div>
+            </div>
+            <div className="people__info">
+                <NavLink className="people__name" to={'/profile/' + props.id}>
+                    {props.name}
+                </NavLink>
+                <p className="people__status">{props.status}</p>
+            </div>
+        </div>
+    )
+}
+
 let People = (props) => {
 
     return (
         <div className="container">
             {props.people.map(item => 
-                <div className="people__person">
-                    <div className="people__avatar">
-                        <ImageLoader className="people__image" src={item.photos.small == null ? stub : item.photos.small} wrapper={React.createFactory('div')} 
-                            preloader={spinner}>
-                        </ImageLoader>
-                        <div>
-                            {
-                                item.followed
-                                ? <button disabled={props.FOLLOW_ARRAY.some(id => id === item.id)} className="people__follow" 
-                                onClick={()=> {
-                                    // Заблокируем кнопку
-                                    props.TOGGLE_FOLLOWING_AC(true, item.id);
-                                    UNFOLLOW_API(item.id).then(data => {
-                                        if(data.resultCode == 0) {
-                                            props.UNFOLLOW_AC (item.id);
-                                            // Разблокируем кнопку
-                                            props.TOGGLE_FOLLOWING_AC(false, item.id);
-                                        }
-                                    });
-                                }}>UNFOLLOW</button>
-
-                                : <button disabled={props.FOLLOW_ARRAY.some(id => id === item.id)} className="people__follow"
-                                onClick={()=> {
-                                    // Заблокируем кнопку
-                                    props.TOGGLE_FOLLOWING_AC(true, item.id);
-                                    FOLLOW_API(item.id).then(data => {
-                                        if(data.resultCode == 0) {
-                                            props.FOLLOW_AC(item.id);
-                                            // Разблокируем кнопку
-                                            props.TOGGLE_FOLLOWING_AC(false, item.id);
-                                        }
-                                    });                                
-                                }}>FOLLOW</button>
-                            }
-                        </div>
-                    </div>
-                    <div className="people__info">
-                        <NavLink className="people__name" to={'/profile/' + item.id}>
-                            {item.name}
-                        </NavLink>
-                        <p className="people__status">{item.status == null ? '.............' : item.status}</p>
-                    </div>
-                </div>
+                <Person id                  = {item.id} 
+                        followed            = {item.followed}
+                        name                = {item.name}
+                        image               = {item.photos.small == null ? stub : item.photos.small}
+                        status              = {item.status == null ? '.............' : item.status}
+                        FOLLOW_ARRAY        = {props.FOLLOW_ARRAY }
+                        TOGGLE_FOLLOWING_AC = {props.TOGGLE_FOLLOWING_AC}
+                        UNFOLLOW_API        = {props.UNFOLLOW_API}
+                        FOLLOW_AC           = {props.FOLLOW_AC}
+                        UNFOLLOW_AC         = {props.UNFOLLOW_AC}
+                />
             )}
 
-            <Pagination onPageChanged={props.PAGE_CHANGED_PEOPLE_SERVER} 
-                        currentPage={props.currentPage} 
-                        size={props.pageSize} 
-                        count={props.totalCount}
+            <Pagination onPageChanged = {props.PAGE_CHANGED_PEOPLE_SERVER} 
+                        currentPage   = {props.currentPage} 
+                        size          = {props.pageSize} 
+                        count         = {props.totalCount}
             />
-            
         </div>
     )
 }
