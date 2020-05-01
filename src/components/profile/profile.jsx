@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom';
 import stub from '../../images/stub.png';
 
 // ACTION CREATORS
-import {addPost, updatePost, setUserProfile} from '../../redux/profile-reducer.js';
+import {ADD_POST_AC, UPDATE_POST_AC, SET_USER_PROFILE_AC} from '../../redux/profile-reducer.js';
 
 // DAL
 import {PROFILE_API} from '../../api/api.js';
@@ -30,11 +30,11 @@ const Profile = (props) => {
     let textarea = React.createRef();
 
     let addPost = () => {
-        props.addPost();
+        props.ADD_POST_AC();
     }
 
     let updatePost = () => {
-        props.updatePost(textarea.current.value); 
+        props.UPDATE_POST_AC(textarea.current.value); 
     }
 
     // Заглушка, если профиль не загрузился
@@ -94,7 +94,7 @@ class ProfileServer extends React.Component {
 
         // Получим данные пользователя
         PROFILE_API(id).then(data => {
-            this.props.setUserProfile(data);
+            this.props.SET_USER_PROFILE_AC(data);
         });
     }
 
@@ -114,6 +114,6 @@ let mapStateToProps = (state) => {
 
 let ProfileData = withRouter(ProfileServer);
 
-const ProfileBox = connect(mapStateToProps, {addPost, updatePost, setUserProfile})(ProfileData);
+const ProfileBox = connect(mapStateToProps, {ADD_POST_AC, UPDATE_POST_AC, SET_USER_PROFILE_AC})(ProfileData);
 
 export default ProfileBox;

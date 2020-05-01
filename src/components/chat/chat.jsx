@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 
 // ACTION CREATOR
-import {sendMessage, updateMessage} from '../../redux/chat-reducer.js';
+import {SEND_MESSAGE_AC, UPDATE_MESSAGE_AC} from '../../redux/chat-reducer.js';
 
 const Chatter = (props) => {
     let path = "/chat/" + props.id;
@@ -30,11 +30,11 @@ const Chat = (props) => {
     let message = React.createRef();
 
     let sendMessage = () => {
-        props.sendMessage();
+        props.SEND_MESSAGE_AC();
     }
 
     let updateMessage = () => {
-        props.updateMessage(message.current.value); 
+        props.UPDATE_MESSAGE_AC(message.current.value); 
     }
 
     return (
@@ -52,11 +52,11 @@ const Chat = (props) => {
 // Контейнерная компонента Chat
 let mapStateToProps = (state) => {
     return {
-        chatData: state.chat.chatData,
+        chatData: state.chat.CHAT_DATA,
         newMessage: state.chat.newMessage
     }
 }
 
-const ChatBox = connect(mapStateToProps, {sendMessage, updateMessage})(Chat);
+const ChatBox = connect(mapStateToProps, {SEND_MESSAGE_AC, UPDATE_MESSAGE_AC})(Chat);
 
 export default ChatBox;

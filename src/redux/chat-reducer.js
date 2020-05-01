@@ -1,6 +1,6 @@
 // Первичный state
 let initialState = {
-    chatData: [
+    CHAT_DATA: [
         {id: 1, name: "Chloe", image: "chloe", message: "Advertisements want to persuade us to buy particular products. How do they do it?"},
         {id: 2, name: "Won", image: "won", message: "저는 한국어를 배웁니다 커피를 마십니다 공원에 자주 가요 영화를 봅니다"},
         {id: 3, name: "Matt", image: "matt", message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."}
@@ -8,14 +8,15 @@ let initialState = {
     newMessage: ''
 }
 
-const chatReducer = (state = initialState, action) => {
+const CHAT_REDUCER = (state = initialState, action) => {
 
     let stateCopy = {
         ...state,
-        chatData: [...state.chatData]
+        CHAT_DATA: [...state.CHAT_DATA]
     };
 
     switch(action.type) {
+        
         case 'UPDATE_MESSAGE': 
             stateCopy.newMessage = action.message;
             return stateCopy;
@@ -30,7 +31,7 @@ const chatReducer = (state = initialState, action) => {
 
             stateCopy = {
                 ...state,
-                chatData: [...state.chatData, message],
+                CHAT_DATA: [...state.CHAT_DATA, message],
                 newMessage: ''
             };
 
@@ -41,15 +42,15 @@ const chatReducer = (state = initialState, action) => {
     return state;
 }
 
-export default chatReducer;
+export default CHAT_REDUCER;
 
-export const sendMessage = () => {
+export const SEND_MESSAGE_AC = () => {
     return {
         type: 'SEND_MESSAGE'
     }
 }
 
-export const updateMessage = (newMessage) => {
+export const UPDATE_MESSAGE_AC = (newMessage) => {
     return {
         type: 'UPDATE_MESSAGE', 
         message: newMessage

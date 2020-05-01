@@ -17,15 +17,13 @@ import {
     SET_CURRENT_PAGE_AC, 
     SET_USERS_COUNT_AC, 
     TOGGLE_IS_CONNECT_AC, 
-    TOGGLE_FOLLOWING_AC
-} from '../../redux/people-reducer.js';
+    TOGGLE_FOLLOWING_AC,
 
-// DAL
-import {
-    PEOPLE_API, 
-    FOLLOW_API, 
-    UNFOLLOW_API
-} from '../../api/api.js';
+    getUsersThunkCreator,
+    pageChangeThunkCreator,
+    followThunkCreator,
+    unfollowThunkCreator
+} from '../../redux/people-reducer.js';
 
 let Person = (props) => {
     return (
@@ -38,30 +36,10 @@ let Person = (props) => {
                     {
                         props.followed
                         ? <button disabled={props.FOLLOW_ARRAY.some(id => id === props.id)} className="people__follow" 
-                        onClick={()=> {
-                            // Заблокируем кнопку
-                            props.TOGGLE_FOLLOWING_AC(true, props.id);
-                            UNFOLLOW_API(props.id).then(data => {
-                                if(data.resultCode == 0) {
-                                    props.UNFOLLOW_AC (props.id);
-                                    // Разблокируем кнопку
-                                    props.TOGGLE_FOLLOWING_AC(false, props.id);
-                                }
-                            });
-                        }}>UNFOLLOW</button>
+                        onClick={()=> {props.unfollowThunkCreator(props.id);}}>UNFOLLOW</button>
 
                         : <button disabled={props.FOLLOW_ARRAY.some(id => id === props.id)} className="people__follow"
-                        onClick={()=> {
-                            // Заблокируем кнопку
-                            props.TOGGLE_FOLLOWING_AC(true, props.id);
-                            FOLLOW_API(props.id).then(data => {
-                                if(data.resultCode == 0) {
-                                    props.FOLLOW_AC(props.id);
-                                    // Разблокируем кнопку
-                                    props.TOGGLE_FOLLOWING_AC(false, props.id);
-                                }
-                            });                                
-                        }}>FOLLOW</button>
+                        onClick={()=> {props.followThunkCreator(props.id)}}>FOLLOW</button>
                     }
                 </div>
             </div>
@@ -80,16 +58,16 @@ let People = (props) => {
     return (
         <div className="container">
             {props.people.map(item => 
-                <Person id                  = {item.id} 
-                        followed            = {item.followed}
-                        name                = {item.name}
-                        image               = {item.photos.small == null ? stub : item.photos.small}
-                        status              = {item.status == null ? '.............' : item.status}
-                        FOLLOW_ARRAY        = {props.FOLLOW_ARRAY }
-                        TOGGLE_FOLLOWING_AC = {props.TOGGLE_FOLLOWING_AC}
-                        UNFOLLOW_API        = {props.UNFOLLOW_API}
-                        FOLLOW_AC           = {props.FOLLOW_AC}
-                        UNFOLLOW_AC         = {props.UNFOLLOW_AC}
+                <Person id                   = {item.id} 
+                        followed             = {item.followed}
+                        name                 = {item.name}
+                        image                = {item.photos.small == null ? stub : item.photos.small}
+                        status               = {item.status == null ? '.............' : item.status}
+                        FOLLOW_ARRAY         = {props.FOLLOW_ARRAY }
+                        TOGGLE_FOLLOWING_AC  = {props.TOGGLE_FOLLOWING_AC}
+
+                        followThunkCreator   = {props.followThunkCreator}
+                        unfollowThunkCreator = {props.unfollowThunkCreator}
                 />
             )}
 
@@ -106,45 +84,29 @@ let People = (props) => {
 class PeopleServer extends React.Component {
 
     componentDidMount() {   
-        // Покажем прелоадер
-        this.props.TOGGLE_IS_CONNECT_AC(true);    
-        PEOPLE_API(this.props.currentPage, this.props.pageSize).then(data => {
-            // Получим количество пользователей
-            this.props.SET_USERS_COUNT_AC(data.totalCount);
-            this.props.SET_USERS_COUNT_AC(20);
-            // Получим пользователей
-            this.props.SET_USERS_DATA_AC(data.items);
-            // Убрем прелоадер
-            this.props.TOGGLE_IS_CONNECT_AC(false);
-        });
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
 
     PAGE_CHANGED_PEOPLE_SERVER = (page) => {
-        // Покажем прелоадер
-        this.props.TOGGLE_IS_CONNECT_AC(true);
-        // Установим текущую страницу
-        this.props.SET_CURRENT_PAGE_AC(page);
-        PEOPLE_API(page, this.props.pageSize).then(data => {
-            this.props.SET_USERS_DATA_AC(data.items);
-            // Покажем прелоадер
-            this.props.TOGGLE_IS_CONNECT_AC(false);
-        });
+        this.props.pageChangeThunkCreator(page, this.props.pageSize)
     }
 
     render() {
         return ( 
             this.props.IS_CONNECT ? <Preloader/> :
             <People 
-                totalCount                           = {this.props.totalCount} 
-                pageSize                             = {this.props.pageSize}
-                currentPage                          = {this.props.currentPage}
-                people                               = {this.props.people}
-                FOLLOW_AC                            = {this.props.FOLLOW_AC}
-                UNFOLLOW_AC                          = {this.props.UNFOLLOW_AC }
-                IS_CONNECT                           = {this.props.IS_CONNECT}
-                PAGE_CHANGED_PEOPLE_SERVER           = {this.PAGE_CHANGED_PEOPLE_SERVER}
-                FOLLOW_ARRAY                         = {this.props.FOLLOW_ARRAY}
-                TOGGLE_FOLLOWING_AC                  = {this.props.TOGGLE_FOLLOWING_AC}
+                totalCount                 = {this.props.totalCount} 
+                pageSize                   = {this.props.pageSize}
+                currentPage                = {this.props.currentPage}
+                people                     = {this.props.people}
+                FOLLOW_AC                  = {this.props.FOLLOW_AC}
+                UNFOLLOW_AC                = {this.props.UNFOLLOW_AC }
+                IS_CONNECT                 = {this.props.IS_CONNECT}
+                PAGE_CHANGED_PEOPLE_SERVER = {this.PAGE_CHANGED_PEOPLE_SERVER}
+                FOLLOW_ARRAY               = {this.props.FOLLOW_ARRAY}
+                TOGGLE_FOLLOWING_AC        = {this.props.TOGGLE_FOLLOWING_AC}
+                followThunkCreator         = {this.props.followThunkCreator}
+                unfollowThunkCreator       = {this.props.unfollowThunkCreator}
             />
         );
     }
@@ -169,7 +131,11 @@ const PeopleBox = connect(mapStateToProps, {
     SET_CURRENT_PAGE_AC, 
     SET_USERS_COUNT_AC, 
     TOGGLE_IS_CONNECT_AC, 
-    TOGGLE_FOLLOWING_AC
+    TOGGLE_FOLLOWING_AC,
+    getUsersThunkCreator,
+    pageChangeThunkCreator,
+    followThunkCreator,
+    unfollowThunkCreator
 })(PeopleServer);
 
 export default PeopleBox;

@@ -9,7 +9,7 @@ let initialState = {
     profile: null
 }
 
-const profileReducer = (state = initialState, action) => {
+const PROFILE_REDUCER = (state = initialState, action) => {
 
     let stateCopy = {
         ...state,
@@ -43,22 +43,22 @@ const profileReducer = (state = initialState, action) => {
     return state;
 }
 
-export default profileReducer;
+export default PROFILE_REDUCER;
 
-export const addPost = () => {
+export const ADD_POST_AC = () => {
     return {
         type: 'ADD_POST'
     }
 }
 
-export const updatePost = (newPost) => {
+export const UPDATE_POST_AC = (newPost) => {
     return {
         type: 'UPDATE_POST', 
         post: newPost
     }
 }
 
-export const setUserProfile = (profile) => {
+export const SET_USER_PROFILE_AC = (profile) => {
     return {
         type: 'SET_USER_PROFILE', 
         profile
