@@ -1,9 +1,22 @@
 // Первичный state
 let initialState = {
     CHAT_DATA: [
-        {id: 1, name: "Chloe", image: "chloe", message: "Advertisements want to persuade us to buy particular products. How do they do it?"},
-        {id: 2, name: "Won", image: "won", message: "저는 한국어를 배웁니다 커피를 마십니다 공원에 자주 가요 영화를 봅니다"},
-        {id: 3, name: "Matt", image: "matt", message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."}
+        {   id: 1, 
+            name: "Chloe", 
+            image: "https://i.ibb.co/KxGLbPg/chloe.png", 
+            message: "Advertisements want to persuade us to buy particular products. How do they do it?"
+        },
+        { 
+            id: 2, 
+            name: "Won", 
+            image: "https://i.ibb.co/8XQMSVW/won.png", 
+            message: "저는 한국어를 배웁니다 커피를 마십니다 공원에 자주 가요 영화를 봅니다"
+        },
+        {   id: 3, 
+            name: "Matt", 
+            image: "https://i.ibb.co/k5WprG1/matt.png", 
+            message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."
+        }
     ],
     newMessage: ''
 }
@@ -25,7 +38,7 @@ const CHAT_REDUCER = (state = initialState, action) => {
             let message = {
                 id: 4, 
                 name: "Kaleb",
-                image: "kaleb",
+                image: "https://i.ibb.co/6XMcpbV/kaleb.png",
                 message: state.newMessage
             }
 

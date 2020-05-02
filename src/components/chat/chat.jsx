@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, NavLink, Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
@@ -8,15 +8,10 @@ import spinner from '../spinner/spinner.jsx';
 import {SEND_MESSAGE_AC, UPDATE_MESSAGE_AC} from '../../redux/chat-reducer.js';
 
 const Chatter = (props) => {
-    let path = "/chat/" + props.id;
-    let avatar = '/images/' + props.image + '.png';
-    
-    return (
+        return (
         <div className="chat">
             <div className="chat__user">
-                <NavLink to={path}>
-                    <ImageLoader src={avatar} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-                </NavLink>
+                <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
                 <p className="chat__name">{props.name}</p>
             </div>
             <p className="chat__message">{props.message}</p>

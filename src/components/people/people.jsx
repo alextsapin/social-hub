@@ -50,6 +50,7 @@ let People = (props) => {
         <div className="container">
             {props.people.map(item => 
                 <Person 
+                    key                  = {item.id}
                     id                   = {item.id} 
                     followed             = {item.followed}
                     name                 = {item.name}
