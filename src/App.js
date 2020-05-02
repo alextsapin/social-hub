@@ -9,6 +9,7 @@ import Sidebar from './components/sidebar/sidebar.jsx';
 import ProfileBox from './components/profile/profile.jsx';
 import ChatBox from './components/chat/chat.jsx';
 import PeopleBox from './components/people/people.jsx';
+import Login from './components/login/login.jsx';
 
 // CSS
 import './font/roboto.css';
@@ -23,8 +24,9 @@ const App = (props) => {
                     <Header/>
                     <Sidebar/>
                     <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
-                    <Route path='/chat' render={() => <ChatBox/>} />
-                    <Route path='/users' render={() => <PeopleBox/>} />
+                    <Route path='/chat' render={() => <ChatBox/>}/>
+                    <Route path='/users' render={() => <PeopleBox/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
                 </div>
             </ScrollToTop>
         </BrowserRouter>

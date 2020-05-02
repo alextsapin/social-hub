@@ -11,19 +11,11 @@ import stub from '../../images/stub.png';
 
 // ACTION CREATORS
 import { 
-    FOLLOW_AC, 
-    UNFOLLOW_AC, 
-    SET_USERS_DATA_AC, 
-    SET_CURRENT_PAGE_AC, 
-    SET_USERS_COUNT_AC, 
-    TOGGLE_IS_CONNECT_AC, 
-    TOGGLE_FOLLOWING_AC,
-
     getUsersThunkCreator,
     pageChangeThunkCreator,
     followThunkCreator,
     unfollowThunkCreator
-} from '../../redux/people-reducer.js';
+}   from '../../redux/people-reducer.js';
 
 let Person = (props) => {
     return (
@@ -54,27 +46,26 @@ let Person = (props) => {
 }
 
 let People = (props) => {
-
     return (
         <div className="container">
             {props.people.map(item => 
-                <Person id                   = {item.id} 
-                        followed             = {item.followed}
-                        name                 = {item.name}
-                        image                = {item.photos.small == null ? stub : item.photos.small}
-                        status               = {item.status == null ? '.............' : item.status}
-                        FOLLOW_ARRAY         = {props.FOLLOW_ARRAY }
-                        TOGGLE_FOLLOWING_AC  = {props.TOGGLE_FOLLOWING_AC}
-
-                        followThunkCreator   = {props.followThunkCreator}
-                        unfollowThunkCreator = {props.unfollowThunkCreator}
+                <Person 
+                    id                   = {item.id} 
+                    followed             = {item.followed}
+                    name                 = {item.name}
+                    image                = {item.photos.small == null ? stub : item.photos.small}
+                    status               = {item.status == null ? '.............' : item.status}
+                    FOLLOW_ARRAY         = {props.FOLLOW_ARRAY }
+                    followThunkCreator   = {props.followThunkCreator}
+                    unfollowThunkCreator = {props.unfollowThunkCreator}
                 />
             )}
 
-            <Pagination onPageChanged = {props.PAGE_CHANGED_PEOPLE_SERVER} 
-                        currentPage   = {props.currentPage} 
-                        size          = {props.pageSize} 
-                        count         = {props.totalCount}
+            <Pagination 
+                onPageChanged = {props.onPageChanged} 
+                currentPage   = {props.currentPage} 
+                size          = {props.pageSize} 
+                count         = {props.totalCount}
             />
         </div>
     )
@@ -87,7 +78,7 @@ class PeopleServer extends React.Component {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
 
-    PAGE_CHANGED_PEOPLE_SERVER = (page) => {
+    onPageChanged = (page) => {
         this.props.pageChangeThunkCreator(page, this.props.pageSize)
     }
 
@@ -95,18 +86,15 @@ class PeopleServer extends React.Component {
         return ( 
             this.props.IS_CONNECT ? <Preloader/> :
             <People 
-                totalCount                 = {this.props.totalCount} 
-                pageSize                   = {this.props.pageSize}
-                currentPage                = {this.props.currentPage}
-                people                     = {this.props.people}
-                FOLLOW_AC                  = {this.props.FOLLOW_AC}
-                UNFOLLOW_AC                = {this.props.UNFOLLOW_AC }
-                IS_CONNECT                 = {this.props.IS_CONNECT}
-                PAGE_CHANGED_PEOPLE_SERVER = {this.PAGE_CHANGED_PEOPLE_SERVER}
-                FOLLOW_ARRAY               = {this.props.FOLLOW_ARRAY}
-                TOGGLE_FOLLOWING_AC        = {this.props.TOGGLE_FOLLOWING_AC}
-                followThunkCreator         = {this.props.followThunkCreator}
-                unfollowThunkCreator       = {this.props.unfollowThunkCreator}
+                totalCount           = {this.props.totalCount} 
+                pageSize             = {this.props.pageSize}
+                currentPage          = {this.props.currentPage}
+                people               = {this.props.people}
+                IS_CONNECT           = {this.props.IS_CONNECT}
+                onPageChanged        = {this.onPageChanged}
+                FOLLOW_ARRAY         = {this.props.FOLLOW_ARRAY}
+                followThunkCreator   = {this.props.followThunkCreator}
+                unfollowThunkCreator = {this.props.unfollowThunkCreator}
             />
         );
     }
@@ -125,13 +113,6 @@ let mapStateToProps = (state) => {
 }
 
 const PeopleBox = connect(mapStateToProps, {
-    FOLLOW_AC, 
-    UNFOLLOW_AC, 
-    SET_USERS_DATA_AC, 
-    SET_CURRENT_PAGE_AC, 
-    SET_USERS_COUNT_AC, 
-    TOGGLE_IS_CONNECT_AC, 
-    TOGGLE_FOLLOWING_AC,
     getUsersThunkCreator,
     pageChangeThunkCreator,
     followThunkCreator,

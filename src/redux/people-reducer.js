@@ -15,7 +15,6 @@ let initialState = {
     FOLLOW_ARRAY: []
 }
 
-
 const PEOPLE_REDUCER = (state = initialState, action) => {
     switch(action.type) {
         case 'FOLLOW': 

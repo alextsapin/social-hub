@@ -34,4 +34,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {setAuthUserData}) (HeaderServer);
+export default connect(mapStateToProps, {setAuthUserData})(HeaderServer);
