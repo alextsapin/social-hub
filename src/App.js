@@ -13,6 +13,7 @@ import Login from './components/login/login.jsx';
 
 // CSS
 import './font/roboto.css';
+import './css/bootstrap.min.css';
 import './css/main.css';
 
 // Главная компонента

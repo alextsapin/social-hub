@@ -22,6 +22,8 @@ const Post = (props) => {
 // Презентацинная компонента Profile
 const Profile = (props) => {
 
+    console.log(props);
+
     // Посты пользователя
     let postBox = props.postData.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
@@ -47,35 +49,49 @@ const Profile = (props) => {
                 </div>
                 
                 <div className="person__data">
-                    <h1>{props.profile.fullName}</h1>
+
+                    <h1 className="person__name">{props.profile.fullName}</h1>
                     
-                    {props.profile.aboutMe == null ? '' : <h2 className="person__status">{props.profile.aboutMe}</h2>}
+                    {props.profile.aboutMe == null ? '' : <blockquote class="blockquote text-center">{props.profile.aboutMe}</blockquote>}
                     
-                    <p className="person__info">
-                        <span className="person__point">Поиск работы:</span> 
-                        <span className="person__item">{props.profile.lookingForAJob == false ? 'Нет' : 'Да'}</span>
-                    </p>
-
-                    <p className="person__info">
-                        <span className="person__point">Facebook:</span> 
-                        <span className="person__item">{props.profile.contacts.facebook == null ? '...' : props.profile.contacts.facebook}</span> 
-                    </p>
-
-                    <p className="person__info">
-                        <span className="person__point">VK:</span>
-                        <span className="person__item">{props.profile.contacts.vk == null ? '...' : props.profile.contacts.vk}</span> 
-                    </p>
-
-                    <p className="person__info">
-                        <span className="person__point">Twitter:</span> 
-                        <span className="person__item">{props.profile.contacts.twitter == null ? '...' : props.profile.contacts.twitter}</span> 
-                    </p>
+                    <table class="table table-sm table-striped">
+                        <tbody>
+                            <tr>
+                                <th class="font-weight-bold">В поиске работы?</th>
+                                <th>{props.profile.lookingForAJob == false ? 'нет' : 'да'}</th>
+                            </tr>
+                            <tr>
+                                <th class="font-weight-bold">Причина поиска</th>
+                                <th>{props.profile.lookingForAJobDescription == null ? '...' : props.profile.lookingForAJobDescription}</th>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Facebook</td>
+                                <td>{props.profile.contacts.facebook == null ? '...' : props.profile.contacts.facebook}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">VK</td>
+                                <td>{props.profile.contacts.vk == null ? '...' : props.profile.contacts.vk}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Twitter</td>
+                                <td>{props.profile.contacts.twitter == null ? '...' : props.profile.contacts.twitter}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Instagram</td>
+                                <td>{props.profile.contacts.instagram == null ? '...' : props.profile.contacts.instagram}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Website</td>
+                                <td>{props.profile.contacts.website == null ? '...' : props.profile.contacts.website}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <h1>Мои посты:</h1>
+            <h1 class="title">Мои посты:</h1>
             {postBox}
-            <h2>Добавить новый пост</h2>
+            <h2 class="subtitle">Добавить новый пост</h2>
             <div className="form">
                 <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
                 <button onClick={addPost} className="form__submit" type="submit">Добавить</button>

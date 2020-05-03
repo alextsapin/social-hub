@@ -13,7 +13,8 @@ html {
 
 body {
 	font-family: 'Roboto';
-	height: 1000px;
+    height: 1000px;
+    color: @text;
 }
 
 img {
@@ -56,7 +57,7 @@ aside {
 	}
 }
 
-h1 {
+.title {
 	color: @text;
 	font-size: 30px;
 	font-weight: 700;
@@ -65,10 +66,10 @@ h1 {
 	margin-bottom: 40px;
 	@media @notebook {
 		font-size: 25px;
-	}
+    }
 }
 
-h2 {
+.subtitle {
 	color: @text;
 	font-size: 26px;
 	font-weight: 700;
@@ -129,7 +130,10 @@ hr {
     & img {
         width: 250px !important;
         height: auto !important;
-        border-radius: 20px;
+        padding: .25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
     }
 }
 
@@ -140,6 +144,19 @@ hr {
     color: @text;
     text-decoration: underline;
     margin: 0 0 30px 0;
+}
+
+.person__name {
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 20px;
+	@media @notebook {
+		font-size: 25px;
+	}
+    &:first-letter {
+        text-transform: capitalize;
+    }
 }
 
 .person__info {
@@ -184,6 +201,7 @@ hr {
     padding: 11px 15px;
     font-size: 20px;
     &:hover, &_active {
+        color: @text;
         text-decoration: none;
         border: 3px solid @border;
         border-radius: 20px;
