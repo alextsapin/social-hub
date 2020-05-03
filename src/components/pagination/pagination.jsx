@@ -3,7 +3,6 @@ import React from 'react';
 // Постраничная навигация
 const Pagination = (props) => {
 
-
     let pageCount = Math.ceil(props.count / props.size);
     let pages = [];
 
@@ -11,7 +10,6 @@ const Pagination = (props) => {
         pages.push(i);
     }
 
-    
 	return (
 		<div className="pagination">
             {

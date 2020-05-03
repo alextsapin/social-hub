@@ -1,5 +1,4 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';

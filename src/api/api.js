@@ -8,10 +8,10 @@ const instance = axios.create({
     }
 });
 
-// Получим всех пользователей
+// Получим данные авторизации
 export const authAPI = () => {
     return instance.get(`auth/me`,).then(response => {
-        return response; 
+        return response.data; 
     });
 }
 
