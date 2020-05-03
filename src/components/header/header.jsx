@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import * as axios from 'axios';
-import {setAuthUserData} from '../../redux/auth-reducer.js';
+import {authThunkCreator} from '../../redux/auth-reducer.js';
 import {connect} from 'react-redux';
 
 const Header = (props) => {
@@ -15,12 +14,7 @@ const Header = (props) => {
 
 class HeaderServer extends React.Component {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}).then(response => {
-            if(response.data.resultCode === 0) {
-                let {userId, email, login} = response.data.data;
-                this.props.setAuthUserData(userId, email, login);
-            }
-        });
+        this.props.authThunkCreator();
     }
 
     render() {
@@ -34,4 +28,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderServer);
+export default connect(mapStateToProps, {authThunkCreator})(HeaderServer);

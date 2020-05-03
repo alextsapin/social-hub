@@ -7,8 +7,8 @@ import {
 
 // Первичный state
 let initialState = {
-    USER_DATA: [],
-    PAGE_SIZE: 5,
+    data: [],
+    pageSize: 5,
     TOTAL_COUNT: 0,
     CURRENT_PAGE: 1,
     IS_CONNECT: false,
@@ -20,8 +20,8 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
         case 'FOLLOW': 
             let stateCopy = {
                 ...state,
-                USER_DATA: [...state.USER_DATA],
-                USER_DATA: state.USER_DATA.map(user => {
+                data: [...state.data],
+                data: state.data.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: true}
                     } else {
@@ -34,8 +34,8 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
         case 'UNFOLLOW': {
             let stateCopy = {
                 ...state,
-                USER_DATA: [...state.USER_DATA],
-                USER_DATA: state.USER_DATA.map(user => {
+                data: [...state.data],
+                data: state.data.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: false}
                     } else {
@@ -47,7 +47,7 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
         }
         
         case 'SET_USERS': {
-            return {...state, USER_DATA: action.USER_DATA}
+            return {...state, data: action.data}
         } 
 
         case 'SET_CURRENT_PAGE': {
@@ -93,10 +93,10 @@ export const UNFOLLOW_AC = (id) => {
     }
 }
 
-export const SET_USERS_DATA_AC = (USER_DATA) => {
+export const SET_USERS_DATA_AC = (data) => {
     return {
         type: 'SET_USERS',
-        USER_DATA
+        data
     }
 }
 

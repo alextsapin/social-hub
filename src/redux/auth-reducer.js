@@ -1,6 +1,11 @@
+// DAL
+import {
+    authAPI
+} from '../api/api.js';
+
 // Первичный state
 let initialState = {
-    userId: null,
+    id: null,
     email: null,
     login: null,
     isAuth: false
@@ -20,7 +25,20 @@ const authReducer = (state = initialState, action) => {
 
 export default authReducer;
 
-export const setAuthUserData = (userId, email, login) => ({
+export const setAuthUserData = (id, email, login) => ({
     type: 'SET_USER_DATA',
-    data: {userId, email, login}
+    data: {id, email, login}
 })
+
+export const authThunkCreator = () => {
+    return (dispatch) => {
+        authAPI().then(response => {
+            if(response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data;
+                console.log(1411111111111111);
+                console.log(response.data.data);
+                dispatch(setAuthUserData(id, email, login));
+            }
+        });
+    }
+}

@@ -9,6 +9,13 @@ const instance = axios.create({
 });
 
 // Получим всех пользователей
+export const authAPI = () => {
+    return instance.get(`auth/me`,).then(response => {
+        return response; 
+    });
+}
+
+// Получим всех пользователей
 export const PEOPLE_API = (page, limit) => {
     return instance.get(`users?page=${page}&count=${limit}`)
     .then(response => response.data);

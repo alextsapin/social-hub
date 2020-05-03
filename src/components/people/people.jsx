@@ -48,7 +48,7 @@ let Person = (props) => {
 let People = (props) => {
     return (
         <div className="container">
-            {props.people.map(item => 
+            {props.data.map(item => 
                 <Person 
                     key                  = {item.id}
                     id                   = {item.id} 
@@ -87,13 +87,13 @@ class PeopleServer extends React.Component {
         return ( 
             this.props.IS_CONNECT ? <Preloader/> :
             <People 
-                totalCount           = {this.props.totalCount} 
-                pageSize             = {this.props.pageSize}
-                currentPage          = {this.props.currentPage}
-                people               = {this.props.people}
-                IS_CONNECT           = {this.props.IS_CONNECT}
-                onPageChanged        = {this.onPageChanged}
-                FOLLOW_ARRAY         = {this.props.FOLLOW_ARRAY}
+                totalCount       = {this.props.totalCount} 
+                pageSize         = {this.props.pageSize}
+                currentPage      = {this.props.currentPage}
+                data             = {this.props.data}
+                IS_CONNECT       = {this.props.IS_CONNECT}
+                onPageChanged    = {this.onPageChanged}
+                FOLLOW_ARRAY     = {this.props.FOLLOW_ARRAY}
             />
         );
     }
@@ -102,12 +102,12 @@ class PeopleServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
-        people:              state.people.USER_DATA,
-        pageSize:            state.people.PAGE_SIZE,
-        totalCount:          state.people.TOTAL_COUNT,
-        currentPage:         state.people.CURRENT_PAGE,
-        IS_CONNECT:          state.people.IS_CONNECT,
-        FOLLOW_ARRAY:        state.people.FOLLOW_ARRAY
+        data:           state.people.data,
+        pageSize:       state.people.pageSize,
+        totalCount:     state.people.TOTAL_COUNT,
+        currentPage:    state.people.CURRENT_PAGE,
+        IS_CONNECT:     state.people.IS_CONNECT,
+        FOLLOW_ARRAY:   state.people.FOLLOW_ARRAY
     }
 }
 
