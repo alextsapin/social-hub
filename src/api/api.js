@@ -31,7 +31,7 @@ export const UNFOLLOW_API = (id) => {
 }
 
 // Получим профиль пользователя
-export const PROFILE_API = (id) => {
+export const getProfileAPI = (id) => {
     return instance.get(`profile/${id}`)
     .then(response => {
         return response.data;

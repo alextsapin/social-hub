@@ -1,3 +1,6 @@
+// DAL
+import {getProfileAPI} from '../api/api.js';
+
 // Первичный state
 let initialState = {
     postData: [
@@ -45,22 +48,32 @@ const PROFILE_REDUCER = (state = initialState, action) => {
 
 export default PROFILE_REDUCER;
 
-export const ADD_POST_AC = () => {
+export const addPostAC = () => {
     return {
         type: 'ADD_POST'
     }
 }
 
-export const UPDATE_POST_AC = (newPost) => {
+export const updatePostAC = (newPost) => {
     return {
         type: 'UPDATE_POST', 
         post: newPost
     }
 }
 
-export const SET_USER_PROFILE_AC = (profile) => {
+export const setProfileAC = (profile) => {
     return {
         type: 'SET_USER_PROFILE', 
         profile
+    }
+}
+
+// THUNKS
+export const getProfileTC = (id) => {
+    return (dispatch) => {
+        // Получим данные пользователя
+        getProfileAPI(id).then(data => {
+            dispatch(setProfileAC(data));
+        });
     }
 }

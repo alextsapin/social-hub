@@ -94,8 +94,6 @@ class PeopleServer extends React.Component {
                 IS_CONNECT           = {this.props.IS_CONNECT}
                 onPageChanged        = {this.onPageChanged}
                 FOLLOW_ARRAY         = {this.props.FOLLOW_ARRAY}
-                followThunkCreator   = {this.props.followThunkCreator}
-                unfollowThunkCreator = {this.props.unfollowThunkCreator}
             />
         );
     }
@@ -113,11 +111,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-const PeopleBox = connect(mapStateToProps, {
-    getUsersThunkCreator,
-    pageChangeThunkCreator,
-    followThunkCreator,
-    unfollowThunkCreator
-})(PeopleServer);
+const PeopleBox = connect(mapStateToProps, {getUsersThunkCreator, pageChangeThunkCreator, followThunkCreator, unfollowThunkCreator})(PeopleServer);
 
 export default PeopleBox;
