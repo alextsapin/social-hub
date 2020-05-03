@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import Pagination from '../pagination/pagination.jsx';
@@ -65,8 +65,8 @@ let People = (props) => {
             <Pagination 
                 onPageChanged = {props.onPageChanged} 
                 currentPage   = {props.currentPage} 
-                size          = {props.pageSize} 
-                count         = {props.totalCount}
+                size          = {props.size} 
+                count         = {props.count}
             />
         </div>
     )
@@ -76,21 +76,21 @@ let People = (props) => {
 class PeopleServer extends React.Component {
 
     componentDidMount() {   
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.size);
     }
 
     onPageChanged = (page) => {
-        this.props.pageChangeThunkCreator(page, this.props.pageSize)
+        this.props.pageChangeThunkCreator(page, this.props.size)
     }
 
     render() {
         return ( 
             this.props.IS_CONNECT ? <Preloader/> :
             <People 
-                totalCount       = {this.props.totalCount} 
-                pageSize         = {this.props.pageSize}
-                currentPage      = {this.props.currentPage}
                 data             = {this.props.data}
+                count            = {this.props.count} 
+                size             = {this.props.size}
+                currentPage      = {this.props.currentPage}
                 IS_CONNECT       = {this.props.IS_CONNECT}
                 onPageChanged    = {this.onPageChanged}
                 FOLLOW_ARRAY     = {this.props.FOLLOW_ARRAY}
@@ -102,15 +102,20 @@ class PeopleServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
+        isAuth:         state.auth.isAuth,
         data:           state.people.data,
-        pageSize:       state.people.pageSize,
-        totalCount:     state.people.TOTAL_COUNT,
+        size:           state.people.size,
+        count:          state.people.count,
         currentPage:    state.people.CURRENT_PAGE,
         IS_CONNECT:     state.people.IS_CONNECT,
         FOLLOW_ARRAY:   state.people.FOLLOW_ARRAY
     }
 }
 
-const PeopleBox = connect(mapStateToProps, {getUsersThunkCreator, pageChangeThunkCreator, followThunkCreator, unfollowThunkCreator})(PeopleServer);
+const PeopleBox = connect(mapStateToProps, {
+    getUsersThunkCreator, 
+    pageChangeThunkCreator, 
+    followThunkCreator, 
+    unfollowThunkCreator})(PeopleServer);
 
 export default PeopleBox;

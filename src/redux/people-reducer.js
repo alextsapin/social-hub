@@ -1,15 +1,11 @@
 // DAL
-import {
-    PEOPLE_API, 
-    FOLLOW_API, 
-    UNFOLLOW_API
-} from '../api/api.js';
+import {peopleAPI, followAPI, unfollowAPI} from '../api/api.js';
 
 // Первичный state
 let initialState = {
     data: [],
-    pageSize: 5,
-    TOTAL_COUNT: 0,
+    size: 5,
+    count: 0,
     CURRENT_PAGE: 1,
     IS_CONNECT: false,
     FOLLOW_ARRAY: []
@@ -55,7 +51,7 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
         }
 
         case 'SET_TOTAL_USER_COUNT': {
-            return {...state, TOTAL_COUNT: action.count} 
+            return {...state, count: action.count} 
         }
 
         case 'TOGGLE_IS_FETCHING': {
@@ -79,14 +75,14 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
 }
 
 // ACTION CREATORS
-export const FOLLOW_AC = (id) => {
+export const followAC = (id) => {
     return {
         type: 'FOLLOW',
         id
     }
 }
 
-export const UNFOLLOW_AC = (id) => {
+export const unfollowAC = (id) => {
     return {
         type: 'UNFOLLOW',
         id
@@ -135,7 +131,7 @@ export const getUsersThunkCreator = (currentPage, pageSize) => {
     return (dispatch) => {
         // Покажем прелоадер
         dispatch(TOGGLE_IS_CONNECT_AC(true));    
-        PEOPLE_API(currentPage, pageSize).then(data => {
+        peopleAPI(currentPage, pageSize).then(data => {
             // Получим количество пользователей
             dispatch(SET_USERS_COUNT_AC(data.totalCount));
             dispatch(SET_USERS_COUNT_AC(25));
@@ -154,7 +150,7 @@ export const pageChangeThunkCreator = (page, size) => {
         // Установим текущую страницу
         dispatch(SET_CURRENT_PAGE_AC(page));
         // Получим пользователей
-        PEOPLE_API(page, size).then(data => {
+        peopleAPI(page, size).then(data => {
             dispatch(SET_USERS_DATA_AC(data.items));
             // Покажем прелоадер
             dispatch(TOGGLE_IS_CONNECT_AC(false));
@@ -166,9 +162,9 @@ export const followThunkCreator = (id) => {
     return (dispatch) => {
         // Заблокируем кнопку
         dispatch(TOGGLE_FOLLOWING_AC(true, id));
-        FOLLOW_API(id).then(data => {
+        followAPI(id).then(data => {
             if(data.resultCode == 0) {
-                dispatch(FOLLOW_AC(id));
+                dispatch(followAC(id));
                 // Разблокируем кнопку
                 dispatch(TOGGLE_FOLLOWING_AC(false, id));
             }
@@ -180,9 +176,9 @@ export const unfollowThunkCreator = (id) => {
     return (dispatch) => {
         // Заблокируем кнопку
         dispatch(TOGGLE_FOLLOWING_AC(true, id));
-        UNFOLLOW_API(id).then(data => {
+        unfollowAPI(id).then(data => {
             if(data.resultCode == 0) {
-                dispatch(UNFOLLOW_AC(id));
+                dispatch(unfollowAC(id));
                 // Разблокируем кнопку
                 dispatch(TOGGLE_FOLLOWING_AC(false, id));
             }

@@ -7,7 +7,7 @@ const Header = (props) => {
     return (
         <header>
             {props.isAuth ? props.login:
-            <NavLink to="/login">Login</NavLink>}
+            <a href="https://social-network.samuraijs.com">Login</a>}
         </header>
     );
 }
