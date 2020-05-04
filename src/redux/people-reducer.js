@@ -6,12 +6,12 @@ let initialState = {
     data: [],
     size: 5,
     count: 0,
-    CURRENT_PAGE: 1,
-    IS_CONNECT: false,
-    FOLLOW_ARRAY: []
+    currentPage: 1,
+    isConnect: false,
+    followUsers: []
 }
 
-const PEOPLE_REDUCER = (state = initialState, action) => {
+const peopleReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'FOLLOW': 
             let stateCopy = {
@@ -47,7 +47,7 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
         } 
 
         case 'SET_CURRENT_PAGE': {
-            return {...state, CURRENT_PAGE: action.CURRENT_PAGE} 
+            return {...state, currentPage: action.currentPage} 
         }
 
         case 'SET_TOTAL_USER_COUNT': {
@@ -56,16 +56,16 @@ const PEOPLE_REDUCER = (state = initialState, action) => {
 
         case 'TOGGLE_IS_FETCHING': {
             return {
-                ...state, IS_CONNECT: action.IS_CONNECT 
+                ...state, isConnect: action.isConnect
             } 
         }
         
         case 'TOGGLE_FOLLOWING': {
             return {
                 ...state, 
-                FOLLOW_ARRAY: action.IS_CONNECT 
-                ? [...state.FOLLOW_ARRAY, action.ID]
-                : state.FOLLOW_ARRAY.filter(id => id != action.ID)
+                followUsers: action.isConnect 
+                ? [...state.followUsers, action.id]
+                : state.followUsers.filter(id => id != action.id)
             } 
         }
 
@@ -89,98 +89,99 @@ export const unfollowAC = (id) => {
     }
 }
 
-export const SET_USERS_DATA_AC = (data) => {
+export const setUsersDataAC = (data) => {
     return {
         type: 'SET_USERS',
         data
     }
 }
 
-export const SET_CURRENT_PAGE_AC = (CURRENT_PAGE) => {
+export const setCurrentPageAC = (currentPage) => {
     return {
         type: 'SET_CURRENT_PAGE',
-        CURRENT_PAGE
+        currentPage
     }
 }
 
-export const SET_USERS_COUNT_AC = (count) => {
+export const setUsersCountAC = (count) => {
     return {
         type: 'SET_TOTAL_USER_COUNT',
         count
     }
 }
 
-export const TOGGLE_IS_CONNECT_AC = (IS_CONNECT) => {
+export const toggleIsConnectAC = (isConnect) => {
     return {
         type: 'TOGGLE_IS_FETCHING',
-        IS_CONNECT
+        isConnect
     }
 }
 
-export const TOGGLE_FOLLOWING_AC = (IS_CONNECT, ID) => {
+export const toggleFollowingAC = (isConnect, id) => {
     return {
         type: 'TOGGLE_FOLLOWING',
-        IS_CONNECT,
-        ID
+        isConnect,
+        id
     }
 }
 
-export default PEOPLE_REDUCER;
+export default peopleReducer;
 
-export const getUsersThunkCreator = (currentPage, pageSize) => {
+// Thunk creators
+export const getUsersTC = (page, size) => {
     return (dispatch) => {
         // Покажем прелоадер
-        dispatch(TOGGLE_IS_CONNECT_AC(true));    
-        peopleAPI(currentPage, pageSize).then(data => {
+        dispatch(toggleIsConnectAC(true));    
+        peopleAPI(page, size).then(data => {
             // Получим количество пользователей
-            dispatch(SET_USERS_COUNT_AC(data.totalCount));
-            dispatch(SET_USERS_COUNT_AC(25));
+            dispatch(setUsersCountAC(data.totalCount));
+            dispatch(setUsersCountAC(25));
             // Получим пользователей
-            dispatch(SET_USERS_DATA_AC(data.items));
+            dispatch(setUsersDataAC(data.items));
             // Убрем прелоадер
-            dispatch(TOGGLE_IS_CONNECT_AC(false));
+            dispatch(toggleIsConnectAC(false));
         });
     }
 }
 
-export const pageChangeThunkCreator = (page, size) => {
+export const pageChangeTC = (page, size) => {
     return (dispatch) => {
         // Покажем прелоадер
-        dispatch(TOGGLE_IS_CONNECT_AC(true));
+        dispatch(toggleIsConnectAC(true));
         // Установим текущую страницу
-        dispatch(SET_CURRENT_PAGE_AC(page));
+        dispatch(setCurrentPageAC(page));
         // Получим пользователей
         peopleAPI(page, size).then(data => {
-            dispatch(SET_USERS_DATA_AC(data.items));
+            dispatch(setUsersDataAC(data.items));
             // Покажем прелоадер
-            dispatch(TOGGLE_IS_CONNECT_AC(false));
+            dispatch(toggleIsConnectAC(false));
         });
     }
 }
 
-export const followThunkCreator = (id) => {
+export const followTC = (id) => {
     return (dispatch) => {
         // Заблокируем кнопку
-        dispatch(TOGGLE_FOLLOWING_AC(true, id));
+        dispatch(toggleFollowingAC(true, id));
         followAPI(id).then(data => {
             if(data.resultCode == 0) {
                 dispatch(followAC(id));
                 // Разблокируем кнопку
-                dispatch(TOGGLE_FOLLOWING_AC(false, id));
+                dispatch(toggleFollowingAC(false, id));
             }
         });
     }
 }
 
-export const unfollowThunkCreator = (id) => {
+export const unfollowTC = (id) => {
     return (dispatch) => {
         // Заблокируем кнопку
-        dispatch(TOGGLE_FOLLOWING_AC(true, id));
+        dispatch(toggleFollowingAC(true, id));
         unfollowAPI(id).then(data => {
             if(data.resultCode == 0) {
                 dispatch(unfollowAC(id));
                 // Разблокируем кнопку
-                dispatch(TOGGLE_FOLLOWING_AC(false, id));
+                dispatch(toggleFollowingAC(false, id));
             }
         });
     }

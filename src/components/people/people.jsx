@@ -10,12 +10,7 @@ import spinner from '../spinner/spinner.jsx';
 import stub from '../../images/stub.png';
 
 // ACTION CREATORS
-import { 
-    getUsersThunkCreator,
-    pageChangeThunkCreator,
-    followThunkCreator,
-    unfollowThunkCreator
-}   from '../../redux/people-reducer.js';
+import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/people-reducer.js';
 
 let Person = (props) => {
     return (
@@ -27,18 +22,16 @@ let Person = (props) => {
                 <div>
                     {
                         props.followed
-                        ? <button disabled={props.FOLLOW_ARRAY.some(id => id === props.id)} className="people__follow" 
-                        onClick={()=> {props.unfollowThunkCreator(props.id);}}>UNFOLLOW</button>
+                        ? <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow" 
+                        onClick={()=> {props.unfollowTC(props.id);}}>UNFOLLOW</button>
 
-                        : <button disabled={props.FOLLOW_ARRAY.some(id => id === props.id)} className="people__follow"
-                        onClick={()=> {props.followThunkCreator(props.id)}}>FOLLOW</button>
+                        : <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow"
+                        onClick={()=> {props.followTC(props.id)}}>FOLLOW</button>
                     }
                 </div>
             </div>
             <div className="people__info">
-                <NavLink className="people__name" to={'/profile/' + props.id}>
-                    {props.name}
-                </NavLink>
+                <NavLink className="people__name" to={'/profile/' + props.id}>{props.name}</NavLink>
                 <p className="people__status">{props.status}</p>
             </div>
         </div>
@@ -50,15 +43,15 @@ let People = (props) => {
         <div className="container">
             {props.data.map(item => 
                 <Person 
-                    key                  = {item.id}
-                    id                   = {item.id} 
-                    followed             = {item.followed}
-                    name                 = {item.name}
-                    image                = {item.photos.small == null ? stub : item.photos.small}
-                    status               = {item.status == null ? '.............' : item.status}
-                    FOLLOW_ARRAY         = {props.FOLLOW_ARRAY }
-                    followThunkCreator   = {props.followThunkCreator}
-                    unfollowThunkCreator = {props.unfollowThunkCreator}
+                    key            = {item.id}
+                    id             = {item.id} 
+                    followed       = {item.followed}
+                    name           = {item.name}
+                    image          = {item.photos.small == null ? stub : item.photos.small}
+                    status         = {item.status == null ? '.............' : item.status}
+                    followUsers    = {props.followUsers}
+                    followTC       = {props.followTC}
+                    unfollowTC     = {props.unfollowTC}
                 />
             )}
 
@@ -76,24 +69,26 @@ let People = (props) => {
 class PeopleServer extends React.Component {
 
     componentDidMount() {   
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.size);
+        this.props.getUsersTC(this.props.currentPage, this.props.size);
     }
 
     onPageChanged = (page) => {
-        this.props.pageChangeThunkCreator(page, this.props.size)
+        this.props.pageChangeTC(page, this.props.size)
     }
 
     render() {
         return ( 
-            this.props.IS_CONNECT ? <Preloader/> :
+            this.props.isConnect ? <Preloader/> :
             <People 
                 data             = {this.props.data}
                 count            = {this.props.count} 
                 size             = {this.props.size}
                 currentPage      = {this.props.currentPage}
-                IS_CONNECT       = {this.props.IS_CONNECT}
+                isConnect        = {this.props.isConnect}
                 onPageChanged    = {this.onPageChanged}
-                FOLLOW_ARRAY     = {this.props.FOLLOW_ARRAY}
+                followUsers      = {this.props.followUsers}
+                followTC         = {this.props.followTC}
+                unfollowTC       = {this.props.unfollowTC}
             />
         );
     }
@@ -106,16 +101,12 @@ let mapStateToProps = (state) => {
         data:           state.people.data,
         size:           state.people.size,
         count:          state.people.count,
-        currentPage:    state.people.CURRENT_PAGE,
-        IS_CONNECT:     state.people.IS_CONNECT,
-        FOLLOW_ARRAY:   state.people.FOLLOW_ARRAY
+        currentPage:    state.people.currentPage,
+        isConnect:      state.people.isConnect,
+        followUsers:    state.people.followUsers
     }
 }
 
-const PeopleBox = connect(mapStateToProps, {
-    getUsersThunkCreator, 
-    pageChangeThunkCreator, 
-    followThunkCreator, 
-    unfollowThunkCreator})(PeopleServer);
+const PeopleBox = connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC})(PeopleServer);
 
 export default PeopleBox;

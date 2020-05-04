@@ -76,6 +76,8 @@ export const sendMessageTK = (message) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') != '') {
             dispatch(sendMessageAC());
+        } else {
+            dispatch(updateMessageAC(''));
         }
     }
 }

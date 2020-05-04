@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom';
 import stub from '../../images/stub.png';
 
 // ACTION CREATORS
-import {addPostAC, updatePostAC, getProfileTC} from '../../redux/profile-reducer.js';
+import {addPostTC, updatePostTC, getProfileTC} from '../../redux/profile-reducer.js';
 
 const Post = (props) => {
     return (
@@ -23,17 +23,15 @@ const Post = (props) => {
 const Profile = (props) => {
 
     // Посты пользователя
-    let postBox = props.postData.map(item => (<Post key={item.id} post={item.text}/>));
+    let postBox = props.data.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
 
     let addPost = () => {
-        if(textarea.current.value != '') {
-            props.addPostAC();
-        }
+        props.addPostTC(textarea.current.value);
     }
 
     let updatePost = () => {
-        props.updatePostAC(textarea.current.value); 
+        props.updatePostTC(textarea.current.value); 
     }
 
     // Заглушка, если профиль не загрузился
@@ -49,11 +47,9 @@ const Profile = (props) => {
                 </div>
                 
                 <div className="person__data">
-
                     <h1 className="person__name">{props.profile.fullName}</h1>
-                    
                     {props.profile.aboutMe == null ? '' : <blockquote class="blockquote text-center">{props.profile.aboutMe}</blockquote>}
-                    
+        
                     <table class="table table-sm table-striped">
                         <tbody>
                             <tr>
@@ -94,7 +90,7 @@ const Profile = (props) => {
             <h2 class="subtitle">Добавить новый пост</h2>
             <div className="form">
                 <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
-                <button onClick={addPost} className="form__submit" type="submit">Добавить</button>
+                <button onClick={addPost} className="form__submit" type="submit">SEND</button>
             </div>
         </div>
     );
@@ -103,8 +99,7 @@ const Profile = (props) => {
 class ProfileServer extends React.Component {
 
     componentDidMount() {
-        let id = this.props.match.params.id;
-        this.props.getProfileTC(id);
+        this.props.getProfileTC(this.props.match.params.id);
     }
 
     render() {
@@ -115,7 +110,7 @@ class ProfileServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
-        postData: state.profile.postData,
+        data:    state.profile.data,
         newPost: state.profile.newPost,
         profile: state.profile.profile
     }
@@ -123,6 +118,6 @@ let mapStateToProps = (state) => {
 
 let ProfileData = withRouter(ProfileServer);
 
-const ProfileBox = connect(mapStateToProps, {addPostAC, updatePostAC, getProfileTC})(ProfileData);
+const ProfileBox = connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC})(ProfileData);
 
 export default ProfileBox;

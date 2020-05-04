@@ -29,11 +29,11 @@ const Sidebar = () => {
                 </li>
                 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" to="#">Photos <img src={photos}/></NavLink>
+                    <NavLink className="panelbox__link" to="/photos">Photos <img src={photos}/></NavLink>
                 </li>
 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" to="#">Settings <img src={settings}/></NavLink>
+                    <NavLink className="panelbox__link" to="/settings">Settings <img src={settings}/></NavLink>
                 </li>
             </ul>
         </aside>

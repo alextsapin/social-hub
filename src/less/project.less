@@ -40,15 +40,6 @@ header {
 	}
 }
 
-aside {
-	grid-area: aside;
-	height: 1000px;
-	background: #DCDCDC;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-}
-
 #content {
 	grid-area: content;
 	padding: 100px 120px;
@@ -99,8 +90,6 @@ hr {
     .container();
     max-width: 1140px;
     width: 100%;
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
 
 /*----------------------*/
@@ -137,15 +126,6 @@ hr {
     }
 }
 
-.person__status {
-    font-size: 18px;
-    font-weight: 400;
-    font-style: italic;
-    color: @text;
-    text-decoration: underline;
-    margin: 0 0 30px 0;
-}
-
 .person__name {
 	font-size: 30px;
 	font-weight: 700;
@@ -159,26 +139,17 @@ hr {
     }
 }
 
-.person__info {
-    margin-top: 10px;
-    font-size: 16px;
-    color: @text;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.person__point {
-    margin-right: 200px;
-    width: 150px;
-}
-
 /*---------------------------*/
 /***** Панель управления *****/
 /*---------------------------*/
 .panelbox {
     width: 350px;
+    grid-area: aside;
+	height: 1000px;
+	background: #DCDCDC;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
 
 .panelbox__list {
@@ -200,7 +171,7 @@ hr {
     color: @text;
     padding: 11px 15px;
     font-size: 20px;
-    &:hover, &_active {
+    &:hover, &.active {
         color: @text;
         text-decoration: none;
         border: 3px solid @border;
@@ -320,6 +291,7 @@ hr {
     text-decoration: none;
     color: @text;
     &:hover {
+        color: @text;
         text-decoration: underline;
     }
 }

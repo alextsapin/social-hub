@@ -3,7 +3,7 @@ import {getProfileAPI} from '../api/api.js';
 
 // Первичный state
 let initialState = {
-    postData: [
+    data: [
         {id:1, text:"В Китае успешно проверили российские тест-системы на коронавирус."},
         {id:2, text:"Разработана система борьбы с астеройдами."},
         {id:3, text:"В Монголии нашли нефть."}
@@ -16,7 +16,7 @@ const profileReducer = (state = initialState, action) => {
 
     let stateCopy = {
         ...state,
-        postData: [...state.postData]
+        data: [...state.data]
     };
 
     switch(action.type) {
@@ -28,7 +28,7 @@ const profileReducer = (state = initialState, action) => {
 
             stateCopy = {
                 ...state,
-                postData: [...state.postData, post],
+                data: [...state.data, post],
                 newPost: ''
             };
 
@@ -68,12 +68,29 @@ export const setProfileAC = (profile) => {
     }
 }
 
-// THUNKS
+// Thunk creators
 export const getProfileTC = (id) => {
     return (dispatch) => {
         // Получим данные пользователя
         getProfileAPI(id).then(data => {
             dispatch(setProfileAC(data));
         });
+    }
+}
+
+export const addPostTC = (message) => {
+    return (dispatch) => {
+        // Уберем пробелы и проверим, что сообщение не пустое
+        if(message.replace(/\s+/g,'') != '') {
+            dispatch(addPostAC());
+        } else {
+            dispatch(updatePostAC(''));
+        }
+    }
+}
+
+export const updatePostTC = (message) => {
+    return (dispatch) => {
+        dispatch(updatePostAC(message));
     }
 }
