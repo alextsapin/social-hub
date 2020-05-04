@@ -1,6 +1,6 @@
 // Первичный state
 let initialState = {
-    CHAT_DATA: [
+    data: [
         {   id: 1, 
             name: "Chloe", 
             image: "https://i.ibb.co/KxGLbPg/chloe.png", 
@@ -21,11 +21,11 @@ let initialState = {
     newMessage: ''
 }
 
-const CHAT_REDUCER = (state = initialState, action) => {
+const chatReducer = (state = initialState, action) => {
 
     let stateCopy = {
         ...state,
-        CHAT_DATA: [...state.CHAT_DATA]
+        data: [...state.data]
     };
 
     switch(action.type) {
@@ -44,10 +44,10 @@ const CHAT_REDUCER = (state = initialState, action) => {
 
             stateCopy = {
                 ...state,
-                CHAT_DATA: [...state.CHAT_DATA, message],
+                data: [...state.data, message],
                 newMessage: ''
             };
-
+            
             return stateCopy;
          
         default: break;  
@@ -55,17 +55,33 @@ const CHAT_REDUCER = (state = initialState, action) => {
     return state;
 }
 
-export default CHAT_REDUCER;
+export default chatReducer;
 
-export const SEND_MESSAGE_AC = () => {
+export const sendMessageAC = () => {
     return {
         type: 'SEND_MESSAGE'
     }
 }
 
-export const UPDATE_MESSAGE_AC = (newMessage) => {
+export const updateMessageAC = (newMessage) => {
     return {
         type: 'UPDATE_MESSAGE', 
         message: newMessage
+    }
+}
+
+// Thunk creators
+export const sendMessageTK = (message) => {
+    return (dispatch) => {
+        // Уберем пробелы и проверим, что сообщение не пустое
+        if(message.replace(/\s+/g,'') != '') {
+            dispatch(sendMessageAC());
+        }
+    }
+}
+
+export const updateMessageTK = (message) => {
+    return (dispatch) => {
+        dispatch(updateMessageAC(message));
     }
 }

@@ -3,8 +3,8 @@ import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 
-// ACTION CREATOR
-import {SEND_MESSAGE_AC, UPDATE_MESSAGE_AC} from '../../redux/chat-reducer.js';
+// Action creators
+import {sendMessageTK, updateMessageTK} from '../../redux/chat-reducer.js';
 
 const Chatter = (props) => {
         return (
@@ -24,11 +24,11 @@ const Chat = (props) => {
     let message = React.createRef();
 
     let sendMessage = () => {
-        props.SEND_MESSAGE_AC();
+        props.sendMessageTK(message.current.value);
     }
 
     let updateMessage = () => {
-        props.UPDATE_MESSAGE_AC(message.current.value); 
+        props.updateMessageTK(message.current.value); 
     }
 
     return (
@@ -46,11 +46,11 @@ const Chat = (props) => {
 // Контейнерная компонента Chat
 let mapStateToProps = (state) => {
     return {
-        chatData: state.chat.CHAT_DATA,
+        chatData: state.chat.data,
         newMessage: state.chat.newMessage
     }
 }
 
-const ChatBox = connect(mapStateToProps, {SEND_MESSAGE_AC, UPDATE_MESSAGE_AC})(Chat);
+const ChatBox = connect(mapStateToProps, {sendMessageTK, updateMessageTK})(Chat);
 
 export default ChatBox;

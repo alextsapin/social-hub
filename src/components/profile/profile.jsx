@@ -27,7 +27,9 @@ const Profile = (props) => {
     let textarea = React.createRef();
 
     let addPost = () => {
-        props.addPostAC();
+        if(textarea.current.value != '') {
+            props.addPostAC();
+        }
     }
 
     let updatePost = () => {

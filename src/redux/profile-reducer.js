@@ -12,7 +12,7 @@ let initialState = {
     profile: null
 }
 
-const PROFILE_REDUCER = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
 
     let stateCopy = {
         ...state,
@@ -46,7 +46,7 @@ const PROFILE_REDUCER = (state = initialState, action) => {
     return state;
 }
 
-export default PROFILE_REDUCER;
+export default profileReducer;
 
 export const addPostAC = () => {
     return {
