@@ -40,13 +40,13 @@ const Profile = (props) => {
     }
 
     return (
-        <div className="container">
-            <div className="person">
-                <div className="person__profile">
+        <div className="container mt-5 mb-5">
+            <div className="row">
+                <div className="col-md-4">
                     <ImageLoader className="person__image" src={props.profile.photos.large == null ? stub : props.profile.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
                 </div>
-                
-                <div className="person__data">
+
+                <div className="col-md-8">    
                     <h1 className="person__name">{props.profile.fullName}</h1>
                     {props.profile.aboutMe == null ? '' : <blockquote class="blockquote text-center">{props.profile.aboutMe}</blockquote>}
         
@@ -84,7 +84,7 @@ const Profile = (props) => {
                     </table>
                 </div>
             </div>
-
+    
             <h1 class="title">Мои посты:</h1>
             {postBox}
             <h2 class="subtitle">Добавить новый пост</h2>

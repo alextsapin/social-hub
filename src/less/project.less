@@ -1,5 +1,3 @@
-.reset();
-
 html {
 	height: 100%;
 	font-size: 16px;
@@ -22,14 +20,7 @@ img {
 	height: auto;
 }
 
-#wrapper {
-	display: grid;
-	grid-template-areas: "header header" "aside content";
-	grid-template-columns: 1fr 3.5fr;
-}
-
 header {
-	grid-area: header;
 	height: 400px;
 	background: url('../images/header.jpg');
 	background-repeat: no-repeat;
@@ -37,14 +28,6 @@ header {
 	border-bottom: 3px solid @border;
 	@media @notebook {
 		height: 200px;
-	}
-}
-
-#content {
-	grid-area: content;
-	padding: 100px 120px;
-	@media @notebook {
-		padding: 50px 60px;
 	}
 }
 
@@ -83,49 +66,9 @@ hr {
 	}
 }
 
-/*--------------------*/
-/***** SMART-GRID *****/
-/*--------------------*/
-.container {
-    .container();
-    max-width: 1140px;
-    width: 100%;
-}
-
 /*----------------------*/
 /***** Пользователь *****/
 /*----------------------*/
-.person {
-    margin-top: 50px;
-    .row-flex();
-}
-
-.person__profile {
-    .col();
-    .size(4);
-    .size-md(6);
-    .size-sm(12);
-    .center();
-}
-
-.person__data {
-    .col();
-    .size(8);
-    .size-md(6);
-    .size-sm(12);
-}
-
-.person__image {
-    & img {
-        width: 250px !important;
-        height: auto !important;
-        padding: .25rem;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-        border-radius: .25rem;
-    }
-}
-
 .person__name {
 	font-size: 30px;
 	font-weight: 700;
@@ -139,21 +82,30 @@ hr {
     }
 }
 
+.person__image {
+    & img {
+        width: 100% !important;
+        height: auto !important;
+        padding: .25rem;
+        border: 1px solid #dee2e6;
+        border-radius: .25rem;
+    }
+}
+
 /*---------------------------*/
 /***** Панель управления *****/
 /*---------------------------*/
 .panelbox {
-    width: 350px;
-    grid-area: aside;
-	height: 1000px;
+    width: 100%;
+	height: 100%;
 	background: #DCDCDC;
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+    justify-content: flex-start;
+    padding: 0 15px;
 }
 
 .panelbox__list {
-    padding: 0 50px;
     width: 100%;
 }
 

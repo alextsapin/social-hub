@@ -12,22 +12,29 @@ import PeopleBox from './components/people/people.jsx';
 import Login from './components/login/login.jsx';
 
 // CSS
+import './css/reset.css';
 import './font/roboto.css';
 import './css/bootstrap.min.css';
 import './css/main.css';
 
-// Главная компонента
+// Главный компоненент
 const App = (props) => {
     return (
         <BrowserRouter>
-            <ScrollToTop>
-                <div id="wrapper">
-                    <Header/>
-                    <Sidebar/>
-                    <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
-                    <Route path='/chat' render={() => <ChatBox/>}/>
-                    <Route path='/users' render={() => <PeopleBox/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+            <ScrollToTop>                
+                <Header/>
+                <div classNam="container">
+                    <div className="row">
+                        <div className="col-lg-3 col-md-4 col-sm-6">
+                            <Sidebar/>
+                        </div>
+                        <div className="col-lg-9 col-md-8 col-sm-6">
+                            <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
+                            <Route path='/chat' render={() => <ChatBox/>}/>
+                            <Route path='/users' render={() => <PeopleBox/>}/>
+                            <Route path='/login' render={() => <Login/>}/>
+                        </div>
+                    </div>
                 </div>
             </ScrollToTop>
         </BrowserRouter>
