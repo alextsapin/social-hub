@@ -23,7 +23,7 @@ const App = (props) => {
         <BrowserRouter>
             <ScrollToTop>                
                 <Header/>
-                <div classNam="container">
+                <div className="container-fluid">
                     <div className="row">
                         <div className="col-lg-3 col-md-4">
                             <Sidebar/>

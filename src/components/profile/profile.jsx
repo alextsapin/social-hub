@@ -40,7 +40,7 @@ const Profile = (props) => {
     }
 
     return (
-        <div className="container mt-5 mb-5">
+        <div className="container-fluid mt-5 mb-5">
             <div className="row">
                 <div className="col-12">
                     <h1 className="person__name">{props.profile.fullName}</h1>
@@ -99,6 +99,7 @@ const Profile = (props) => {
                     </div>
                 </div>
             </div>
+            
         </div>
     );
 }

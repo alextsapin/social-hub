@@ -32,12 +32,16 @@ const Chat = (props) => {
     }
 
     return (
-        <div className="container-fluid">
-            {userBox}
-            <div className="form">
-                <textarea onChange={updateMessage} value={props.newMessage} ref={message} className="form__post" 
-                    placeholder="Enter your text..."/>
-                <button onClick={sendMessage} className="form__submit" type="submit">SEND</button>
+        <div className="container-fluid mt-5 mb-5">
+            <div className="row">
+                <div className="col-12">
+                    {userBox}
+                    <div className="form">
+                        <textarea onChange={updateMessage} value={props.newMessage} ref={message} className="form__post" 
+                            placeholder="Enter your text..."/>
+                        <button onClick={sendMessage} className="form__submit" type="submit">SEND</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

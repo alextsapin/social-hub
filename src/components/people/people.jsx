@@ -40,27 +40,31 @@ let Person = (props) => {
 
 let People = (props) => {
     return (
-        <div className="container-fluid">
-            {props.data.map(item => 
-                <Person 
-                    key            = {item.id}
-                    id             = {item.id} 
-                    followed       = {item.followed}
-                    name           = {item.name}
-                    image          = {item.photos.small == null ? stub : item.photos.small}
-                    status         = {item.status == null ? '.............' : item.status}
-                    followUsers    = {props.followUsers}
-                    followTC       = {props.followTC}
-                    unfollowTC     = {props.unfollowTC}
-                />
-            )}
+        <div className="container-fluid mt-5 mb-5">
+            <div className="row">
+                <div className="col-12">
+                    {props.data.map(item => 
+                        <Person 
+                            key            = {item.id}
+                            id             = {item.id} 
+                            followed       = {item.followed}
+                            name           = {item.name}
+                            image          = {item.photos.small == null ? stub : item.photos.small}
+                            status         = {item.status == null ? '.............' : item.status}
+                            followUsers    = {props.followUsers}
+                            followTC       = {props.followTC}
+                            unfollowTC     = {props.unfollowTC}
+                        />
+                    )}
 
-            <Pagination 
-                onPageChanged = {props.onPageChanged} 
-                currentPage   = {props.currentPage} 
-                size          = {props.size} 
-                count         = {props.count}
-            />
+                    <Pagination 
+                        onPageChanged = {props.onPageChanged} 
+                        currentPage   = {props.currentPage} 
+                        size          = {props.size} 
+                        count         = {props.count}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
