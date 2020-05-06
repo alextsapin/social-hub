@@ -15,20 +15,18 @@ body {
     color: @text;
 }
 
+#sidebar {
+    background: #DCDCDC;
+}
+
 img {
 	max-width: 100%;
 	height: auto;
 }
 
-header {
-	height: 400px;
-	background: url('../images/header.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	border-bottom: 3px solid @border;
-	@media @notebook {
-		height: 200px;
-	}
+.logo {
+    height: 30px;
+    width: auto;
 }
 
 .title {
@@ -98,7 +96,6 @@ hr {
 .panelbox {
     width: 100%;
 	height: 100%;
-	background: #DCDCDC;
 	display: flex;
 	flex-direction: row;
     justify-content: flex-start;
