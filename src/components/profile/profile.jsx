@@ -42,14 +42,17 @@ const Profile = (props) => {
     return (
         <div className="container mt-5 mb-5">
             <div className="row">
-                <div className="col-md-4">
+                <div className="col-12">
+                    <h1 className="person__name">{props.profile.fullName}</h1>
+                    {props.profile.aboutMe == null ? '' : <blockquote class="blockquote text-center">{props.profile.aboutMe}</blockquote>}
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-xl-3 col-lg-4 col-md-5">
                     <ImageLoader className="person__image" src={props.profile.photos.large == null ? stub : props.profile.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
                 </div>
 
-                <div className="col-md-8">    
-                    <h1 className="person__name">{props.profile.fullName}</h1>
-                    {props.profile.aboutMe == null ? '' : <blockquote class="blockquote text-center">{props.profile.aboutMe}</blockquote>}
-        
+                <div className="col-xl-9 col-lg-8 col-md-7 mt-5 mt-md-0">    
                     <table class="table table-sm table-striped">
                         <tbody>
                             <tr>
@@ -84,13 +87,17 @@ const Profile = (props) => {
                     </table>
                 </div>
             </div>
-    
-            <h1 class="title">Мои посты:</h1>
-            {postBox}
-            <h2 class="subtitle">Добавить новый пост</h2>
-            <div className="form">
-                <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
-                <button onClick={addPost} className="form__submit" type="submit">SEND</button>
+
+            <div className="row">
+                <div className="col-12">
+                    <h1 class="title">Мои посты:</h1>
+                    {postBox}
+                    <h2 class="subtitle">Добавить новый пост</h2>
+                    <div className="form">
+                        <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
+                        <button onClick={addPost} className="form__submit" type="submit">SEND</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -32,7 +32,7 @@ const Chat = (props) => {
     }
 
     return (
-        <div className="container">
+        <div className="container-fluid">
             {userBox}
             <div className="form">
                 <textarea onChange={updateMessage} value={props.newMessage} ref={message} className="form__post" 

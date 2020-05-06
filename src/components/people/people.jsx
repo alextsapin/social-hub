@@ -40,7 +40,7 @@ let Person = (props) => {
 
 let People = (props) => {
     return (
-        <div className="container">
+        <div className="container-fluid">
             {props.data.map(item => 
                 <Person 
                     key            = {item.id}

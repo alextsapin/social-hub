@@ -25,12 +25,12 @@ const App = (props) => {
                 <Header/>
                 <div classNam="container">
                     <div className="row">
-                        <div className="col-lg-3 col-md-4 col-sm-6">
+                        <div className="col-lg-3 col-md-4">
                             <Sidebar/>
                         </div>
-                        <div className="col-lg-9 col-md-8 col-sm-6">
+                        <div className="col-lg-9 col-md-8">
                             <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
-                            <Route path='/chat' render={() => <ChatBox/>}/>
+                            <Route path='/chat' render={()  => <ChatBox/>}/>
                             <Route path='/users' render={() => <PeopleBox/>}/>
                             <Route path='/login' render={() => <Login/>}/>
                         </div>
