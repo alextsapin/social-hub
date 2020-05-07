@@ -14,7 +14,7 @@ const Sidebar = () => {
             <ul className="panelbox__list">
                 <li className="panelbox__item">
                     <NavLink exact to="/profile/2" className="panelbox__link">
-                        My Profile <img src={profile}/>
+                        My profile <img src={profile}/>
                     </NavLink>
                 </li>
 

@@ -14,57 +14,63 @@ import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/people
 
 let Person = (props) => {
     return (
-        <div className="people__person">
-            <div className="people__avatar">
-                <ImageLoader className="people__image" src={props.image} wrapper={React.createFactory('div')} 
-                    preloader={spinner}>
-                </ImageLoader>
-                <div>
-                    {
-                        props.followed
-                        ? <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow" 
-                        onClick={()=> {props.unfollowTC(props.id);}}>UNFOLLOW</button>
 
-                        : <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow"
-                        onClick={()=> {props.followTC(props.id)}}>FOLLOW</button>
-                    }
+                <div className="people__person">
+                    <div className="row">
+                        <div className="col-md-4">
+                            <div className="people__avatar">
+                                <NavLink to={'/profile/' + props.id}>
+                                    <ImageLoader className="people__image" src={props.image} wrapper={React.createFactory('div')} 
+                                        preloader={spinner}>
+                                    </ImageLoader>
+                                </NavLink>
+                                <div>
+                                    {
+                                        props.followed
+                                        ? <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow" 
+                                        onClick={()=> {props.unfollowTC(props.id);}}>UNFOLLOW</button>
+
+                                        : <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow"
+                                        onClick={()=> {props.followTC(props.id)}}>FOLLOW</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-8">
+                            <div className="people__info">
+                                <NavLink className="people__name" to={'/profile/' + props.id}>{props.name}</NavLink>
+                                <p className="people__status">{props.status}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="people__info">
-                <NavLink className="people__name" to={'/profile/' + props.id}>{props.name}</NavLink>
-                <p className="people__status">{props.status}</p>
-            </div>
-        </div>
+
     )
 }
 
 let People = (props) => {
     return (
         <div className="mt-5 mb-5">
-            <div className="row">
-                <div className="col-12">
-                    {props.data.map(item => 
-                        <Person 
-                            key            = {item.id}
-                            id             = {item.id} 
-                            followed       = {item.followed}
-                            name           = {item.name}
-                            image          = {item.photos.small == null ? stub : item.photos.small}
-                            status         = {item.status == null ? '.............' : item.status}
-                            followUsers    = {props.followUsers}
-                            followTC       = {props.followTC}
-                            unfollowTC     = {props.unfollowTC}
-                        />
-                    )}
+            {props.data.map(item => 
+                <Person 
+                    key            = {item.id}
+                    id             = {item.id} 
+                    followed       = {item.followed}
+                    name           = {item.name}
+                    image          = {item.photos.small == null ? stub : item.photos.small}
+                    status         = {item.status == null ? '.............' : item.status}
+                    followUsers    = {props.followUsers}
+                    followTC       = {props.followTC}
+                    unfollowTC     = {props.unfollowTC}
+                />
+            )}
 
-                    <Pagination 
-                        onPageChanged = {props.onPageChanged} 
-                        currentPage   = {props.currentPage} 
-                        size          = {props.size} 
-                        count         = {props.count}
-                    />
-                </div>
-            </div>
+            <Pagination 
+                onPageChanged = {props.onPageChanged} 
+                currentPage   = {props.currentPage} 
+                size          = {props.size} 
+                count         = {props.count}
+            />
         </div>
     )
 }
