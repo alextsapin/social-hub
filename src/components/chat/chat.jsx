@@ -9,12 +9,19 @@ import {sendMessageTK, updateMessageTK} from '../../redux/chat-reducer.js';
 const Chatter = (props) => {
         return (
         <div className="chat">
-            <div className="chat__user">
-                <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-                <p className="chat__name">{props.name}</p>
+            <div className="row">
+                <div className="col-md-3">
+                    <div className="chat__user">
+                        <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                        <p className="chat__name">{props.name}</p>
+                    </div>
+                </div>
+                <div className="col-md-9 d-inline-flex flex-column justify-content-center">
+                        <p className="chat__message">{props.message}</p>
+                </div>
             </div>
-            <p className="chat__message">{props.message}</p>
         </div>
+        
     );
 }
 
@@ -32,7 +39,7 @@ const Chat = (props) => {
     }
 
     return (
-        <div className="container-fluid mt-5 mb-5">
+        <div className="mt-5 mb-5">
             <div className="row">
                 <div className="col-12">
                     {userBox}
