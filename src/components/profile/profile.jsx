@@ -5,7 +5,7 @@ import Preloader from '../preloader/preloader.jsx';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 import {withRouter} from 'react-router-dom';
-import {withAuthRedirect} from '../../hoc/authRedirect.js';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
 
 // IMG
 import stub from '../../images/stub.png';
@@ -122,8 +122,7 @@ let mapStateToProps = (state) => {
     return {
         data:    state.profile.data,
         newPost: state.profile.newPost,
-        profile: state.profile.profile,
-        isAuth:  state.auth.isAuth
+        profile: state.profile.profile
     }
 }
 

@@ -1,5 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {NavLink, Redirect} from 'react-router-dom';
+
+let mapStateToProps = (state) => {
+    return {
+        isAuth:  state.auth.isAuth
+    }
+}
 
 export const withAuthRedirect = (Component) => {
 
@@ -8,5 +15,7 @@ export const withAuthRedirect = (Component) => {
         return <Component {...props} />
     }
 
-    return RedirectComponent;
+    let AuthRedirectConnect = connect(mapStateToProps)(RedirectComponent);
+
+    return AuthRedirectConnect;
 }
