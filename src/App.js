@@ -30,10 +30,12 @@ const App = (props) => {
                             <Sidebar/>
                         </div>
                         <div className="col-lg-9 col-md-8">
-                            <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
-                            <Route path='/chat'         render={() => <ChatBox/>}/>
-                            <Route path='/users'        render={() => <PeopleBox/>}/>
-                            <Route path='/login'        render={() => <Login/>}/>
+                            <div id="content">
+                                <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
+                                <Route path='/chat'         render={() => <ChatBox/>}/>
+                                <Route path='/users'        render={() => <PeopleBox/>}/>
+                                <Route path='/login'        render={() => <Login/>}/>
+                            </div>
                         </div>
                     </div>
                 </div>

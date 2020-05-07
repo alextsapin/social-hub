@@ -29,12 +29,15 @@ body {
     background: #DCDCDC;
 }
 
-#footer {
-    height: 50px;
+#content {
+    min-height: 838px;
+    @media @notebook {
+        min-height: 526px;
+    }
 }
 
-#content {
-    min-height: 700px;
+#footer {
+    height: 50px;
 }
 
 img {
