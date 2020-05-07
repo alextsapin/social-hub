@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, Redirect} from 'react-router-dom';
+import {compose} from 'redux';
 import ImageLoader from 'react-imageloader';
 import Preloader from '../preloader/preloader.jsx';
 import {connect} from 'react-redux';
@@ -126,11 +126,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-// Добавим аутентификационный редирект
-let AuthRedirectComponent = withAuthRedirect(ProfileServer);
-
-let ProfileData = withRouter(AuthRedirectComponent);
-
-const ProfileBox = connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC})(ProfileData);
-
-export default ProfileBox;
+export default compose(
+    withAuthRedirect,
+    withRouter,
+    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC})
+)(ProfileServer);;
