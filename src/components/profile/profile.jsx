@@ -47,7 +47,7 @@ const Profile = (props) => {
             <div className="row">
                 <div className="col-12">
                     <h1 className="person__name">{props.profile.fullName}</h1>
-                    {props.profile.aboutMe == null ? '' : <blockquote class="blockquote text-center">{props.profile.aboutMe}</blockquote>}
+                    <Status status={props.profile.aboutMe}/>
                 </div>
             </div>
             <div className="row">
@@ -128,7 +128,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    withAuthRedirect,
+    //withAuthRedirect,
     withRouter,
     connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC})
 )(ProfileServer);;
