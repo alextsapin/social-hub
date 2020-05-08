@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
+import Status from '../status/status.jsx';
 
 // IMG
 import stub from '../../images/stub.png';

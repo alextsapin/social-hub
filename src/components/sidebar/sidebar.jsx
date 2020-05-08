@@ -13,27 +13,33 @@ const Sidebar = () => {
         <aside className="panelbox">
             <ul className="panelbox__list">
                 <li className="panelbox__item">
-                    <NavLink exact to="/profile/2" className="panelbox__link">
+                    <NavLink exact to="/profile/2" className="panelbox__link" activeClassName="panelbox__link_active">
                         My profile <img src={profile}/>
                     </NavLink>
                 </li>
 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" to="/chat">
+                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/chat">
                         Chat <img src={dialogs}/>
                     </NavLink>
                 </li>
 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" to="/users">Users <img src={friends}/></NavLink>
+                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/users">
+                        Users <img src={friends}/>
+                    </NavLink>
                 </li>
                 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" to="/photos">Photos <img src={photos}/></NavLink>
+                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/photos">
+                        Photos <img src={photos}/>
+                    </NavLink>
                 </li>
 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" to="/settings">Settings <img src={settings}/></NavLink>
+                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/settings">
+                        Settings <img src={settings}/>
+                    </NavLink>
                 </li>
             </ul>
         </aside>
