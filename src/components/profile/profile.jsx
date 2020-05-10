@@ -12,7 +12,7 @@ import Status from '../status/status.jsx';
 import stub from '../../images/stub.png';
 
 // ACTION CREATORS
-import {addPostTC, updatePostTC, getProfileTC} from '../../redux/profile-reducer.js';
+import {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC} from '../../redux/profile-reducer.js';
 
 const Post = (props) => {
     return (
@@ -47,7 +47,7 @@ const Profile = (props) => {
             <div className="row">
                 <div className="col-12">
                     <h1 className="person__name">{props.profile.fullName}</h1>
-                    <Status status={props.profile.aboutMe}/>
+                    <Status id={props.id} status={props.status} updateStatusTC={props.updateStatusTC}/>
                 </div>
             </div>
             <div className="row">
@@ -58,6 +58,10 @@ const Profile = (props) => {
                 <div className="col-xl-9 col-lg-8 col-md-7 mt-5 mt-md-0">    
                     <table class="table table-sm table-striped">
                         <tbody>
+                            <tr>
+                                <th class="font-weight-bold">Немного о себе</th>
+                                <th>{props.profile.aboutMe == null ? '...' : props.profile.aboutMe}</th>
+                            </tr>
                             <tr>
                                 <th class="font-weight-bold">В поиске работы?</th>
                                 <th>{props.profile.lookingForAJob == false ? 'нет' : 'да'}</th>
@@ -97,7 +101,8 @@ const Profile = (props) => {
                     {postBox}
                     <h2 class="subtitle">Добавить новый пост</h2>
                     <div className="form">
-                        <textarea onChange={updatePost} value={props.newPost} ref={textarea} className="form__post" placeholder="Enter your text..."/>
+                        <textarea onChange={updatePost} value={props.post} ref={textarea} className="form__post" 
+                            placeholder="Enter your text..."/>
                         <button onClick={addPost} className="form__submit" type="submit">SEND</button>
                     </div>
                 </div>
@@ -111,10 +116,11 @@ class ProfileServer extends React.Component {
 
     componentDidMount() {
         this.props.getProfileTC(this.props.match.params.id);
+        this.props.getStatusTC(this.props.match.params.id);
     }
 
     render() {
-        return <Profile {...this.props} profile={this.props.profile} />
+        return <Profile {...this.props} status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
     }
 }
 
@@ -122,13 +128,14 @@ class ProfileServer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         data:    state.profile.data,
-        newPost: state.profile.newPost,
-        profile: state.profile.profile
+        post:    state.profile.post,
+        profile: state.profile.profile,
+        status:  state.profile.status
     }
 }
 
 export default compose(
     //withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC})
+    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC})
 )(ProfileServer);;

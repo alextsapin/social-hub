@@ -44,3 +44,19 @@ export const getProfileAPI = (id) => {
         return response.data;
     });
 }
+
+// Получим профиль пользователя
+export const getStatusAPI = (id) => {
+    return instance.get(`profile/status/${id}`)
+    .then(response => {
+        return response.data;
+    });
+}
+
+// Получим профиль пользователя
+export const updateStatusAPI = (text) => {
+    return instance.put(`profile/status`, {status: text})
+    .then(response => {
+        return response.data;
+    });
+}

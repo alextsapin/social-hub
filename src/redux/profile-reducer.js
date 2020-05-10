@@ -1,5 +1,5 @@
 // DAL
-import {getProfileAPI} from '../api/api.js';
+import {getProfileAPI, getStatusAPI, updateStatusAPI} from '../api/api.js';
 
 // Первичный state
 let initialState = {
@@ -8,8 +8,9 @@ let initialState = {
         {id:2, text:"Разработана система борьбы с астеройдами."},
         {id:3, text:"В Монголии нашли нефть."}
     ],
-    newPost: '',
-    profile: null
+    post: '',
+    profile: null,
+    status: ''
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -20,26 +21,32 @@ const profileReducer = (state = initialState, action) => {
     };
 
     switch(action.type) {
+        // Добавим пост
         case 'ADD_POST': 
             let post = {
                 id: 4, 
-                text: state.newPost
+                text: state.post
             }
 
             stateCopy = {
                 ...state,
                 data: [...state.data, post],
-                newPost: ''
+                post: ''
             };
-
-            return stateCopy;
+        return stateCopy;
          
+        // Обновим пост
         case 'UPDATE_POST': 
-            stateCopy.newPost = action.post;
-            return stateCopy; 
+        stateCopy.post = action.post;
+        return stateCopy; 
 
+        // Установим профиль пользователя
         case 'SET_USER_PROFILE': 
-            return {...state, profile: action.profile}
+        return {...state, profile: action.profile}
+        
+        // Установим статус
+        case 'SET_STATUS': 
+        return {...state, status: action.status}
         
         default: break;  
     }
@@ -68,6 +75,13 @@ export const setProfileAC = (profile) => {
     }
 }
 
+export const setStatusAC = (status) => {
+    return {
+        type: 'SET_STATUS', 
+        status
+    }
+}
+
 // Thunk creators
 export const getProfileTC = (id) => {
     return (dispatch) => {
@@ -92,5 +106,23 @@ export const addPostTC = (message) => {
 export const updatePostTC = (message) => {
     return (dispatch) => {
         dispatch(updatePostAC(message));
+    }
+}
+
+export const getStatusTC = (id) => {
+    return (dispatch) => {
+        getStatusAPI(id).then(data => {
+            dispatch(setStatusAC(data));
+        });
+    }
+}
+
+export const updateStatusTC = (status) => {
+    return (dispatch) => {
+        updateStatusAPI(status).then(data => {
+            if(data.resultCode === 0) {
+                dispatch(setStatusAC(status));
+            }
+        });
     }
 }
