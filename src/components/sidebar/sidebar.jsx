@@ -37,7 +37,7 @@ const Sidebar = () => {
                 </li>
 
                 <li className="panelbox__item">
-                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/settings">
+                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/profile/2">
                         Settings <img src={settings}/>
                     </NavLink>
                 </li>

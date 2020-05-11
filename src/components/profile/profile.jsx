@@ -119,6 +119,14 @@ class ProfileServer extends React.Component {
         this.props.getStatusTC(this.props.match.params.id);
     }
 
+    // Перерисуем компонент, если изменился id
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.match.params.id !== this.props.match.params.id) {
+            this.props.getProfileTC(this.props.match.params.id);
+            this.props.getStatusTC(this.props.match.params.id);
+        }
+    }
+
     render() {
         return <Profile {...this.props} status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
     }

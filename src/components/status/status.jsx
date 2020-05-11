@@ -23,24 +23,33 @@ class Status extends React.Component {
     onStatusChange = (e) => {
         this.setState({
             status: e.currentTarget.value
+            
         })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
     }
     
     render() {
-
-        let text = '';
+        
+        let status = '';
         if(this.props.status != null) {
-            text = this.props.status;
+            status = this.props.status;
         }
         else {
-            text = 'status is empty...';
+            status = '....................';
         }
 
         return (
             <div className="status">
                 {   
                     ! this.state.editMode 
-                    ? <blockquote onDoubleClick={this.activateEditMode}>{this.props.status}</blockquote>
+                    ? <blockquote onClick={this.activateEditMode}>{status}</blockquote>
                     : <input autoFocus={true} onBlur={this.deActivateEditMode} className="form-control" value={this.state.status} 
                     onChange={this.onStatusChange}/>
                 }  
