@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, Redirect} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import Pagination from '../pagination/pagination.jsx';
@@ -9,8 +9,8 @@ import spinner from '../spinner/spinner.jsx';
 // IMG
 import stub from '../../images/stub.png';
 
-// ACTION CREATORS
-import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/people-reducer.js';
+// Thunk creators
+import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux//reducers/people.js';
 
 let Person = (props) => {
     return (

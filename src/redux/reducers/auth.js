@@ -1,7 +1,5 @@
 // DAL
-import {
-    authAPI
-} from '../api/api.js';
+import {authAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {

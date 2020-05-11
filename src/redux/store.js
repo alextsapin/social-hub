@@ -1,10 +1,14 @@
+// Redux
 import {combineReducers, createStore, applyMiddleware} from 'redux';
-import profileReducer from './profile-reducer.js';
-import chatReducer from './chat-reducer.js';
-import peopleReducer from './people-reducer.js';
-import authReducer from './auth-reducer.js';
 import thunkMiddleware from 'redux-thunk';
 
+// Reducers
+import profileReducer from './reducers/profile.js';
+import chatReducer from './reducers/chat.js';
+import peopleReducer from './reducers/people.js';
+import authReducer from './reducers/auth.js';
+
+// Объединим редьюсеры
 let reducers = combineReducers({
     profile : profileReducer,
     chat    : chatReducer,

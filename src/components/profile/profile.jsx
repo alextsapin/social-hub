@@ -11,8 +11,8 @@ import Status from '../status/status.jsx';
 // IMG
 import stub from '../../images/stub.png';
 
-// ACTION CREATORS
-import {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC} from '../../redux/profile-reducer.js';
+// Thunk creators
+import {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC} from '../../redux/reducers/profile.js';
 
 const Post = (props) => {
     return (

@@ -1,5 +1,5 @@
 // DAL
-import {getProfileAPI, getStatusAPI, updateStatusAPI} from '../api/api.js';
+import {getProfileAPI, getStatusAPI, updateStatusAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {

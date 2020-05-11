@@ -3,8 +3,8 @@ import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 
-// Action creators
-import {sendMessageTK, updateMessageTK} from '../../redux/chat-reducer.js';
+// Thunk creators
+import {sendMessageTK, updateMessageTK} from '../../redux/reducers/chat.js';
 
 const Chatter = (props) => {
         return (

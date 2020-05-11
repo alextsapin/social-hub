@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {authThunkCreator} from '../../redux/auth-reducer.js';
+import {authThunkCreator} from '../../redux/reducers/auth.js';
 import {connect} from 'react-redux';
 
 import logo from '../../images/logo.png';

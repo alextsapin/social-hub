@@ -1,5 +1,5 @@
 // DAL
-import {peopleAPI, followAPI, unfollowAPI} from '../api/api.js';
+import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {

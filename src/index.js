@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 // STORE
-import store from "./redux/redux-store.js";
+import store from "./redux/store.js";
 
 // Контекст
 import {Provider} from 'react-redux';
-
 
 ReactDOM.render(
     <Provider store={store}>
