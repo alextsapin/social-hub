@@ -25,16 +25,21 @@ body {
     line-height: 20px;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+}
+
 #sidebar {
     background: #DCDCDC;
 }
 
 #content {
-    min-height: 838px;
-    @media @notebook {
-        min-height: 526px;
-    }
+    min-height: 800px;
 }
+
 
 #footer {
     height: 50px;
@@ -285,6 +290,9 @@ hr {
     border-radius: 20px;
     margin: 0 auto 50px;
     max-width: 1000px;
+    &:hover {
+        cursor: pointer;
+    }
 
 }
 
@@ -345,6 +353,10 @@ hr {
 /*-------------------*/
 /***** Bootstrap *****/
 /*-------------------*/
+.navbar {
+    height: 50px;
+}
+
 .nav-link {
     font-size: 1.25rem;
     color: white !important;

@@ -24,21 +24,21 @@ const App = (props) => {
         <BrowserRouter>
             <ScrollToTop>             
                 <Header/>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div id="sidebar" className="col-lg-3 col-md-4">
-                            <Sidebar/>
-                        </div>
-                        <div className="col-lg-9 col-md-8">
-                            <div id="content">
-                                <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
-                                <Route path='/chat'         render={() => <ChatBox/>}/>
-                                <Route path='/users'        render={() => <PeopleBox/>}/>
-                                <Route path='/login'        render={() => <Login/>}/>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div id="sidebar" className="col-lg-3 col-md-4">
+                                <Sidebar/>
+                            </div>
+                            <div className="col-lg-9 col-md-8">
+                                <div id="content">
+                                    <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
+                                    <Route path='/chat'         render={() => <ChatBox/>}/>
+                                    <Route path='/users'        render={() => <PeopleBox/>}/>
+                                    <Route path='/login'        render={() => <Login/>}/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <Footer/>
             </ScrollToTop>
         </BrowserRouter>
