@@ -19,6 +19,12 @@ const Sidebar = () => {
                 </li>
 
                 <li className="panelbox__item">
+                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/profile/2">
+                        Dmitry <img src={settings}/>
+                    </NavLink>
+                </li>
+
+                <li className="panelbox__item">
                     <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/chat">
                         Chat <img src={dialogs}/>
                     </NavLink>
@@ -27,18 +33,6 @@ const Sidebar = () => {
                 <li className="panelbox__item">
                     <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/users">
                         Users <img src={friends}/>
-                    </NavLink>
-                </li>
-                
-                <li className="panelbox__item">
-                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/photos">
-                        Photos <img src={photos}/>
-                    </NavLink>
-                </li>
-
-                <li className="panelbox__item">
-                    <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/profile/2">
-                        Settings <img src={settings}/>
                     </NavLink>
                 </li>
             </ul>
