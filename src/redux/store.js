@@ -1,6 +1,7 @@
 // Redux
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
 
 // Reducers
 import profileReducer from './reducers/profile.js';
@@ -13,7 +14,8 @@ let reducers = combineReducers({
     profile : profileReducer,
     chat    : chatReducer,
     people  : peopleReducer,
-    auth    : authReducer
+    auth    : authReducer,
+    form    : formReducer
 });
 
 // Создадим store c помощью redux
