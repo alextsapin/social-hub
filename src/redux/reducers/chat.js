@@ -17,8 +17,7 @@ let initialState = {
             image: "https://i.ibb.co/k5WprG1/matt.png", 
             message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."
         }
-    ],
-    newMessage: ''
+    ]
 }
 
 const chatReducer = (state = initialState, action) => {
@@ -30,16 +29,12 @@ const chatReducer = (state = initialState, action) => {
 
     switch(action.type) {
         
-        case 'UPDATE_MESSAGE': 
-            stateCopy.newMessage = action.message;
-            return stateCopy;
-
         case 'SEND_MESSAGE': 
             let message = {
                 id: 4, 
                 name: "Kaleb",
                 image: "https://i.ibb.co/6XMcpbV/kaleb.png",
-                message: state.newMessage
+                message: action.message
             }
 
             stateCopy = {
@@ -57,16 +52,10 @@ const chatReducer = (state = initialState, action) => {
 
 export default chatReducer;
 
-export const sendMessageAC = () => {
+export const sendMessageAC = (message) => {
     return {
-        type: 'SEND_MESSAGE'
-    }
-}
-
-export const updateMessageAC = (newMessage) => {
-    return {
-        type: 'UPDATE_MESSAGE', 
-        message: newMessage
+        type: 'SEND_MESSAGE',
+        message: message
     }
 }
 
@@ -75,15 +64,7 @@ export const sendMessageTK = (message) => {
     return (dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') != '') {
-            dispatch(sendMessageAC());
-        } else {
-            dispatch(updateMessageAC(''));
+            dispatch(sendMessageAC(message));
         }
-    }
-}
-
-export const updateMessageTK = (message) => {
-    return (dispatch) => {
-        dispatch(updateMessageAC(message));
     }
 }

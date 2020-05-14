@@ -1,10 +1,13 @@
 import React from 'react';
 import ImageLoader from 'react-imageloader';
+import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
+import {requiredField, maxLength, minLength} from '../../utilities/validators.js';
+import {Textarea} from '../controls/fields.js';
 
 // Thunk creators
-import {sendMessageTK, updateMessageTK} from '../../redux/reducers/chat.js';
+import {sendMessageTK} from '../../redux/reducers/chat.js';
 
 const Chatter = (props) => {
         return (
@@ -17,7 +20,7 @@ const Chatter = (props) => {
                     </div>
                 </div>
                 <div className="col-md-9 d-inline-flex flex-column justify-content-center">
-                        <p className="chat__message">{props.message}</p>
+                    <p className="chat__message">{props.message}</p>
                 </div>
             </div>
         </div>
@@ -25,17 +28,25 @@ const Chatter = (props) => {
     );
 }
 
+// Компонент ChatForm
+const ChatForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className="form">
+            <Field component={Textarea} name="message" placeholder="Enter your text..." 
+                validate={[requiredField, maxLength, minLength]}/>
+            <button className="btn btn-lg btn-primary mt-2" type="submit">SEND</button>
+        </form>
+    );
+}
+
+const ChatFormRedux = reduxForm({form: 'chat'})(ChatForm);
+
 // Презентационная компонента Chat
 const Chat = (props) => {
     let userBox = props.chatData.map(item => (<Chatter key={item.id} name={item.name} image={item.image} message={item.message}/>));
-    let message = React.createRef();
 
-    let sendMessage = () => {
-        props.sendMessageTK(message.current.value);
-    }
-
-    let updateMessage = () => {
-        props.updateMessageTK(message.current.value); 
+    let sendMessage = (values) => {
+        props.sendMessageTK(values.message);
     }
 
     return (
@@ -43,11 +54,7 @@ const Chat = (props) => {
             <div className="row">
                 <div className="col-12">
                     {userBox}
-                    <div className="form">
-                        <textarea onChange={updateMessage} value={props.newMessage} ref={message} className="form__post" 
-                            placeholder="Enter your text..."/>
-                        <button onClick={sendMessage} className="form__submit" type="submit">SEND</button>
-                    </div>
+                    <ChatFormRedux onSubmit={sendMessage}/>
                 </div>
             </div>
         </div>
@@ -62,6 +69,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-const ChatBox = connect(mapStateToProps, {sendMessageTK, updateMessageTK})(Chat);
+const ChatBox = connect(mapStateToProps, {sendMessageTK})(Chat);
 
 export default ChatBox;

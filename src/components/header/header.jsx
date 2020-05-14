@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import logo from '../../images/logo.png';
 
 const Header = (props) => {
-    console.log(props)
     return (
         <div className="navbar navbar-expand-lg navbar-dark bg-secondary">
             <NavLink className="navbar-brand" to="/"><img className="logo" src={logo}/></NavLink>
@@ -42,7 +41,7 @@ class HeaderServer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    id:  state.auth.id,
+    id:     state.auth.id,
     isAuth: state.auth.isAuth,
     login:  state.auth.login
 });
