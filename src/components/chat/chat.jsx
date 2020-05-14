@@ -3,7 +3,7 @@ import ImageLoader from 'react-imageloader';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
-import {requiredField, maxLength, minLength} from '../../utilities/validators.js';
+import {requiredField, maxLengthCreator, minLength} from '../../utilities/validators.js';
 import {Textarea} from '../controls/fields.js';
 
 // Thunk creators
@@ -29,12 +29,13 @@ const Chatter = (props) => {
 }
 
 // Компонент ChatForm
+const maxLength140 = maxLengthCreator(140);
 const ChatForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className="form">
             <Field component={Textarea} name="message" placeholder="Enter your text..." 
-                validate={[requiredField, maxLength, minLength]}/>
-            <button className="btn btn-lg btn-primary mt-2" type="submit">SEND</button>
+                validate={[requiredField, maxLength140, minLength]}/>
+            <button className="btn btn-lg btn-secondary mt-2" type="submit">SEND</button>
         </form>
     );
 }

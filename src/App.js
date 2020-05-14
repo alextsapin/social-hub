@@ -1,6 +1,6 @@
 // React
 import React from 'react';
-import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 
 // Компоненты

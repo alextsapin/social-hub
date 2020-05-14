@@ -1,24 +1,26 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
+import {requiredField, maxLengthCreator, minLength} from '../../utilities/validators.js';
+import {InputText, InputPass, InputCheck} from '../controls/fields.js';
 
+const maxLength20 = maxLengthCreator(20);
 const LoginForm = (props) => {  
-
     return (
         <form onSubmit={props.handleSubmit}>
             <div className="form-group">
                 <label>Login</label>
-                <Field className="form-control" name="login" component="input" type="text"/>
+                <Field name="login" component={InputText} validate={[requiredField, maxLength20, minLength]}/>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <Field className="form-control" name="password" component="input" type="password"/>
+                <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength]}/>
                 <small className="form-text text-muted">Do not share your password with anyone!</small>
             </div>
             <div class="form-group form-check">
-                <Field className="form-check-input" name="rememberMe" component="input" type="checkbox" id="rememberMe"/>
-                <label className="form-check-label" for="rememberMe">remember me</label>
+                <Field className="form-check-input" name="rememberMe" component={InputCheck} />
+                <label className="form-check-label" for="rememberMe">Remember me</label>
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-secondary">LOGIN</button>
         </form>
     );
 }

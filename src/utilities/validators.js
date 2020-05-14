@@ -9,9 +9,9 @@ export const requiredField = (value) => {
 }
 
 // Максимальная длина текста
-export const maxLength = (value) => {
-    if(value && value.length > 140 ) {
-        return 'Max length is 140 symbols';
+export const maxLengthCreator = (length) => (value) => {
+    if(value && value.length > length ) {
+        return `Max length is ${length} symbols`;
     }
     else {
         return undefined;
