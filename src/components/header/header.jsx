@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {authThunkCreator} from '../../redux/reducers/auth.js';
 import {connect} from 'react-redux';
+import {authTC, logoutTC} from '../../redux/reducers/auth.js';
 
 import logo from '../../images/logo.png';
 
@@ -14,16 +14,12 @@ const Header = (props) => {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav m-auto">
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/login">Login <span className="sr-only">(current)</span></NavLink>
-                    </li>
-                </ul>
-
                 <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/settings">Settings <span className="sr-only">(current)</span></NavLink>
-                    </li>
+                    {
+                        !  props.isAuth
+                        ? <li className="nav-item"><NavLink className="nav-link" to="/login">Login</NavLink></li>
+                        : <li className="nav-item"><button onClick={props.logoutTC} className="btn btn-warning">Logout</button></li>
+                    }
                 </ul>
             </div>
         </div>
@@ -32,7 +28,7 @@ const Header = (props) => {
 
 class HeaderServer extends React.Component {
     componentDidMount() {
-        this.props.authThunkCreator();
+        this.props.authTC();
     }
 
     render() {
@@ -46,5 +42,4 @@ const mapStateToProps = (state) => ({
     login:  state.auth.login
 });
 
-
-export default connect(mapStateToProps, {authThunkCreator})(HeaderServer);
+export default connect(mapStateToProps, {authTC, logoutTC})(HeaderServer);

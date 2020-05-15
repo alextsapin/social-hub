@@ -19,3 +19,15 @@ export const withAuthRedirect = (Component) => {
 
     return AuthRedirectConnect;
 }
+
+export const withProfileRedirect = (Component) => {
+
+    let RedirectComponent = (props) => {
+        if(!props.isAuth) return <Redirect to='/profile/7020'/>
+        return <Component {...props} />
+    }
+
+    let ProfileRedirectConnect = connect(mapStateToProps)(RedirectComponent);
+
+    return ProfileRedirectConnect;
+}

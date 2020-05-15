@@ -10,10 +10,25 @@ const instance = axios.create({
 
 // Получим данные авторизации
 export const authAPI = () => {
-    return instance.get(`auth/me`,).then(response => {
+    return instance.get(`auth/me`).then(response => {
         return response.data; 
     });
 }
+
+// Login
+export const loginAPI = (email, password, rememberMe = false) => {
+    return instance.post(`auth/login`, {email, password, rememberMe}).then(response => {
+        return response.data; 
+    });
+}
+
+// Logout
+export const logoutAPI = () => {
+    return instance.delete(`auth/login`).then(response => {
+        return response.data; 
+    });
+}
+
 
 // Получим всех пользователей
 export const peopleAPI = (page, limit) => {
