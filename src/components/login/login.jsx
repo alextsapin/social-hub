@@ -8,7 +8,6 @@ import {loginTC} from '../../redux/reducers/auth.js';
 const maxLength20 = maxLengthCreator(20);
 
 const LoginForm = (props) => {  
-    console.log(props);
     return (
         <form onSubmit={props.handleSubmit}>
             {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}

@@ -1,7 +1,9 @@
-// React
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {withRouter, Route} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
+import {initializeTC} from './redux/reducers/initialize.js';
 
 // Компоненты
 import Header from './components/header/header.jsx';
@@ -19,9 +21,14 @@ import './css/reset.css';
 import './css/main.css';
 
 // Главный компоненент
-const App = (props) => {
-    return (
-        <BrowserRouter>
+class App extends React.Component {
+
+    componentDidMount() {
+        this.props.initializeTC();
+    }
+
+    render() {
+        return (
             <ScrollToTop>             
                 <Header/>
                     <div className="container-fluid">
@@ -41,8 +48,12 @@ const App = (props) => {
                     </div>
                 <Footer/>
             </ScrollToTop>
-        </BrowserRouter>
-    );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialize: state.initialize.initialize
+});
+
+export default compose(withRouter, connect(mapStateToProps, {initializeTC}))(App);

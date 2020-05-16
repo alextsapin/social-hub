@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ImageLoader from 'react-imageloader';
-import {authTC, logoutTC} from '../../redux/reducers/auth.js';
+import {logoutTC} from '../../redux/reducers/auth.js';
 import spinner from '../spinner/spinner.jsx';
 
 import logo from '../../images/logo.png';
@@ -30,14 +30,9 @@ const Header = (props) => {
     );
 }
 
-class HeaderServer extends React.Component {
-    componentDidMount() {
-        this.props.authTC();
-    }
-
-    render() {
-        return <Header {...this.props}/>
-    }
+const HeaderServer = (props) => {
+    
+    return <Header {...props}/>
 }
 
 const mapStateToProps = (state) => ({
@@ -46,4 +41,4 @@ const mapStateToProps = (state) => ({
     login:  state.auth.login
 });
 
-export default connect(mapStateToProps, {authTC, logoutTC})(HeaderServer);
+export default connect(mapStateToProps, {logoutTC})(HeaderServer);

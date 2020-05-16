@@ -138,12 +138,11 @@ let mapStateToProps = (state) => {
         data:    state.profile.data,
         post:    state.profile.post,
         profile: state.profile.profile,
-        status:  state.profile.status
+        status:  state.profile.status,
     }
 }
 
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC})
-)(ProfileServer);;
+    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC}))(ProfileServer);
