@@ -4,11 +4,8 @@ import {connect} from 'react-redux';
 import {withRouter, Route} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 
-// HOC
-import {withAuthRedirect} from './hoc/withAuthRedirect.js';
-
 // Thunk creator
-import {initializeTC} from './redux/reducers/initialize.js';
+import {initializeTC} from './redux/reducers/app.js';
 
 // Компоненты
 import Header from './components/header/header.jsx';
@@ -18,6 +15,7 @@ import ChatBox from './components/chat/chat.jsx';
 import PeopleBox from './components/people/people.jsx';
 import Footer from './components/footer/footer.jsx';
 import Login from './components/login/login.jsx';
+import Preloader from './components/preloader/preloader.jsx';
 
 // CSS
 import './font/roboto.css';
@@ -33,6 +31,9 @@ class App extends React.Component {
     }
 
     render() {
+        if(!this.props.initialize) {
+            return <Preloader/>
+        }
         return (
             <ScrollToTop>             
                 <Header/>
@@ -58,7 +59,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    initialize: state.initialize.initialize
+    initialize: state.app.initialize
 });
 
 export default compose(withRouter, connect(mapStateToProps, {initializeTC}))(App);

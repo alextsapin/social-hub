@@ -4,7 +4,7 @@ import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 import {requiredField, maxLengthCreator, minLength} from '../../utilities/validators.js';
-import {Textarea} from '../controls/fields.js';
+import {Textarea} from '../fields/fields.js';
 
 // Thunk creators
 import {sendMessageTK} from '../../redux/reducers/chat.js';
@@ -28,14 +28,16 @@ const Chatter = (props) => {
     );
 }
 
-// Компонент ChatForm
+// Максимальное число символов
 const maxLength140 = maxLengthCreator(140);
+
+// Компонент ChatForm
 const ChatForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className="form">
             <Field component={Textarea} name="message" placeholder="Enter your text..." 
                 validate={[requiredField, maxLength140, minLength]}/>
-            <button className="btn btn-lg btn-secondary mt-2" type="submit">SEND</button>
+            <button className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Send</button>
         </form>
     );
 }

@@ -1,12 +1,11 @@
-// DAL
-import {authAPI} from '../../api/api.js';
+import {authTC} from './auth.js';
 
 // Первичный state
 let initialState = {
     initialize: false
 }
 
-const initializeReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'SET_INITIALIZE':
         return {
@@ -17,7 +16,7 @@ const initializeReducer = (state = initialState, action) => {
     return state;
 }
 
-export default initializeReducer;
+export default appReducer;
 
 // Action creators
 export const initializeAC = () => ({
@@ -27,6 +26,18 @@ export const initializeAC = () => ({
 // Thunk creators
 export const initializeTC = () => {
     return (dispatch) => {
+        let promise = dispatch(authTC());
+        Promise.all([promise]).then(() => {
+            dispatch(initializeAC());
+        })
+    }
+}
+
+
+
+
+/* export const initializeTC = () => {
+    return (dispatch) => {
         authAPI().then(response => {
             if(response.resultCode === 0) {
                 let {id, email, login} = response.data;
@@ -34,4 +45,4 @@ export const initializeTC = () => {
             }
         });
     }
-}
+} */

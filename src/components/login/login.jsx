@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {requiredField, maxLengthCreator, minLength} from '../../utilities/validators.js';
-import {InputText, InputPass, InputCheck} from '../controls/fields.js';
+import {InputText, InputPass, InputCheck} from '../fields/fields.js';
 import {loginTC} from '../../redux/reducers/auth.js';
 
 const maxLength20 = maxLengthCreator(20);

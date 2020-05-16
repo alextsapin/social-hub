@@ -34,7 +34,7 @@ export const setAuthDataAC = (id, email, login, isAuth) => ({
 // Thunk creators
 export const authTC = () => {
     return (dispatch) => {
-        authAPI().then(response => {
+        return authAPI().then(response => {
             if(response.resultCode === 0) {
                 let {id, email, login} = response.data;
                 dispatch(setAuthDataAC(id, email, login, true));
@@ -47,14 +47,7 @@ export const loginTC = (email, password, rememberMe) => {
     return (dispatch) => {
         loginAPI(email, password, rememberMe).then(response => {
             if(response.resultCode === 0) {
-                authAPI().then(response => {
-                    if(response.resultCode === 0) {
-                        let {id, email, login} = response.data;
-                        dispatch(setAuthDataAC(id, email, login, true));
-                        // Clear the form
-                        dispatch(reset('Login'));
-                    }
-                });
+                dispatch(authTC());
             } else {
                 let error = response.messages[0].length > 0 ? response.messages[0] : 'Some error';
                 dispatch(stopSubmit('Login', {_error: error}));
@@ -67,7 +60,6 @@ export const logoutTC = () => {
     return (dispatch) => {
         logoutAPI().then(response => {
             if(response.resultCode === 0) {
-                let {id, email, login} = response.data;
                 dispatch(setAuthDataAC(null, null, null, false));
             }
         });
