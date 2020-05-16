@@ -14,7 +14,6 @@ let initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
-
     let stateCopy = {
         ...state,
         data: [...state.data]
@@ -95,7 +94,7 @@ export const getProfileTC = (id) => {
 export const addPostTC = (message) => {
     return (dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
-        if(message.replace(/\s+/g,'') != '') {
+        if(message.replace(/\s+/g,'') !== '') {
             dispatch(addPostAC());
         } else {
             dispatch(updatePostAC(''));

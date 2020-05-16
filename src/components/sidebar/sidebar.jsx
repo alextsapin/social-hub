@@ -5,8 +5,6 @@ import {NavLink} from 'react-router-dom';
 import profile from '../../images/profile.png';
 import friends from '../../images/friends.png';
 import dialogs from '../../images/dialogs.png';
-import photos from '../../images/photos.png';
-import settings from '../../images/settings.png';
 
 const Sidebar = () => {
     return (
@@ -14,25 +12,25 @@ const Sidebar = () => {
             <ul className="panelbox__list">
                 <li className="panelbox__item">
                     <NavLink exact to="/profile/7020" className="panelbox__link" activeClassName="panelbox__link_active">
-                        My profile <img src={profile}/>
+                        My profile <img src={profile} alt="icon"/>
                     </NavLink>
                 </li>
 
                 <li className="panelbox__item">
                     <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/profile/2">
-                        Dmitry <img src={profile}/>
+                        Dmitry <img src={profile} alt="icon"/>
                     </NavLink>
                 </li>
 
                 <li className="panelbox__item">
                     <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/chat">
-                        Chat <img src={dialogs}/>
+                        Chat <img src={dialogs} alt="icon"/>
                     </NavLink>
                 </li>
 
                 <li className="panelbox__item">
                     <NavLink className="panelbox__link" activeClassName="panelbox__link_active" to="/users">
-                        Users <img src={friends}/>
+                        Users <img src={friends} alt="icon"/>
                     </NavLink>
                 </li>
             </ul>

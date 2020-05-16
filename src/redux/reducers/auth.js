@@ -1,5 +1,6 @@
 // DAL
 import {authAPI, loginAPI, logoutAPI} from '../../api/api.js';
+import {stopSubmit} from 'redux-form';
 
 // Первичный state
 let initialState = {
@@ -50,6 +51,9 @@ export const loginTC = (email, password, rememberMe) => {
                         dispatch(setAuthDataAC(id, email, login, true));
                     }
                 });
+            } else {
+                let error = response.messages[0].length > 0 ? response.messages[0] : 'Some error';
+                dispatch(stopSubmit('Login', {_error: error}));
             }
         });
     }

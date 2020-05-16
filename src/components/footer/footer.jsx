@@ -9,7 +9,7 @@ const Footer = () => {
 		<footer>	
 			<div className="developer">
 				<p className="developer__text">Develop by</p>
-				<a target="_blank" href="https://facebook.com/aleksandr.tsapin/">
+				<a rel="noopener noreferrer" target="_blank" href="https://facebook.com/aleksandr.tsapin/">
                     <ImageLoader className="developer__logo" src={logo} wrapper={React.createFactory('div')} 
                     preloader={spinner} alt="logo"></ImageLoader>
 				</a>

@@ -38,7 +38,7 @@ const Profile = (props) => {
     }
 
     // Заглушка, если профиль не загрузился
-    if(props.profile == null) {
+    if(props.profile === null) {
         return <Preloader/>
     }
 
@@ -52,43 +52,43 @@ const Profile = (props) => {
             </div>
             <div className="row">
                 <div className="col-xl-3 col-lg-4 col-md-5">
-                    <ImageLoader className="person__image" src={props.profile.photos.large == null ? stub : props.profile.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                    <ImageLoader className="person__image" src={props.profile.photos.large === null ? stub : props.profile.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
                 </div>
 
                 <div className="col-xl-9 col-lg-8 col-md-7 mt-5 mt-md-0">    
-                    <table class="table table-sm table-striped">
+                    <table className="table table-sm table-striped">
                         <tbody>
                             <tr>
-                                <th class="font-weight-bold">Немного о себе</th>
-                                <th>{props.profile.aboutMe == null ? '...' : props.profile.aboutMe}</th>
+                                <th className="font-weight-bold">Немного о себе</th>
+                                <th>{props.profile.aboutMe === null ? '...' : props.profile.aboutMe}</th>
                             </tr>
                             <tr>
-                                <th class="font-weight-bold">В поиске работы?</th>
-                                <th>{props.profile.lookingForAJob == false ? 'нет' : 'да'}</th>
+                                <th className="font-weight-bold">В поиске работы?</th>
+                                <th>{props.profile.lookingForAJob === false ? 'нет' : 'да'}</th>
                             </tr>
                             <tr>
-                                <th class="font-weight-bold">Причина поиска</th>
-                                <th>{props.profile.lookingForAJobDescription == null ? '...' : props.profile.lookingForAJobDescription}</th>
+                                <th className="font-weight-bold">Причина поиска</th>
+                                <th>{props.profile.lookingForAJobDescription === null ? '...' : props.profile.lookingForAJobDescription}</th>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">Facebook</td>
-                                <td>{props.profile.contacts.facebook == null ? '...' : props.profile.contacts.facebook}</td>
+                                <td className="font-weight-bold">Facebook</td>
+                                <td>{props.profile.contacts.facebook === null ? '...' : props.profile.contacts.facebook}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">VK</td>
-                                <td>{props.profile.contacts.vk == null ? '...' : props.profile.contacts.vk}</td>
+                                <td className="font-weight-bold">VK</td>
+                                <td>{props.profile.contacts.vk === null ? '...' : props.profile.contacts.vk}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">Twitter</td>
-                                <td>{props.profile.contacts.twitter == null ? '...' : props.profile.contacts.twitter}</td>
+                                <td className="font-weight-bold">Twitter</td>
+                                <td>{props.profile.contacts.twitter === null ? '...' : props.profile.contacts.twitter}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">Instagram</td>
-                                <td>{props.profile.contacts.instagram == null ? '...' : props.profile.contacts.instagram}</td>
+                                <td className="font-weight-bold">Instagram</td>
+                                <td>{props.profile.contacts.instagram === null ? '...' : props.profile.contacts.instagram}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">Website</td>
-                                <td>{props.profile.contacts.website == null ? '...' : props.profile.contacts.website}</td>
+                                <td className="font-weight-bold">Website</td>
+                                <td>{props.profile.contacts.website === null ? '...' : props.profile.contacts.website}</td>
                             </tr>
                         </tbody>
                     </table>

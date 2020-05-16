@@ -6,28 +6,31 @@ import {InputText, InputPass, InputCheck} from '../controls/fields.js';
 import {loginTC} from '../../redux/reducers/auth.js';
 
 const maxLength20 = maxLengthCreator(20);
+
 const LoginForm = (props) => {  
+    console.log(props);
     return (
         <form onSubmit={props.handleSubmit}>
+            {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
             <div className="form-group">
                 <label>Email</label>
                 <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength]}/>
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>Password</label>
                 <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength]}/>
                 <small className="form-text text-muted">Do not share your password with anyone! wXq1EbIL</small>
             </div>
-            <div class="form-group form-check">
+            <div className="form-group form-check">
                 <Field className="form-check-input" name="rememberMe" component={InputCheck} />
-                <label className="form-check-label" for="rememberMe">Remember me</label>
+                <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
             </div>
             <button type="submit" className="btn btn-secondary">LOGIN</button>
         </form>
     );
 }
 
-const LoginFormRedux = reduxForm({form: 'login'})(LoginForm);
+const LoginFormRedux = reduxForm({form: 'Login'})(LoginForm);
 
 const Login = (props) => {    
 

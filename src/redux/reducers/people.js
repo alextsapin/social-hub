@@ -164,7 +164,7 @@ export const followTC = (id) => {
         // Заблокируем кнопку
         dispatch(toggleFollowingAC(true, id));
         followAPI(id).then(data => {
-            if(data.resultCode == 0) {
+            if(data.resultCode === 0) {
                 dispatch(followAC(id));
                 // Разблокируем кнопку
                 dispatch(toggleFollowingAC(false, id));
@@ -178,7 +178,7 @@ export const unfollowTC = (id) => {
         // Заблокируем кнопку
         dispatch(toggleFollowingAC(true, id));
         unfollowAPI(id).then(data => {
-            if(data.resultCode == 0) {
+            if(data.resultCode === 0) {
                 dispatch(unfollowAC(id));
                 // Разблокируем кнопку
                 dispatch(toggleFollowingAC(false, id));

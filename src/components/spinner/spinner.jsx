@@ -4,7 +4,7 @@ import stub from './spinner.gif';
 // Функция, возвращающая крутилку для ImageLoader
 const spinner = () => {
 	return (
-		<img src={stub}/>
+		<img src={stub} alt="spinner"/>
 	);
 }
 
