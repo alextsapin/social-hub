@@ -1,3 +1,5 @@
+import {reset} from 'redux-form';
+
 // Первичный state
 let initialState = {
     data: [
@@ -65,6 +67,7 @@ export const sendMessageTK = (message) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {
             dispatch(sendMessageAC(message));
+            dispatch(reset('Chat'));
         }
     }
 }

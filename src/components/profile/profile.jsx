@@ -5,7 +5,7 @@ import Preloader from '../preloader/preloader.jsx';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 import {withRouter} from 'react-router-dom';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
+import {withPreloader} from '../../hoc/withPreloader.js';
 import Status from '../status/status.jsx';
 
 // IMG
@@ -107,7 +107,6 @@ const Profile = (props) => {
                     </div>
                 </div>
             </div>
-            
         </div>
     );
 }
@@ -143,6 +142,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    withAuthRedirect,
+   // withPreloader,
+   // withAuthRedirect,
     withRouter,
     connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC}))(ProfileServer);

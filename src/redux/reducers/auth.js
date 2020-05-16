@@ -1,6 +1,8 @@
 // DAL
-import {authAPI, loginAPI, logoutAPI} from '../../api/api.js';
 import {stopSubmit} from 'redux-form';
+import {reset} from 'redux-form';
+
+import {authAPI, loginAPI, logoutAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {
@@ -49,6 +51,8 @@ export const loginTC = (email, password, rememberMe) => {
                     if(response.resultCode === 0) {
                         let {id, email, login} = response.data;
                         dispatch(setAuthDataAC(id, email, login, true));
+                        // Clear the form
+                        dispatch(reset('Login'));
                     }
                 });
             } else {

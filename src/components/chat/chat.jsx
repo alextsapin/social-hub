@@ -40,7 +40,7 @@ const ChatForm = (props) => {
     );
 }
 
-const ChatFormRedux = reduxForm({form: 'chat'})(ChatForm);
+const ChatFormRedux = reduxForm({form: 'Chat'})(ChatForm);
 
 // Презентационная компонента Chat
 const Chat = (props) => {

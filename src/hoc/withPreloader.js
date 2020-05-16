@@ -1,21 +1,34 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import loading from '../images/loading.gif';
 
 let mapStateToProps = (state) => {
     return {
-        isAuth:  state.auth.isAuth
+        profile:   state.profile.profile,
+        isConnect: state.people.isConnect
     }
 }
 
-export const withAuthRedirect = (Component) => {
+const Preloader = () => {
+	return (
+		<div id="content">
+			<img className="preloader" src={loading} alt="preloader"/>
+		</div>
+	);
+}
 
-    let RedirectComponent = (props) => {
-        if(!props.isAuth) return <Redirect to='/login'/>
-        return <Component {...props} />
+export const withPreloader = (Component) => {
+
+    let PreloaderComponent = (props) => {
+        if(props.profile === null) {
+            console.log(props);
+            return <Preloader />
+        } else {
+            return <Component {...props} />
+        }
     }
 
-    let AuthRedirectConnect = connect(mapStateToProps)(RedirectComponent);
+    let ComponentConnect = connect(mapStateToProps)(PreloaderComponent);
 
-    return AuthRedirectConnect;
+    return ComponentConnect;
 }

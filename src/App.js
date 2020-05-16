@@ -3,6 +3,11 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter, Route} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
+
+// HOC
+import {withAuthRedirect} from './hoc/withAuthRedirect.js';
+
+// Thunk creator
 import {initializeTC} from './redux/reducers/initialize.js';
 
 // Компоненты

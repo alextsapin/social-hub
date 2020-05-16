@@ -14,37 +14,35 @@ import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux//reduc
 
 let Person = (props) => {
     return (
+        <div className="people__person">
+            <div className="row">
+                <div className="col-md-4">
+                    <div className="people__avatar">
+                        <NavLink to={'/profile/' + props.id}>
+                            <ImageLoader className="people__image" src={props.image} wrapper={React.createFactory('div')} 
+                                preloader={spinner}>
+                            </ImageLoader>
+                        </NavLink>
+                        <div>
+                            {
+                                props.followed
+                                ? <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow" 
+                                onClick={()=> {props.unfollowTC(props.id);}}>UNFOLLOW</button>
 
-                <div className="people__person">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <div className="people__avatar">
-                                <NavLink to={'/profile/' + props.id}>
-                                    <ImageLoader className="people__image" src={props.image} wrapper={React.createFactory('div')} 
-                                        preloader={spinner}>
-                                    </ImageLoader>
-                                </NavLink>
-                                <div>
-                                    {
-                                        props.followed
-                                        ? <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow" 
-                                        onClick={()=> {props.unfollowTC(props.id);}}>UNFOLLOW</button>
-
-                                        : <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow"
-                                        onClick={()=> {props.followTC(props.id)}}>FOLLOW</button>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-8">
-                            <div className="people__info">
-                                <NavLink className="people__name" to={'/profile/' + props.id}>{props.name}</NavLink>
-                                <p className="people__status">{props.status}</p>
-                            </div>
+                                : <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow"
+                                onClick={()=> {props.followTC(props.id)}}>FOLLOW</button>
+                            }
                         </div>
                     </div>
                 </div>
-
+                <div className="col-md-8">
+                    <div className="people__info">
+                        <NavLink className="people__name" to={'/profile/' + props.id}>{props.name}</NavLink>
+                        <p className="people__status">{props.status}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
