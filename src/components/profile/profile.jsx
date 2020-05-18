@@ -96,9 +96,9 @@ const Profile = (props) => {
 
             <div className="row">
                 <div className="col-12">
-                    <h1 class="title">Мои посты:</h1>
+                    <h1 className="title">Мои посты:</h1>
                     {postBox}
-                    <h2 class="subtitle">Добавить новый пост</h2>
+                    <h2 className="subtitle">Добавить новый пост</h2>
                     <div className="form">
                         <textarea onChange={updatePost} value={props.post} ref={textarea} className="form__post" 
                             placeholder="Enter your text..."/>
@@ -141,7 +141,6 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-   // withPreloader,
    // withAuthRedirect,
     withRouter,
     connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC}))(ProfileServer);
