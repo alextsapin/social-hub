@@ -1,4 +1,5 @@
 import React from 'react';
+import {compose} from 'redux';
 import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
@@ -10,7 +11,16 @@ import spinner from '../spinner/spinner.jsx';
 import stub from '../../images/stub.png';
 
 // Thunk creators
-import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux//reducers/people.js';
+import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people.js';
+
+// Selectors
+import {getPeople, 
+        getPageSize, 
+        getPeopleCount, 
+        getCurrentPage,
+        getIsConnect,
+        getFollowUsers
+} from '../../redux/selectors/people.js';
 
 let Person = (props) => {
     return (
@@ -103,7 +113,8 @@ class PeopleServer extends React.Component {
 }
 
 // Контейнерная компонента Profile
-let mapStateToProps = (state) => {
+
+/* let mapStateToProps = (state) => {
     return {
         isAuth:         state.auth.isAuth,
         data:           state.people.data,
@@ -113,8 +124,26 @@ let mapStateToProps = (state) => {
         isConnect:      state.people.isConnect,
         followUsers:    state.people.followUsers
     }
+} */
+
+let mapStateToProps = (state) => {
+    return {
+        data:           getPeople(state),
+        size:           getPageSize(state),
+        count:          getPeopleCount(state),
+        currentPage:    getCurrentPage(state),
+        isConnect:      getIsConnect(state),
+        followUsers:    getFollowUsers(state),
+        //followUsers:    state.people.followUsers
+
+
+        isAuth:         state.auth.isAuth,
+        
+        
+        
+    }
 }
 
-const PeopleBox = connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC})(PeopleServer);
 
-export default PeopleBox;
+
+export default compose(connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC}))(PeopleServer);

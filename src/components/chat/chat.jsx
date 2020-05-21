@@ -1,4 +1,5 @@
 import React from 'react';
+import {compose} from 'redux';
 import ImageLoader from 'react-imageloader';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
@@ -72,6 +73,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-const ChatBox = connect(mapStateToProps, {sendMessageTK})(Chat);
-
-export default ChatBox;
+export default compose(connect(mapStateToProps, {sendMessageTK}))(Chat);
