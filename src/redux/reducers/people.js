@@ -65,7 +65,7 @@ const peopleReducer = (state = initialState, action) => {
                 ...state, 
                 followUsers: action.isConnect 
                 ? [...state.followUsers, action.id]
-                : state.followUsers.filter(id => id != action.id)
+                : state.followUsers.filter(id => id !== action.id)
             } 
         }
 

@@ -1,23 +1,29 @@
-export const getPeople = (state) => {
-    return state.people.data
-}
+import {createSelector} from 'reselect';
 
-export const getPageSize = (state) => {
+const getPeople = (state) => {
+    return state.people.data
+};
+
+export const peopleSelector = createSelector(getPeople, (data) => {
+    return data;
+});
+
+export const pageSizeSelector = (state) => {
     return state.people.size
 }
 
-export const getPeopleCount = (state) => {
+export const peopleCountSelector = (state) => {
     return state.people.count
 }
 
-export const getCurrentPage = (state) => {
+export const currentPageSelector = (state) => {
     return state.people.currentPage
 }
 
-export const getIsConnect = (state) => {
+export const isConnectSelector = (state) => {
     return state.people.isConnect
 }
 
-export const getFollowUsers = (state) => {
+export const followUsersSelector = (state) => {
     return state.people.followUsers
 }

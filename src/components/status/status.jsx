@@ -1,4 +1,45 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
+const StatusHooks = (props) => {
+
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
+
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
+
+    const activateEditMode = () => {
+        setEditMode(true);
+    }
+
+    const deActivateEditMode = () => {
+        setEditMode(false);
+        props.updateStatusTC(status);
+    }
+
+    const onStatusChange = (e) => {
+        setStatus(e.currentTarget.value);
+    }
+
+    let text = '';
+    if(props.status !== null) {
+        text = props.status;
+    }
+    else {
+        text = '....................';
+    }
+
+    return (
+        <div className="status">
+            {   
+                !editMode 
+                ?<blockquote onClick={activateEditMode}>{text}</blockquote>
+                :<input autoFocus={true} onBlur={deActivateEditMode} className="form-control" value={status} onChange={onStatusChange}/>
+            }  
+        </div>
+    )
+}
 
 class Status extends React.Component {
     
@@ -38,7 +79,7 @@ class Status extends React.Component {
     render() {
         
         let status = '';
-        if(this.props.status != null) {
+        if(this.props.status !== null) {
             status = this.props.status;
         }
         else {
@@ -58,4 +99,4 @@ class Status extends React.Component {
     }
 }
 
-export default Status;
+export default StatusHooks;

@@ -14,15 +14,15 @@ import stub from '../../images/stub.png';
 import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people.js';
 
 // Selectors
-import {getPeople, 
-        getPageSize, 
-        getPeopleCount, 
-        getCurrentPage,
-        getIsConnect,
-        getFollowUsers
+import {peopleSelector, 
+        pageSizeSelector, 
+        peopleCountSelector, 
+        currentPageSelector,
+        isConnectSelector,
+        followUsersSelector
 } from '../../redux/selectors/people.js';
 
-let Person = (props) => {
+const Person = (props) => {
     return (
         <div className="people__person">
             <div className="row">
@@ -56,7 +56,7 @@ let Person = (props) => {
     )
 }
 
-let People = (props) => {
+const People = (props) => {
     return (
         <div className="mt-5 mb-5">
             {props.data.map(item => 
@@ -113,37 +113,16 @@ class PeopleServer extends React.Component {
 }
 
 // Контейнерная компонента Profile
-
-/* let mapStateToProps = (state) => {
-    return {
-        isAuth:         state.auth.isAuth,
-        data:           state.people.data,
-        size:           state.people.size,
-        count:          state.people.count,
-        currentPage:    state.people.currentPage,
-        isConnect:      state.people.isConnect,
-        followUsers:    state.people.followUsers
-    }
-} */
-
 let mapStateToProps = (state) => {
     return {
-        data:           getPeople(state),
-        size:           getPageSize(state),
-        count:          getPeopleCount(state),
-        currentPage:    getCurrentPage(state),
-        isConnect:      getIsConnect(state),
-        followUsers:    getFollowUsers(state),
-        //followUsers:    state.people.followUsers
-
-
+        data:           peopleSelector(state),
+        size:           pageSizeSelector(state),
+        count:          peopleCountSelector(state),
+        currentPage:    currentPageSelector(state),
+        isConnect:      isConnectSelector(state),
+        followUsers:    followUsersSelector(state),
         isAuth:         state.auth.isAuth,
-        
-        
-        
     }
 }
-
-
 
 export default compose(connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC}))(PeopleServer);
