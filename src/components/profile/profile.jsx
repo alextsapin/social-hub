@@ -116,7 +116,7 @@ const Profile = (props) => {
 class ProfileServer extends React.Component {
 
     componentDidMount() {
-        let id = this.props.match.params.id ? this.props.match.params.id : 7020;
+        let id = this.props.match.params.id ? this.props.match.params.id : this.props.id;
         this.props.getProfileTC(id);
         this.props.getStatusTC(id);
     }
@@ -140,7 +140,8 @@ let mapStateToProps = (state) => {
         data:    state.profile.data,
         post:    state.profile.post,
         profile: state.profile.profile,
-        status:  statusSelector(state)
+        status:  statusSelector(state),
+        id:      state.auth.id,
     }
 }
 

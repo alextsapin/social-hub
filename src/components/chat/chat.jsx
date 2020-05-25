@@ -47,6 +47,7 @@ const ChatFormRedux = reduxForm({form: 'Chat'})(ChatForm);
 
 // Презентационная компонента Chat
 const Chat = (props) => {
+
     let userBox = props.chatData.map(item => (<Chatter key={item.id} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values) => {

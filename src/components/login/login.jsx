@@ -27,7 +27,7 @@ const LoginForm = (props) => {
                 <Field className="form-check-input" name="rememberMe" component={InputCheck} />
                 <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
             </div>
-            <button type="submit" className="btn btn-secondary">LOGIN</button>
+            <button type="submit" className="btn btn-secondary">Login</button>
         </form>
     );
 }
@@ -46,7 +46,7 @@ const Login = (props) => {
                 <h1 className="title">Login</h1>
             </div>
             
-            <div className="col-md-6">
+            <div className="offset-md-3 col-md-6">
                 <LoginFormRedux onSubmit={onSubmit}/>
             </div>
       </div>

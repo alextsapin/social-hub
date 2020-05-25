@@ -23,7 +23,7 @@ const profileReducer = (state = initialState, action) => {
         // Добавим пост
         case 'ADD_POST': 
             let post = {
-                id: 4, 
+                id: stateCopy.data.length + 1, 
                 text: state.post
             }
 
