@@ -13,6 +13,9 @@ import stub from '../../images/stub.png';
 // Thunk creators
 import {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC} from '../../redux/reducers/profile.js';
 
+// Selectors
+import {statusSelector} from '../../redux/selectors/profile.js';
+
 const Post = (props) => {
     return (
         <div className="post">
@@ -28,7 +31,8 @@ const Profile = (props) => {
     let postBox = props.data.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
 
-    let addPost = () => {
+    let addPost = (e) => {
+        e.preventDefault();
         props.addPostTC(textarea.current.value);
     }
 
@@ -99,11 +103,10 @@ const Profile = (props) => {
                     <h1 className="title">Мои посты:</h1>
                     {postBox}
                     <h2 className="subtitle">Добавить новый пост</h2>
-                    <div className="form">
-                        <textarea onChange={updatePost} value={props.post} ref={textarea} className="form__post" 
-                            placeholder="Enter your text..."/>
-                        <button onClick={addPost} className="form__submit" type="submit">SEND</button>
-                    </div>
+                    <form className="form">
+                        <textarea className="form-control" onChange={updatePost} value={props.post} ref={textarea} placeholder="Enter your text..." rows="5"/>
+                        <button onClick={addPost} className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Send</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -113,8 +116,9 @@ const Profile = (props) => {
 class ProfileServer extends React.Component {
 
     componentDidMount() {
-        this.props.getProfileTC(this.props.match.params.id);
-        this.props.getStatusTC(this.props.match.params.id);
+        let id = this.props.match.params.id ? this.props.match.params.id : 7020;
+        this.props.getProfileTC(id);
+        this.props.getStatusTC(id);
     }
 
     // Перерисуем компонент, если изменился id
@@ -136,7 +140,7 @@ let mapStateToProps = (state) => {
         data:    state.profile.data,
         post:    state.profile.post,
         profile: state.profile.profile,
-        status:  state.profile.status,
+        status:  statusSelector(state)
     }
 }
 

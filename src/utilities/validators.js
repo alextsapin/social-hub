@@ -19,9 +19,9 @@ export const maxLengthCreator = (length) => (value) => {
 }
 
 // Минимальная длина текста
-export const minLength = (value) => {
-    if(value && value.length < 1 ) {
-        return 'Min length is 1 symbol';
+export const minLengthCreator = (length) => (value) => {
+    if(value && value.length < length ) {
+        return `Min length is ${length} symbol(s)`;
     }
     else {
         return undefined;

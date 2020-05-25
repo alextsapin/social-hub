@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
-import {requiredField, maxLengthCreator, minLength} from '../../utilities/validators.js';
+import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
 import {InputText, InputPass, InputCheck} from '../fields/fields.js';
 import {loginTC} from '../../redux/reducers/auth.js';
 
 const maxLength20 = maxLengthCreator(20);
+const minLength3 = minLengthCreator(3);
+const minLength6 = minLengthCreator(6);
 
 const LoginForm = (props) => {  
     
@@ -14,11 +16,11 @@ const LoginForm = (props) => {
             {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
             <div className="form-group">
                 <label>Email</label>
-                <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength]}/>
+                <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength3]}/>
             </div>
             <div className="form-group">
                 <label>Password</label>
-                <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength]}/>
+                <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength6]}/>
                 <small className="form-text text-muted">Do not share your password with anyone! wXq1EbIL</small>
             </div>
             <div className="form-group form-check">

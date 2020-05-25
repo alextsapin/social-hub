@@ -1,13 +1,14 @@
 import {createSelector} from 'reselect';
 
 const getStatus = (state) => {
-    return state.people.data
+    return state.profile.status;
 };
 
-export const statusSelector = createSelector(getPeople, (data) => {
-    return data;
+export const statusSelector = createSelector(getStatus, (status) => {
+    if(status === null) {
+        return '....................';
+    }
+    else {
+        return status;
+    }
 });
-
-export const pageSizeSelector = (state) => {
-    return state.people.size
-}

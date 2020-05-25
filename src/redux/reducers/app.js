@@ -32,17 +32,3 @@ export const initializeTC = () => {
         })
     }
 }
-
-
-
-
-/* export const initializeTC = () => {
-    return (dispatch) => {
-        authAPI().then(response => {
-            if(response.resultCode === 0) {
-                let {id, email, login} = response.data;
-                dispatch(initializeAC(id, email, login, true));
-            }
-        });
-    }
-} */

@@ -9,7 +9,6 @@ import {initializeTC} from './redux/reducers/app.js';
 
 // Компоненты
 import Header from './components/header/header.jsx';
-import Sidebar from './components/sidebar/sidebar.jsx';
 import ProfileBox from './components/profile/profile.jsx';
 import ChatBox from './components/chat/chat.jsx';
 import PeopleBox from './components/people/people.jsx';
@@ -31,22 +30,22 @@ class App extends React.Component {
     }
 
     render() {
+
         if(!this.props.initialize) {
             return <Preloader/>
         }
+
         return (
             <ScrollToTop>             
                 <Header/>
-                    <div className="container-fluid">
+                    <div className="container-xl">
                         <div className="row">
-                            <div id="sidebar" className="col-lg-3 col-md-4">
-                                <Sidebar/>
-                            </div>
-                            <div className="col-lg-9 col-md-8">
+                            <div className="col-12">
                                 <div id="content">
+                                    <Route exact path='/'       render={() => <ProfileBox/>}/>
+                                    <Route exact path='/users'  render={() => <PeopleBox/>}/>
                                     <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
                                     <Route path='/chat'         render={() => <ChatBox/>}/>
-                                    <Route path='/users'        render={() => <PeopleBox/>}/>
                                     <Route path='/login'        render={() => <Login/>}/>
                                 </div>
                             </div>

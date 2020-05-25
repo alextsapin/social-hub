@@ -37,7 +37,10 @@ export const authTC = () => {
         return authAPI().then(response => {
             if(response.resultCode === 0) {
                 let {id, email, login} = response.data;
+                console.log(response.data);
                 dispatch(setAuthDataAC(id, email, login, true));
+            } else {
+                dispatch(setAuthDataAC(null, null, null, false));
             }
         });
     }

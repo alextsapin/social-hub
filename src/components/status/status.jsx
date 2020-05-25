@@ -22,19 +22,11 @@ const StatusHooks = (props) => {
         setStatus(e.currentTarget.value);
     }
 
-    let text = '';
-    if(props.status !== null) {
-        text = props.status;
-    }
-    else {
-        text = '....................';
-    }
-
     return (
         <div className="status">
             {   
                 !editMode 
-                ?<blockquote onClick={activateEditMode}>{text}</blockquote>
+                ?<blockquote onClick={activateEditMode}>{status}</blockquote>
                 :<input autoFocus={true} onBlur={deActivateEditMode} className="form-control" value={status} onChange={onStatusChange}/>
             }  
         </div>
@@ -78,19 +70,11 @@ class Status extends React.Component {
     
     render() {
         
-        let status = '';
-        if(this.props.status !== null) {
-            status = this.props.status;
-        }
-        else {
-            status = '....................';
-        }
-
         return (
             <div className="status">
                 {   
                     ! this.state.editMode 
-                    ? <blockquote onClick={this.activateEditMode}>{status}</blockquote>
+                    ? <blockquote onClick={this.activateEditMode}>{this.props.status}</blockquote>
                     : <input autoFocus={true} onBlur={this.deActivateEditMode} className="form-control" value={this.state.status} 
                     onChange={this.onStatusChange}/>
                 }  
