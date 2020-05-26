@@ -12,12 +12,12 @@ import appReducer from './reducers/app.js';
 
 // Объединим редьюсеры
 let reducers = combineReducers({
-    profile : profileReducer,
-    chat    : chatReducer,
-    people  : peopleReducer,
-    auth    : authReducer,
-    app     : appReducer,
-    form    : formReducer
+    profile: profileReducer,
+    chat:    chatReducer,
+    people:  peopleReducer,
+    auth:    authReducer,
+    app:     appReducer,
+    form:    formReducer
 });
 
 // Создадим store c помощью redux

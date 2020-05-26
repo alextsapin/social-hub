@@ -12,3 +12,17 @@ export const statusSelector = createSelector(getStatus, (status) => {
         return status;
     }
 });
+
+export const postSelector = (state) => {
+    return state.profile.post;
+};
+
+export const dataSelector = (state) => {
+    return state.profile.data;
+};
+
+export const personSelector = (state) => {
+    return state.profile.person;
+};
+
+

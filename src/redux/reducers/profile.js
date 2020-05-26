@@ -9,7 +9,7 @@ let initialState = {
         {id:3, text:"В Монголии нашли нефть."}
     ],
     post: '',
-    profile: null,
+    person: null,
     status: ''
 }
 
@@ -41,7 +41,7 @@ const profileReducer = (state = initialState, action) => {
 
         // Установим профиль пользователя
         case 'SET_USER_PROFILE': 
-        return {...state, profile: action.profile}
+        return {...state, person: action.person}
         
         // Установим статус
         case 'SET_STATUS': 
@@ -67,10 +67,10 @@ export const updatePostAC = (newPost) => {
     }
 }
 
-export const setProfileAC = (profile) => {
+export const setProfileAC = (person) => {
     return {
         type: 'SET_USER_PROFILE', 
-        profile
+        person
     }
 }
 
