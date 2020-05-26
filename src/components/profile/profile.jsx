@@ -7,6 +7,7 @@ import spinner from '../spinner/spinner.jsx';
 import {withRouter} from 'react-router-dom';
 import Status from '../status/status.jsx';
 
+// HOC
 import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
 
 // IMG

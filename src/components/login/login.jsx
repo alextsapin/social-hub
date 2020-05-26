@@ -25,11 +25,12 @@ const LoginForm = (props) => {
             <div className="form-group">
                 <label>Email</label>
                 <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength3]}/>
+                <small className="form-text text-muted">alextsapin@yandex.ru</small>
             </div>
             <div className="form-group">
                 <label>Password</label>
                 <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength6]}/>
-                <small className="form-text text-muted">Do not share your password with anyone! wXq1EbIL</small>
+                <small className="form-text text-muted">wXq1EbIL</small>
             </div>
             <div className="form-group form-check">
                 <Field className="form-check-input" name="rememberMe" component={InputCheck} />

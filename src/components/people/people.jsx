@@ -22,6 +22,29 @@ import {peopleSelector,
         followUsersSelector
 } from '../../redux/selectors/people.js';
 
+import {isAuthSelector} from '../../redux/selectors/auth.js';
+
+// Icons
+import {PersonPlusIcon} from '../../icons/icons.js';
+
+
+const Follow = (props) => {
+    if(props.followed) {
+        return (
+            <button disabled={props.followUsers.some(id=>id===props.id)} className="btn btn-secondary" onClick={()=>{props.unfollowTC(props.id);}}>
+                <PersonPlusIcon/>
+                <span>UNFOLLOW</span>
+            </button>)
+    } else {
+        return (
+            <button disabled={props.followUsers.some(id=>id===props.id)} className="btn btn-secondary" onClick={()=>{props.followTC(props.id)}}>
+                <PersonPlusIcon/>
+                <span>FOLLOW</span>
+            </button>
+        )
+    }
+}
+
 const Person = (props) => {
     return (
         <div className="people__person">
@@ -33,28 +56,7 @@ const Person = (props) => {
                                 preloader={spinner}>
                             </ImageLoader>
                         </NavLink>
-                        <div>
-                            {
-                                props.followed
-                                ? <button disabled={props.followUsers.some(id => id === props.id)} className="btn btn-secondary" 
-                                onClick={()=> {props.unfollowTC(props.id);}}>
-                                    <svg className="mr-2 mb-1 bi bi-person-plus-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
-                                    </svg>
-                                    <span>UNFOLLOW</span>
-                                  </button>
-
-                                : <button disabled={props.followUsers.some(id => id === props.id)} className="btn btn-secondary"
-                                onClick={()=> {props.followTC(props.id)}}>
-                                    <svg className="mr-2 mb-1 bi bi-person-plus-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
-                                    </svg>
-                                    <span>FOLLOW</span>
-                                  </button>
-                            }
-                        </div>
+                        {props.isAuth ? <Follow {...props}/> : ''}
                     </div>
                 </div>
                 <div className="col-md-8">
@@ -82,6 +84,7 @@ const People = (props) => {
                     followUsers    = {props.followUsers}
                     followTC       = {props.followTC}
                     unfollowTC     = {props.unfollowTC}
+                    isAuth         = {props.isAuth}
                 />
             )}
 
@@ -119,6 +122,7 @@ class PeopleServer extends React.Component {
                 followUsers      = {this.props.followUsers}
                 followTC         = {this.props.followTC}
                 unfollowTC       = {this.props.unfollowTC}
+                isAuth           = {this.props.isAuth}
             />
         );
     }
@@ -133,7 +137,7 @@ let mapStateToProps = (state) => {
         currentPage:    currentPageSelector(state),
         isConnect:      isConnectSelector(state),
         followUsers:    followUsersSelector(state),
-        isAuth:         state.auth.isAuth,
+        isAuth:         isAuthSelector(state),
     }
 }
 

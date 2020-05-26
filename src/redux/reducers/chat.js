@@ -34,8 +34,8 @@ const chatReducer = (state = initialState, action) => {
         case 'SEND_MESSAGE': 
             let message = {
                 id: stateCopy.data.length +1, 
-                name: "Kaleb",
-                image: "https://i.ibb.co/6XMcpbV/kaleb.png",
+                name: "Alex",
+                image: "https://i.ibb.co/MSvgW8j/alex.png",
                 message: action.message
             }
 

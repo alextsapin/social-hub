@@ -10,6 +10,9 @@ import {Textarea} from '../fields/fields.js';
 // Thunk creators
 import {sendMessageTK} from '../../redux/reducers/chat.js';
 
+// HOC
+import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
+
 const Chatter = (props) => {
         return (
         <div className="chat">
@@ -74,4 +77,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {sendMessageTK}))(Chat);
+export default compose(withAuthRedirect,connect(mapStateToProps, {sendMessageTK}))(Chat);

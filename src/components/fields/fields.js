@@ -53,18 +53,6 @@ export const InputPass = ({input, meta, ...props}) => {
     return <input className={style} {...input} {...props} type="password"/>
 }
 
-export const InputCheck = ({input, meta, ...props}) => {
-
-    let style = '';    
-    if(meta.touched && meta.error) {
-        style = 'form-control is-invalid';  
-    }
-    else if(meta.touched && !meta.error) {
-        style = 'form-control is-valid';
-    }
-    else {
-        style = 'form-control';
-    }
-    
-    return <input className={style} {...input} {...props} type="checkbox" id="rememberMe"/>
+export const InputCheck = ({input, meta, ...props}) => { 
+    return <input {...input} {...props} type="checkbox" id="rememberMe"/>
 }
