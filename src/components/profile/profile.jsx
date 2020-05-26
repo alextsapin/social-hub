@@ -7,6 +7,8 @@ import spinner from '../spinner/spinner.jsx';
 import {withRouter} from 'react-router-dom';
 import Status from '../status/status.jsx';
 
+import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
+
 // IMG
 import stub from '../../images/stub.png';
 
@@ -141,9 +143,11 @@ let mapStateToProps = (state) => {
         post:    state.profile.post,
         profile: state.profile.profile,
         status:  statusSelector(state),
-        id:      state.auth.id,
+        id:      state.auth.id
     }
 }
 
-export default compose(withRouter, 
+export default compose(
+    withRouter,
+    withAuthRedirect,
     connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC}))(ProfileServer);

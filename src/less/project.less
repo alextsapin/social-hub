@@ -56,7 +56,7 @@ img {
 		text-decoration: none;
 		content: '';
 		width: 100%;
-		height: 3px;
+		height: 2px;
 		background-color: white;
 		display: block;
 		transform: translateY(20px) scale(0);
@@ -82,6 +82,12 @@ img {
 
 nav .btn {
     font-size: 1.25rem;
+}
+
+.btn {
+    &:disabled {
+        cursor: default !important;
+    }
 }
 
 /*---------------*/
@@ -239,22 +245,6 @@ nav .btn {
     &:hover {
         color: @text;
         text-decoration: underline;
-    }
-}
-
-.people__follow {
-    margin-top: 20px;
-    background-color: @border;
-    height: 40px;
-    width: 150px;
-    cursor: pointer;
-    border-radius: 25px;
-    border: none;
-    color: white;
-    font-size: 18px;
-    &:disabled {
-        color: grey;
-        cursor: default;
     }
 }
 

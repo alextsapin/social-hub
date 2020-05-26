@@ -36,11 +36,23 @@ const Person = (props) => {
                         <div>
                             {
                                 props.followed
-                                ? <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow" 
-                                onClick={()=> {props.unfollowTC(props.id);}}>UNFOLLOW</button>
+                                ? <button disabled={props.followUsers.some(id => id === props.id)} className="btn btn-secondary" 
+                                onClick={()=> {props.unfollowTC(props.id);}}>
+                                    <svg className="mr-2 mb-1 bi bi-person-plus-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+                                    </svg>
+                                    <span>UNFOLLOW</span>
+                                  </button>
 
-                                : <button disabled={props.followUsers.some(id => id === props.id)} className="people__follow"
-                                onClick={()=> {props.followTC(props.id)}}>FOLLOW</button>
+                                : <button disabled={props.followUsers.some(id => id === props.id)} className="btn btn-secondary"
+                                onClick={()=> {props.followTC(props.id)}}>
+                                    <svg className="mr-2 mb-1 bi bi-person-plus-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+                                    </svg>
+                                    <span>FOLLOW</span>
+                                  </button>
                             }
                         </div>
                     </div>

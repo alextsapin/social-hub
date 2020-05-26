@@ -1,9 +1,17 @@
 import React from 'react';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
+
+// Form
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
 import {InputText, InputPass, InputCheck} from '../fields/fields.js';
+
+// Thunk creators
 import {loginTC} from '../../redux/reducers/auth.js';
+
+// HOC
+import {withProfileRedirect} from '../../hoc/withProfileRedirect.js';
 
 const maxLength20 = maxLengthCreator(20);
 const minLength3 = minLengthCreator(3);
@@ -36,6 +44,8 @@ const LoginFormRedux = reduxForm({form: 'Login'})(LoginForm);
 
 const Login = (props) => {    
 
+    console.log(props);
+
     const onSubmit = (data) => {
         props.loginTC(data.email, data.password, data.rememberMe)
     }
@@ -53,4 +63,6 @@ const Login = (props) => {
     );
 }
 
-export default connect(null, {loginTC})(Login);
+export default compose(
+    withProfileRedirect, 
+    connect(null, {loginTC}))(Login);

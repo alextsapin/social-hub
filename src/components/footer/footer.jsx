@@ -13,12 +13,10 @@ const Footer = () => {
                     <ImageLoader className="developer__logo" src={logo} wrapper={React.createFactory('div')} 
                     preloader={spinner} alt="logo"></ImageLoader>
 				</a>
-				<p className="developer__text developer__text_copy">2020 SOCIAL NETWORK. ALL RIGHTS RESERVED</p>
+				<p className="developer__text developer__text_copy">2020 SOCIAL NETWORK</p>
 			</div>
 		</footer>
 	);
 };
-
-
 
 export default Footer;
