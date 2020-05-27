@@ -4,8 +4,12 @@ import ImageLoader from 'react-imageloader';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
+
+// Fields
+import {Textarea} from '../../fields/fields.js';
+
+// Validators
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
-import {Textarea} from '../fields/fields.js';
 
 // Thunk creators
 import {sendMessageTK} from '../../redux/reducers/chat.js';
@@ -15,20 +19,20 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
 
 const Chatter = (props) => {
         return (
-        <div className="chat">
-            <div className="row">
-                <div className="col-md-3">
-                    <div className="chat__user">
-                        <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-                        <p className="chat__name">{props.name}</p>
+            <div className="chat">
+                <div className="row">
+                    <div className="col-md-3">
+                        <div className="chat__user">
+                            <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                            <p className="chat__name">{props.name}</p>
+                        </div>
+                    </div>
+                    <div className="col-md-9 d-inline-flex flex-column justify-content-center">
+                        <p className="chat__message">{props.message}</p>
                     </div>
                 </div>
-                <div className="col-md-9 d-inline-flex flex-column justify-content-center">
-                    <p className="chat__message">{props.message}</p>
-                </div>
             </div>
-        </div>
-    );
+        );
 }
 
 // Максимальное и минимальное число символов

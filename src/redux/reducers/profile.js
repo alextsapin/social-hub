@@ -39,6 +39,10 @@ const profileReducer = (state = initialState, action) => {
         stateCopy.post = action.post;
         return stateCopy; 
 
+        // Удалим пост
+        case 'DELETE_POST': 
+        return {...state, data: state.data.filter(post => post.id !== action.id)} 
+
         // Установим профиль пользователя
         case 'SET_USER_PROFILE': 
         return {...state, person: action.person}
@@ -64,6 +68,13 @@ export const updatePostAC = (newPost) => {
     return {
         type: 'UPDATE_POST', 
         post: newPost
+    }
+}
+
+export const delPostAC = (id) => {
+    return {
+        type: 'DELETE_POST', 
+        id: id
     }
 }
 

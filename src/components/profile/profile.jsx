@@ -29,6 +29,7 @@ const Post = (props) => {
 }
 
 const PostData = (props) => {
+
     // Посты пользователя
     let postBox = props.data.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea = React.createRef();
@@ -87,7 +88,7 @@ const Profile = (props) => {
                             </tr>
                             <tr>
                                 <th className="font-weight-bold">В поиске работы?</th>
-                                <th>{props.person.lookingForAJob === false ? 'нет' : 'да'}</th>
+                                <th>{props.person.lookingForAJob === false ? '...' : 'да'}</th>
                             </tr>
                             <tr>
                                 <th className="font-weight-bold">Причина поиска</th>

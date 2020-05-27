@@ -5,7 +5,7 @@ import {Field, reduxForm} from 'redux-form';
 
 // Form
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
-import {InputText, InputPass, InputCheck} from '../fields/fields.js';
+import {InputText, InputPass, InputCheck} from '../../fields/fields.js';
 
 // Thunk creators
 import {loginTC} from '../../redux/reducers/auth.js';
