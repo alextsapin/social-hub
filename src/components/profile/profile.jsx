@@ -14,7 +14,7 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
 import stub from '../../images/stub.png';
 
 // Thunk creators
-import {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC} from '../../redux/reducers/profile.js';
+import {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC, setAvatarTC} from '../../redux/reducers/profile.js';
 
 // Selectors
 import {statusSelector, postSelector, dataSelector, personSelector} from '../../redux/selectors/profile.js';
@@ -50,11 +50,31 @@ const PostData = (props) => {
                 {postBox}
                 <h2 className="subtitle">Добавить новый пост</h2>
                 <form className="form">
-                    <textarea className="form-control" onChange={updatePost} value={props.post} ref={textarea} placeholder="Enter your text..." rows="5"/>
+                    <textarea className="form-control" onChange={updatePost} value={props.post} ref={textarea} rows="5"
+                        placeholder="Enter your text..."/>
                     <button onClick={addPost} className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Send</button>
                 </form>
             </div>
         </div>
+    );
+}
+
+const Avatar = (props) => {
+
+    let savePhoto = (e) => {
+        if(e.target.files.length) {
+            props.setAvatarTC(e.target.files[0]);
+        }
+    }
+
+    return (
+        <form>
+            <div className="form-group mt-3">
+                <label htmlFor="exampleFormControlFile1">Выберите фото профиля</label>
+                <input onChange={savePhoto} type="file" className="form-control-file mt-3" id="exampleFormControlFile1"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Загрузить</button>
+        </form>
     );
 }
 
@@ -77,6 +97,7 @@ const Profile = (props) => {
             <div className="row">
                 <div className="col-xl-3 col-lg-4 col-md-5">
                     <ImageLoader className="person__image" src={props.person.photos.large === null ? stub : props.person.photos.large} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                    {props.id === props.person.userId ? <Avatar {...props}/> : ''}
                 </div>
 
                 <div className="col-xl-9 col-lg-8 col-md-7 mt-5 mt-md-0">    
@@ -127,17 +148,21 @@ const Profile = (props) => {
 
 class ProfileServer extends React.Component {
 
-    componentDidMount() {
+    getUserData() {
         let id = this.props.match.params.id ? this.props.match.params.id : this.props.id;
         this.props.getProfileTC(id);
         this.props.getStatusTC(id);
     }
 
+    componentDidMount() {
+        this.getUserData();
+        
+    }
+
     // Перерисуем компонент, если изменился id
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.match.params.id !== this.props.match.params.id) {
-            this.props.getProfileTC(this.props.match.params.id);
-            this.props.getStatusTC(this.props.match.params.id);
+            this.getUserData();
         }
     }
 
@@ -149,15 +174,15 @@ class ProfileServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
+        id:      userIdSelector(state),
         data:    dataSelector(state),
         post:    postSelector(state),
         person:  personSelector(state),
-        status:  statusSelector(state),
-        id:      userIdSelector(state)
+        status:  statusSelector(state)
     }
 }
 
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC}))(ProfileServer);
+    connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC, setAvatarTC}))(ProfileServer);

@@ -51,7 +51,7 @@ export const ChatIcon = () => {
 
 export const LoginIcon = () => {
     return (
-        <svg class="mr-2 mb-1 bi bi-shield-lock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
+        <svg className="mr-2 mb-1 bi bi-shield-lock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
             xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" d="M5.187 1.025C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 0 1 2.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 0 1-2.418 2.3 6.942 6.942 0 0 1-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 0 1-1.007-.586 11.192 11.192 0 0 1-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 0 1 2.415 1.84a61.11 61.11 0 0 1 2.772-.815zm3.328 6.884a1.5 1.5 0 1 0-1.06-.011.5.5 0 0 0-.044.136l-.333 2a.5.5 0 0 0 .493.582h.835a.5.5 0 0 0 .493-.585l-.347-2a.5.5 0 0 0-.037-.122z"/>
         </svg>
@@ -60,7 +60,7 @@ export const LoginIcon = () => {
 
 export const LogoutIcon = () => {
     return (
-        <svg class="mr-2 mb-1 bi bi-shield-slash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
+        <svg className="mr-2 mb-1 bi bi-shield-slash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
             xmlns="http://www.w3.org/2000/svg">
             <path d="M1.357 3.478c-.42 3.969.87 6.928 2.423 8.911a11.192 11.192 0 0 0 2.417 2.3c.371.256.715.451 1.007.586.27.124.558.225.796.225s.527-.101.796-.225c.292-.135.636-.33 1.007-.586.466-.32.983-.74 1.502-1.263L1.357 3.478zm11.787 7.545c1.145-1.984 1.902-4.644 1.444-8a1.454 1.454 0 0 0-1.003-1.183 61.09 61.09 0 0 0-2.772-.815C9.77.749 8.663.5 8 .5c-.662 0-1.77.249-2.813.525-.548.145-1.1.303-1.59.45l9.547 9.548z"/>
             <path fillRule="evenodd" d="M14.646 15.354l-14-14 .708-.708 14 14-.707.707z"/>

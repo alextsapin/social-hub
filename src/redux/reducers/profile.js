@@ -1,5 +1,5 @@
 // DAL
-import {getProfileAPI, getStatusAPI, updateStatusAPI} from '../../api/api.js';
+import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {
@@ -92,7 +92,23 @@ export const setStatusAC = (status) => {
     }
 }
 
+export const setAvatarAC = (file) => {
+    return {
+        type: 'SET_AVATAR', 
+        file
+    }
+}
+
 // Thunk creators
+
+export const setAvatarTC = (file) => {
+    return (dispatch) => {
+        setAvatarAPI(file).then(data => {
+            dispatch(setAvatarAC(data));
+        });
+    }
+}
+
 export const getProfileTC = (id) => {
     return (dispatch) => {
         // Получим данные пользователя

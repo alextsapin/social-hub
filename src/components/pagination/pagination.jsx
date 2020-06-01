@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 // Постраничная навигация
 const Pagination = (props) => {
@@ -10,16 +10,24 @@ const Pagination = (props) => {
         pages.push(i);
     }
 
+    let portionCount = Math.ceil(props.count / props.size);
+    let [portionNumber, setPortionNumber] = useState(1);
+    let leftPortionPageNumber = (portionNumber - 1) * props.size + 1;
+    let rightPortionPageNumber = portionNumber * props.size;
+
 	return (
 		<div className="pagination">
-            {
-                pages.map(page => {
-                    return <span onClick={() => {
-                        props.onPageChanged(page)}} className={props.currentPage === page && 'pagination__link'}>{page}
-                        </span>
-                    }
-                )
-            }
+            {portionNumber > 1 && <button onClick={()=>{setPortionNumber(portionNumber - 1)}}>PREV</button>}
+            
+                {
+                    pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber).map((p) => {
+                        return <span 
+                            key={p}
+                            onClick={() => {props.onPageChanged(p)}}>{p}</span>
+                    })
+                }
+
+            {portionCount > portionNumber && <button onClick={()=>{setPortionNumber(portionNumber + 1)}}>NEXT</button>}
         </div>
 	);
 }

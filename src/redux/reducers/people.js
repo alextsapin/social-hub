@@ -135,7 +135,6 @@ export const getUsersTC = (page, size) => {
         peopleAPI(page, size).then(data => {
             // Получим количество пользователей
             dispatch(setUsersCountAC(data.totalCount));
-            dispatch(setUsersCountAC(25));
             // Получим пользователей
             dispatch(setUsersDataAC(data.items));
             // Убрем прелоадер
