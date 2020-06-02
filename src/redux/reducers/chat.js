@@ -1,4 +1,6 @@
 import {reset} from 'redux-form';
+// Selectors
+import {personSelector} from '../../redux/selectors/profile.js';
 
 // Первичный state
 let initialState = {
@@ -33,7 +35,7 @@ const chatReducer = (state = initialState, action) => {
         
         case 'SEND_MESSAGE': 
             let message = {
-                id: stateCopy.data.length +1, 
+                id: stateCopy.data.length + 1, 
                 name: "Alex",
                 image: "https://i.ibb.co/MSvgW8j/alex.png",
                 message: action.message

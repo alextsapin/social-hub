@@ -45,6 +45,13 @@ img {
 	height: auto;
 }
 
+.logo {
+    & img {
+        height: 50px !important;
+        width: auto !important;
+    }
+}
+
 /*-------------------*/
 /***** Bootstrap *****/
 /*-------------------*/
@@ -92,33 +99,34 @@ nav .btn {
     }
 }
 
-/*---------------*/
-/***** STYLE *****/
-/*---------------*/
-.logo {
-    & img {
-        height: 50px !important;
-        width: auto !important;
+/*-------------------*/
+/***** Заголовки *****/
+/*-------------------*/
+.title {
+    text-align: center;
+    font-weight: bold;
+    margin: 40px 0 40px;
+    &_first {
+        font-size: 2rem;
+    }
+    &_second {
+        font-size: 1.85rem;
+    }
+    &_third {
+        font-size: 1.5rem;
     }
 }
 
-.title {
-	font-size: 1.8rem;
-	font-weight: 700;
-	text-align: center;
-	margin-top: 40px;
-	margin-bottom: 40px;
+/*----------------*/
+/***** Подвал *****/
+/*----------------*/
+.avatar {
+    font-size: 0.85rem;
 }
 
-.subtitle {
-	color: @text;
-	font-size: 1.7rem;
-	font-weight: 700;
-	text-align: center;
-	margin-top: 40px;
-	margin-bottom: 40px;
+.avatar__label {
+    font-weight: 700;
 }
-
 
 /*----------------------*/
 /***** Пользователь *****/
@@ -313,6 +321,7 @@ nav .btn {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: none;
 }
 
 /*----------------------*/

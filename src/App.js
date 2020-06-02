@@ -1,7 +1,7 @@
 import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {withRouter, Route} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 
 // Thunk creator
@@ -15,6 +15,7 @@ import PeopleBox from './components/people/people.jsx';
 import Footer from './components/footer/footer.jsx';
 import Login from './components/login/login.jsx';
 import Preloader from './components/preloader/preloader.jsx';
+import NotFound from './components/notfound/404.jsx';
 
 // CSS
 import './font/roboto.css';
@@ -25,8 +26,19 @@ import './css/main.css';
 // Главный компоненент
 class App extends React.Component {
 
+    // Обработка ошибок
+    catchAllUnhandleErrors = (reason, promise) => {
+        alert('Some error!');
+        console.log(reason, promise);
+    }
+
     componentDidMount() {
         this.props.initializeTC();
+        window.addEventListener('unhandledrejection', this.catchAllUnhandleErrors);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandleErrors);
     }
 
     render() {
@@ -42,11 +54,14 @@ class App extends React.Component {
                         <div className="row">
                             <div className="col-12">
                                 <div id="content">
-                                    <Route exact path='/'       render={() => <ProfileBox/>}/>
-                                    <Route exact path='/users'  render={() => <PeopleBox/>}/>
-                                    <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
-                                    <Route path='/chat'         render={() => <ChatBox/>}/>
-                                    <Route path='/login'        render={() => <Login/>}/>
+                                    <Switch>
+                                        <Route exact path='/'       render={() => <ProfileBox/>}/>
+                                        <Route path='/users'        render={() => <PeopleBox/>}/>
+                                        <Route path='/profile/:id?' render={() => <ProfileBox/>}/>
+                                        <Route path='/chat'         render={() => <ChatBox/>}/>
+                                        <Route path='/login'        render={() => <Login/>}/>
+                                        <Route path='*'             render={() => <NotFound/>}/>
+                                    </Switch>
                                 </div>
                             </div>
                         </div>

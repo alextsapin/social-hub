@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 
+// Icons
+import {ArrowLeft, ArrowRight} from '../../icons/icons.js';
+
 // Постраничная навигация
 const Pagination = (props) => {
 
@@ -17,17 +20,20 @@ const Pagination = (props) => {
 
 	return (
 		<div className="pagination">
-            {portionNumber > 1 && <button onClick={()=>{setPortionNumber(portionNumber - 1)}}>PREV</button>}
-            
+            {portionNumber > 1 && <button className="pagination__link" onClick={()=>{setPortionNumber(portionNumber - 1)}}><ArrowLeft/></button>}
                 {
                     pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber).map((p) => {
-                        return <span 
-                            key={p}
-                            onClick={() => {props.onPageChanged(p)}}>{p}</span>
+                        return (
+                            <span className={props.currentPage === p && 'pagination__link'} key={p} onClick={()=>{props.onPageChanged(p)}}>{p}</span>
+                        ); 
                     })
                 }
-
-            {portionCount > portionNumber && <button onClick={()=>{setPortionNumber(portionNumber + 1)}}>NEXT</button>}
+            {
+                portionCount > portionNumber && 
+                <button className="pagination__link" onClick={()=>{setPortionNumber(portionNumber + 1)}}>
+                    <ArrowRight/>
+                </button>
+            }
         </div>
 	);
 }

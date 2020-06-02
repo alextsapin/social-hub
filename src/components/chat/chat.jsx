@@ -19,19 +19,18 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
 
 const Chatter = (props) => {
         return (
-            <div className="chat">
-                <div className="row">
-                    <div className="col-md-3">
-                        <div className="chat__user">
-                            <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-                            <p className="chat__name">{props.name}</p>
-                        </div>
-                    </div>
-                    <div className="col-md-9 d-inline-flex flex-column justify-content-center">
-                        <p className="chat__message">{props.message}</p>
+            <div className="chat row">
+                <div className="col-md-3">
+                    <div className="chat__user">
+                        <ImageLoader src={props.image} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
+                        <p className="chat__name">{props.name}</p>
                     </div>
                 </div>
+                <div className="col-md-9 d-inline-flex flex-column justify-content-center">
+                    <p className="chat__message">{props.message}</p>
+                </div>
             </div>
+            
         );
 }
 
@@ -43,8 +42,7 @@ const minLength1 = minLengthCreator(1);
 const ChatForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className="form">
-            <Field component={Textarea} name="message" placeholder="Enter your text..." 
-                validate={[requiredField, maxLength140, minLength1]}/>
+            <Field component={Textarea} name="message" placeholder="Enter your text..." validate={[requiredField, maxLength140, minLength1]}/>
             <button className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Send</button>
         </form>
     );
@@ -55,7 +53,7 @@ const ChatFormRedux = reduxForm({form: 'Chat'})(ChatForm);
 // Презентационная компонента Chat
 const Chat = (props) => {
 
-    let userBox = props.chatData.map(item => (<Chatter key={item.id} name={item.name} image={item.image} message={item.message}/>));
+    let userBox = props.chatData.map(item => (<Chatter key={item.id} id={item.id} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values) => {
         props.sendMessageTK(values.message);
@@ -76,7 +74,7 @@ const Chat = (props) => {
 // Контейнерная компонента Chat
 let mapStateToProps = (state) => {
     return {
-        chatData: state.chat.data,
+        chatData:   state.chat.data,
         newMessage: state.chat.newMessage
     }
 }

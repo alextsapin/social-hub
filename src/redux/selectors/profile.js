@@ -24,5 +24,3 @@ export const dataSelector = (state) => {
 export const personSelector = (state) => {
     return state.profile.person;
 };
-
-

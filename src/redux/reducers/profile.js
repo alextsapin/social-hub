@@ -100,7 +100,6 @@ export const setAvatarAC = (file) => {
 }
 
 // Thunk creators
-
 export const setAvatarTC = (file) => {
     return (dispatch) => {
         setAvatarAPI(file).then(data => {

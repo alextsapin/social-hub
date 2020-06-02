@@ -46,9 +46,9 @@ const PostData = (props) => {
     return (
         <div className="row">
             <div className="col-12">
-                <h1 className="title">Мои посты:</h1>
+                <h1 className="title title_first">Мои посты:</h1>
                 {postBox}
-                <h2 className="subtitle">Добавить новый пост</h2>
+                <h2 className="title title_second">Добавить новый пост</h2>
                 <form className="form">
                     <textarea className="form-control" onChange={updatePost} value={props.post} ref={textarea} rows="5"
                         placeholder="Enter your text..."/>
@@ -68,12 +68,12 @@ const Avatar = (props) => {
     }
 
     return (
-        <form>
+        <form className="avatar">
             <div className="form-group mt-3">
-                <label htmlFor="exampleFormControlFile1">Выберите фото профиля</label>
-                <input onChange={savePhoto} type="file" className="form-control-file mt-3" id="exampleFormControlFile1"/>
+                <label className="avatar__label">Загрузите фото профиля</label>
+                <input onChange={savePhoto} type="file" className="form-control-file mt-3"/>
             </div>
-            <button type="submit" class="btn btn-primary">Загрузить</button>
+            <button type="submit" className="btn btn-primary">Загрузить</button>
         </form>
     );
 }
