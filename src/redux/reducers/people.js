@@ -13,6 +13,7 @@ let initialState = {
 
 const peopleReducer = (state = initialState, action) => {
     switch(action.type) {
+
         case 'FOLLOW': 
             let stateCopy = {
                 ...state,
@@ -25,7 +26,7 @@ const peopleReducer = (state = initialState, action) => {
                     }
                 })
             };
-            return stateCopy;
+        return stateCopy;
         
         case 'UNFOLLOW': {
             let stateCopy = {
@@ -39,7 +40,7 @@ const peopleReducer = (state = initialState, action) => {
                     }
                 })
             };
-            return stateCopy; 
+        return stateCopy; 
         }
         
         case 'SET_USERS': {

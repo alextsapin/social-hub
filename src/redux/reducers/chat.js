@@ -1,24 +1,22 @@
 import {reset} from 'redux-form';
-// Selectors
-import {personSelector} from '../../redux/selectors/profile.js';
 
 // Первичный state
 let initialState = {
     data: [
         {   id: 1, 
             name: "Chloe", 
-            image: "https://i.ibb.co/KxGLbPg/chloe.png", 
+            image: "https://i.ibb.co/0qwWMJT/chloe.jpg", 
             message: "Advertisements want to persuade us to buy particular products. How do they do it?"
         },
         { 
             id: 2, 
             name: "Won", 
-            image: "https://i.ibb.co/8XQMSVW/won.png", 
+            image: "https://i.ibb.co/DRcDZ2p/won.jpg", 
             message: "저는 한국어를 배웁니다 커피를 마십니다 공원에 자주 가요 영화를 봅니다"
         },
         {   id: 3, 
             name: "Matt", 
-            image: "https://i.ibb.co/k5WprG1/matt.png", 
+            image: "https://i.ibb.co/7kdCfVh/matt.jpg", 
             message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."
         }
     ]
@@ -36,8 +34,8 @@ const chatReducer = (state = initialState, action) => {
         case 'SEND_MESSAGE': 
             let message = {
                 id: stateCopy.data.length + 1, 
-                name: "Alex",
-                image: "https://i.ibb.co/MSvgW8j/alex.png",
+                name: action.name,
+                image: action.image,
                 message: action.message
             }
 
@@ -56,19 +54,21 @@ const chatReducer = (state = initialState, action) => {
 
 export default chatReducer;
 
-export const sendMessageAC = (message) => {
+export const sendMessageAC = (message, name, image) => {
     return {
-        type: 'SEND_MESSAGE',
-        message: message
+        type:    'SEND_MESSAGE',
+        message: message,
+        name:    name,
+        image:   image
     }
 }
 
 // Thunk creators
-export const sendMessageTK = (message) => {
+export const sendMessageTK = (message, name, image) => {
     return (dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {
-            dispatch(sendMessageAC(message));
+            dispatch(sendMessageAC(message, name, image));
             dispatch(reset('Chat'));
         }
     }
