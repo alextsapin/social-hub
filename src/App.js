@@ -28,7 +28,7 @@ class App extends React.Component {
 
     // Обработка ошибок
     catchAllUnhandleErrors = (reason, promise) => {
-        alert('Some error!');
+        console.log('Some error!');
         console.log(reason, promise);
     }
 

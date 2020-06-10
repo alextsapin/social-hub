@@ -38,7 +38,7 @@ export const authTC = () => {
             if(response.resultCode === 0) {
                 let {id, email, login} = response.data;
                 dispatch(setAuthDataAC(id, email, login, true));
-                dispatch(getProfileTC(id))
+                //dispatch(getProfileTC(id))
             } else {
                 dispatch(setAuthDataAC(null, null, null, false));
             }

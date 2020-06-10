@@ -24,7 +24,8 @@ const Pagination = (props) => {
                 {
                     pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber).map((p) => {
                         return (
-                            <span className={props.currentPage === p && 'pagination__link'} key={p} onClick={()=>{props.onPageChanged(p)}}>{p}</span>
+                            <span onClick={() => {
+                                props.onPageChanged(p)}} className={props.currentPage === p && 'pagination__link'}>{p}</span>
                         ); 
                     })
                 }
