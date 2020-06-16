@@ -91,7 +91,7 @@ const Profile = (props) => {
             <div className="row">
                 <div className="col-12">
                     <h1 className="person__name">{props.person.fullName}</h1>
-                    <Status id={props.id} status={props.status} updateStatusTC={props.updateStatusTC}/>
+                    <Status id={props.id} userId={props.person.userId} status={props.status} updateStatusTC={props.updateStatusTC}/>
                 </div>
             </div>
             <div className="row">

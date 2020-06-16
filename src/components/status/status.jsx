@@ -10,7 +10,9 @@ const StatusHooks = (props) => {
     }, [props.status]);
 
     const activateEditMode = () => {
-        setEditMode(true);
+        if(this.props.id == this.props.userId) {
+            setEditMode(true);
+        }
     }
 
     const deActivateEditMode = () => {
@@ -41,9 +43,11 @@ class Status extends React.Component {
     }
 
     activateEditMode = () => {
-        this.setState({
-            editMode: true
-        })
+        if(this.props.id == this.props.userId) {
+            this.setState({
+                editMode: true
+            })
+        }
     }
 
     deActivateEditMode = () => {
@@ -69,7 +73,6 @@ class Status extends React.Component {
     }
     
     render() {
-        
         return (
             <div className="status">
                 {   
@@ -83,4 +86,4 @@ class Status extends React.Component {
     }
 }
 
-export default StatusHooks;
+export default Status;

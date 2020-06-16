@@ -73,7 +73,9 @@ const Person = (props) => {
 const People = (props) => {
     return (
         <div className="mt-5 mb-5">
-            {props.data.map(item => 
+
+            {props.isConnect ? <Preloader/> :
+            props.data.map(item => 
                 <Person 
                     key            = {item.id}
                     id             = {item.id} 
@@ -111,7 +113,6 @@ class PeopleServer extends React.Component {
 
     render() {
         return ( 
-            this.props.isConnect ? <Preloader/> :
             <People 
                 data             = {this.props.data}
                 count            = {this.props.count} 

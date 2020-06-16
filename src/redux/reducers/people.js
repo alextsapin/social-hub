@@ -12,6 +12,7 @@ let initialState = {
 }
 
 const peopleReducer = (state = initialState, action) => {
+
     switch(action.type) {
 
         case 'FOLLOW': 
@@ -153,7 +154,7 @@ export const pageChangeTC = (page, size) => {
         // Получим пользователей
         peopleAPI(page, size).then(data => {
             dispatch(setUsersDataAC(data.items));
-            // Покажем прелоадер
+            // Уберем прелоадер
             dispatch(toggleIsConnectAC(false));
         });
     }
