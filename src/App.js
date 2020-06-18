@@ -9,7 +9,7 @@ import {initializeTC} from './redux/reducers/app.js';
 
 // Компоненты
 import Header from './components/header/header.jsx';
-import ProfileBox from './components/profile/profile.jsx';
+import ProfileBox from './components/profile/index.jsx';
 import ChatBox from './components/chat/chat.jsx';
 import PeopleBox from './components/people/people.jsx';
 import Footer from './components/footer/footer.jsx';

@@ -45,8 +45,6 @@ const LoginFormRedux = reduxForm({form: 'Login'})(LoginForm);
 
 const Login = (props) => {    
 
-    console.log(props);
-
     const onSubmit = (data) => {
         props.loginTC(data.email, data.password, data.rememberMe)
     }
@@ -64,6 +62,4 @@ const Login = (props) => {
     );
 }
 
-export default compose(
-    withProfileRedirect, 
-    connect(null, {loginTC}))(Login);
+export default compose(withProfileRedirect, connect(null, {loginTC}))(Login);

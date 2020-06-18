@@ -85,3 +85,11 @@ export const updateStatusAPI = (text) => {
         return response.data;
     });
 }
+
+// Получим профиль пользователя
+export const saveProfileAPI = (data) => {
+    return instance.put(`profile/`, data)
+    .then(response => {
+        return response.data;
+    });
+}

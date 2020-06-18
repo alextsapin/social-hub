@@ -1,7 +1,6 @@
 // DAL
 import {stopSubmit} from 'redux-form';
 
-import {getProfileTC} from './profile.js';
 import {authAPI, loginAPI, logoutAPI} from '../../api/api.js';
 
 // Первичный state
@@ -38,7 +37,6 @@ export const authTC = () => {
             if(response.resultCode === 0) {
                 let {id, email, login} = response.data;
                 dispatch(setAuthDataAC(id, email, login, true));
-                //dispatch(getProfileTC(id))
             } else {
                 dispatch(setAuthDataAC(null, null, null, false));
             }

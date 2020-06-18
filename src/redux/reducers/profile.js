@@ -1,5 +1,5 @@
 // DAL
-import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI} from '../../api/api.js';
+import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {
@@ -147,6 +147,16 @@ export const updateStatusTC = (status) => {
         updateStatusAPI(status).then(data => {
             if(data.resultCode === 0) {
                 dispatch(setStatusAC(status));
+            }
+        });
+    }
+}
+
+export const saveProfileTC = (id, data) => {
+    return (dispatch) => {
+        saveProfileAPI(data).then(data => {
+            if(data.resultCode === 0) {
+                dispatch(getProfileTC(id));
             }
         });
     }

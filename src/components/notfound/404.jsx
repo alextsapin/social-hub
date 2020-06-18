@@ -1,10 +1,4 @@
 import React from 'react';
-import {compose} from 'redux';
-import ImageLoader from 'react-imageloader';
-import {Field, reduxForm} from 'redux-form';
-import {connect} from 'react-redux';
-import spinner from '../spinner/spinner.jsx';
-
 
 const NotFound = (props) => {
 
@@ -16,7 +10,5 @@ const NotFound = (props) => {
         </div>
     );
 }
-
-
 
 export default NotFound;

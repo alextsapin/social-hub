@@ -1,39 +1,4 @@
-import React, {useState, useEffect} from 'react';
-
-const StatusHooks = (props) => {
-
-    let [editMode, setEditMode] = useState(false);
-    let [status, setStatus] = useState(props.status);
-
-    useEffect(() => {
-        setStatus(props.status);
-    }, [props.status]);
-
-    const activateEditMode = () => {
-        if(this.props.id == this.props.userId) {
-            setEditMode(true);
-        }
-    }
-
-    const deActivateEditMode = () => {
-        setEditMode(false);
-        props.updateStatusTC(status);
-    }
-
-    const onStatusChange = (e) => {
-        setStatus(e.currentTarget.value);
-    }
-
-    return (
-        <div className="status">
-            {   
-                !editMode 
-                ?<blockquote onClick={activateEditMode}>{status}</blockquote>
-                :<input autoFocus={true} onBlur={deActivateEditMode} className="form-control" value={status} onChange={onStatusChange}/>
-            }  
-        </div>
-    )
-}
+import React from 'react';
 
 class Status extends React.Component {
     
@@ -43,7 +8,7 @@ class Status extends React.Component {
     }
 
     activateEditMode = () => {
-        if(this.props.id == this.props.userId) {
+        if(this.props.id === this.props.userId) {
             this.setState({
                 editMode: true
             })
@@ -73,8 +38,15 @@ class Status extends React.Component {
     }
     
     render() {
+        let style = '';
+        if(this.props.id === this.props.userId) {
+            style = 'status status__hover';
+        } else {
+            style = 'status';
+        }
+
         return (
-            <div className="status">
+            <div className={style}>
                 {   
                     ! this.state.editMode 
                     ? <blockquote onClick={this.activateEditMode}>{this.props.status}</blockquote>
