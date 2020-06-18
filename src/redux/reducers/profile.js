@@ -1,3 +1,5 @@
+import {stopSubmit} from 'redux-form';
+
 // DAL
 import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api.js';
 
@@ -153,11 +155,16 @@ export const updateStatusTC = (status) => {
 }
 
 export const saveProfileTC = (id, data) => {
-    return (dispatch) => {
-        saveProfileAPI(data).then(data => {
-            if(data.resultCode === 0) {
-                dispatch(getProfileTC(id));
-            }
-        });
+    return async (dispatch) => {
+        let response = await saveProfileAPI(data);
+
+        console.log(response);
+            
+        if(response.resultCode === 0) {
+            dispatch(getProfileTC(id));
+        } else {
+            dispatch(stopSubmit('profile', {_error: response.messages[0]}));
+            return Promise.reject(response.messages[0]);
+        }
     }
 }

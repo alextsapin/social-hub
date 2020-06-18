@@ -21,7 +21,7 @@ const PostData = (props) => {
     return (
         <div className="row">
             <div className="col-12">
-                <h1 className="title title_first">Мои посты:</h1>
+                <h2 className="title title_first">Мои посты:</h2>
                 {postBox}
                 <h2 className="title title_second">Добавить новый пост</h2>
                 <form className="form">

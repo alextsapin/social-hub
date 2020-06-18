@@ -14,7 +14,7 @@ const ProfileData = (props) => {
                     </tr>
                     <tr>
                         <th className="font-weight-bold">В поиске работы?</th>
-                        <th>{props.person.lookingForAJob === false ? '...' : props.person.lookingForAJob}</th>
+                        <th>{props.person.lookingForAJob}</th>
                     </tr>
                     <tr>
                         <th className="font-weight-bold">Причина поиска</th>

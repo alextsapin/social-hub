@@ -46,10 +46,16 @@ const minLength6 = minLengthCreator(6);
 const ProfileForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
+            {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
             <div className="mt-3 form-group row">
                 <div className="col-md-6">
                     <label className="font-weight-bold">Полное имя</label>
                     <Field name="fullName" component={InputText}/>
+                </div>
+
+                <div className="col-md-6 form-check mt-4">
+                    <Field name="lookingForAJob" component={InputCheck}/>
+                    <label className="form-check-label font-weight-bold" htmlFor="lookingForAJob">В поиске работы ?</label>
                 </div>
             </div>
 
@@ -58,18 +64,55 @@ const ProfileForm = (props) => {
                     <label className="font-weight-bold">Немного о себе</label>
                     <Field name="aboutMe" component={Textarea}/>
                 </div>
-            </div>
 
-            <div className="form-group form-check">
-                <label className="form-check-label font-weight-bold" htmlFor="lookingForAJob">В поиске работы ?</label>
-                <Field name="lookingForAJob" component={InputCheck} />
-            </div>
-
-
-            <div className="mt-3 form-group row">
                 <div className="col-md-6">
                     <label className="font-weight-bold">Причина поиска</label>
                     <Field name="lookingForAJobDescription" component={Textarea}/>
+                </div>
+            </div>
+
+            <h2 className="title title_second">Контакты</h2>
+
+            <div className="mt-3 form-group row">
+                <div className="col-md-6">
+                    <label className="font-weight-bold">Facebook</label>
+                    <Field name="contacts.facebook" component={InputText}/>
+                </div>
+
+                <div className="col-md-6">
+                    <label className="font-weight-bold">Website</label>
+                    <Field name="contacts.website" component={InputText}/>
+                </div>
+            </div>
+
+            <div className="mt-3 form-group row">
+                <div className="col-md-6">
+                    <label className="font-weight-bold">VK</label>
+                    <Field name="contacts.vk" component={InputText}/>
+                </div>
+
+                <div className="col-md-6">
+                    <label className="font-weight-bold">Twitter</label>
+                    <Field name="contacts.twitter" component={InputText}/>
+                </div>
+            </div>
+
+            <div className="mt-3 form-group row">
+                <div className="col-md-6">
+                    <label className="font-weight-bold">Instagram</label>
+                    <Field name="contacts.instagram" component={InputText}/>
+                </div>
+
+                <div className="col-md-6">
+                    <label className="font-weight-bold">Youtube</label>
+                    <Field name="contacts.youtube" component={InputText}/>
+                </div>
+            </div>
+
+            <div className="mt-3 form-group row">
+                <div className="col-md-6">
+                    <label className="font-weight-bold">Github</label>
+                    <Field name="contacts.github" component={InputText}/>
                 </div>
             </div>
 
@@ -94,10 +137,11 @@ class Profile extends React.Component {
     }
 
     onSubmit = (formData) => {
-        this.props.saveProfileTC(this.props.person.userId, formData);
-        this.setState({
-            editMode: false
-        })
+        this.props.saveProfileTC(this.props.person.userId, formData).then(
+            () => {
+                this.setState({editMode: false});
+            }
+        )
     }
 
     render() {
@@ -160,8 +204,11 @@ class ProfileServer extends React.Component {
     }
 
     render() {
-        return <Profile {...this.props} status={this.props.status} updateStatusTC={this.props.updateStatusTC} 
-                        saveProfileTC={this.props.saveProfileTC}/>
+        return <Profile {...this.props} 
+                        status={this.props.status} 
+                        updateStatusTC={this.props.updateStatusTC} 
+                        saveProfileTC={this.props.saveProfileTC}
+                />
     }
 }
 

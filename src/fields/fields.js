@@ -54,5 +54,5 @@ export const InputPass = ({input, meta, ...props}) => {
 }
 
 export const InputCheck = ({input, meta, ...props}) => { 
-    return <input className="form-check-input" {...input} {...props} type="checkbox"/>
+    return <input className="form-check-input" {...input} {...props} type="checkbox" value="false"/>
 }

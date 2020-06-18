@@ -1,6 +1,4 @@
-// DAL
 import {stopSubmit} from 'redux-form';
-
 import {authAPI, loginAPI, logoutAPI} from '../../api/api.js';
 
 // Первичный state
