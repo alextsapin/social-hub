@@ -1,6 +1,4 @@
 import {stopSubmit} from 'redux-form';
-
-// DAL
 import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api.js';
 
 // Первичный state

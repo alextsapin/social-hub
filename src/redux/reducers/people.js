@@ -77,49 +77,49 @@ const peopleReducer = (state = initialState, action) => {
 }
 
 // ACTION CREATORS
-export const followAC = (id) => {
+const followAC = (id) => {
     return {
         type: 'FOLLOW',
         id
     }
 }
 
-export const unfollowAC = (id) => {
+const unfollowAC = (id) => {
     return {
         type: 'UNFOLLOW',
         id
     }
 }
 
-export const setUsersDataAC = (data) => {
+const setUsersDataAC = (data) => {
     return {
         type: 'SET_USERS',
         data
     }
 }
 
-export const setCurrentPageAC = (currentPage) => {
+const setCurrentPageAC = (currentPage) => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage
     }
 }
 
-export const setUsersCountAC = (count) => {
+const setUsersCountAC = (count) => {
     return {
         type: 'SET_TOTAL_USER_COUNT',
         count
     }
 }
 
-export const toggleIsConnectAC = (isConnect) => {
+const toggleIsConnectAC = (isConnect) => {
     return {
         type: 'TOGGLE_IS_FETCHING',
         isConnect
     }
 }
 
-export const toggleFollowingAC = (isConnect, id) => {
+const toggleFollowingAC = (isConnect, id) => {
     return {
         type: 'TOGGLE_FOLLOWING',
         isConnect,

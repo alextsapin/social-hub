@@ -1,7 +1,10 @@
 import {reset} from 'redux-form';
+import {getProfileAPI} from '../../api/api.js';
 
 // Первичный state
 let initialState = {
+    userName: null,
+    userImage: null,
     data: [
         {   id: 1, 
             name: "Chloe", 
@@ -19,7 +22,8 @@ let initialState = {
             image: "https://i.ibb.co/7kdCfVh/matt.jpg", 
             message:"Mi perro se llama Tom. Tiene 3 años y es mi mejor amigo."
         }
-    ]
+    ],
+    newMessage: ''
 }
 
 const chatReducer = (state = initialState, action) => {
@@ -31,11 +35,11 @@ const chatReducer = (state = initialState, action) => {
 
     switch(action.type) {
         
-        case 'SEND_MESSAGE': 
+        case 'SEND_MESSAGE': {
             let message = {
                 id: stateCopy.data.length + 1, 
-                name: action.name,
-                image: action.image,
+                name: stateCopy.userName,
+                image: stateCopy.userImage,
                 message: action.message
             }
 
@@ -46,15 +50,21 @@ const chatReducer = (state = initialState, action) => {
             };
             
             return stateCopy;
-         
+        }
+
+        case 'SET_USER_DATA': {
+            return {...state, userName: action.name, userImage: action.image};
+        }
+
         default: break;  
     }
+
     return state;
 }
 
 export default chatReducer;
 
-export const sendMessageAC = (message, name, image) => {
+const sendMessageAC = (message, name, image) => {
     return {
         type:    'SEND_MESSAGE',
         message: message,
@@ -63,13 +73,25 @@ export const sendMessageAC = (message, name, image) => {
     }
 }
 
+const setUserDataAC = (name, image) => {
+    return {
+        type:    'SET_USER_DATA',
+        name:    name,
+        image:   image
+    }
+}
+
 // Thunk creators
-export const sendMessageTK = (message, name, image) => {
+export const sendMessageTK = (id = 7020, message, name, image) => {
     return (dispatch) => {
-        // Уберем пробелы и проверим, что сообщение не пустое
-        if(message.replace(/\s+/g,'') !== '') {
-            dispatch(sendMessageAC(message, name, image));
-            dispatch(reset('Chat'));
-        }
+        // Получим данные пользователя
+        getProfileAPI(id).then(data => {
+            dispatch(setUserDataAC(data.fullName, data.photos.small));
+            // Уберем пробелы и проверим, что сообщение не пустое
+            if(message.replace(/\s+/g,'') !== '') {
+                dispatch(sendMessageAC(message));
+                dispatch(reset('Chat'));
+            }
+        });
     }
 }

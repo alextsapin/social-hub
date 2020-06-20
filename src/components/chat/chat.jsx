@@ -17,8 +17,8 @@ import {sendMessageTK} from '../../redux/reducers/chat.js';
 // HOC
 import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
 
-// Selectors
-import {personSelector} from '../../redux/selectors/profile.js';
+// Selector
+import {userIdSelector} from '../../redux/selectors/auth.js';
 
 const Chatter = (props) => {
         return (
@@ -58,7 +58,7 @@ const Chat = (props) => {
     let userBox = props.chatData.map(item => (<Chatter key={item.id} id={item.id} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values) => {
-        props.sendMessageTK(values.message, props.person.fullName, props.person.photos.small);
+        props.sendMessageTK(props.id, values.message);
     }
 
     return (
@@ -76,9 +76,9 @@ const Chat = (props) => {
 // Контейнерная компонента Chat
 let mapStateToProps = (state) => {
     return {
+        id:         userIdSelector(state),
         chatData:   state.chat.data,
-        newMessage: state.chat.newMessage,
-        person:     personSelector(state)
+        newMessage: state.chat.newMessage
     }
 }
 
