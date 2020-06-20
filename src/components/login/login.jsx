@@ -18,7 +18,7 @@ const minLength3 = minLengthCreator(3);
 const minLength6 = minLengthCreator(6);
 
 const LoginForm = (props) => {  
-    
+
     return (
         <form onSubmit={props.handleSubmit}>
             {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
@@ -27,15 +27,25 @@ const LoginForm = (props) => {
                 <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength3]}/>
                 <small className="form-text text-muted">alextsapin@yandex.ru</small>
             </div>
+
             <div className="form-group">
                 <label>Password</label>
                 <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength6]}/>
                 <small className="form-text text-muted">wXq1EbIL</small>
             </div>
+
+            <img className="img-thumbnail" src={props.captchaUrl}/>
+
+            <div className="form-group">
+                <label>Captcha</label>
+                <Field name="captcha" component={InputText} validate={[requiredField]}/>
+            </div>
+
             <div className="form-group form-check">
                 <Field className="form-check-input" name="rememberMe" component={InputCheck} />
                 <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
             </div>
+
             <button type="submit" className="btn btn-secondary">Login</button>
         </form>
     );
@@ -46,7 +56,7 @@ const LoginFormRedux = reduxForm({form: 'Login'})(LoginForm);
 const Login = (props) => {    
 
     const onSubmit = (data) => {
-        props.loginTC(data.email, data.password, data.rememberMe)
+        props.loginTC(data.email, data.password, data.rememberMe, data.captcha)
     }
     
     return (
@@ -56,10 +66,16 @@ const Login = (props) => {
             </div>
             
             <div className="offset-md-3 col-md-6">
-                <LoginFormRedux onSubmit={onSubmit}/>
+                <LoginFormRedux captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
             </div>
       </div>
     );
 }
 
-export default compose(withProfileRedirect, connect(null, {loginTC}))(Login);
+const mapStateToProps = (state) => ({
+    captchaUrl: state.auth.captchaUrl
+})
+
+export default compose(
+    //withProfileRedirect, 
+    connect(mapStateToProps, {loginTC}))(Login);

@@ -27,7 +27,11 @@ const ProfileData = (props) => {
                 </tbody>
             </table>
 
-            <button className="btn btn-danger mt-2 mb-2" onClick={props.activateEditMode}>Редактировать</button>
+            {
+                props.id === props.person.userId 
+                ? <button className="btn btn-danger mt-2 mb-2" onClick={props.activateEditMode}>Редактировать</button> 
+                : ''
+            }
         </div>
     )
 }

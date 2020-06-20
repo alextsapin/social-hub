@@ -156,10 +156,7 @@ export const updateStatusTC = (status) => {
 
 export const saveProfileTC = (id, data) => {
     return async (dispatch) => {
-        let response = await saveProfileAPI(data);
-
-        console.log(response);
-            
+        let response = await saveProfileAPI(data);            
         if(response.resultCode === 0) {
             dispatch(getProfileTC(id));
         } else {

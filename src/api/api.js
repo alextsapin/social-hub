@@ -27,8 +27,8 @@ export const authAPI = () => {
 }
 
 // Login
-export const loginAPI = (email, password, rememberMe = false) => {
-    return instance.post(`auth/login`, {email, password, rememberMe}).then(response => {
+export const loginAPI = (email, password, rememberMe = false, captcha = null) => {
+    return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
         return response.data; 
     });
 }
@@ -92,4 +92,9 @@ export const saveProfileAPI = (data) => {
     .then(response => {
         return response.data;
     });
+}
+
+// Капча
+export const getCaptchaUrlAPI = () => {
+    return instance.get(`security/get-captcha-url`);
 }
