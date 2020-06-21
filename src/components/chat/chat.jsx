@@ -43,9 +43,9 @@ const minLength1 = minLengthCreator(1);
 // Компонент ChatForm
 const ChatForm = (props) => {
     return (
-        <form onSubmit={props.handleSubmit} className="form">
-            <Field component={Textarea} name="message" placeholder="Enter your text..." validate={[requiredField, maxLength140, minLength1]}/>
-            <button className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Send</button>
+        <form onSubmit={props.handleSubmit} className="formPost">
+            <Field component={Textarea} name="message" placeholder="Какой-то текст..." validate={[requiredField, maxLength140, minLength1]}/>
+            <button className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Отправить</button>
         </form>
     );
 }

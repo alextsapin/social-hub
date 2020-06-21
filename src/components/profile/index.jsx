@@ -6,12 +6,12 @@ import {withRouter} from 'react-router-dom';
 
 // Components
 import Status from './status.jsx';
-import Avatar from './avatar.jsx';
+import Panel from './panel.jsx';
 import PostData from './postData.jsx';
 import ProfileData from './profileData.jsx';
 import Preloader from '../preloader/preloader.jsx';
 import spinner from '../spinner/spinner.jsx';
-import ProfileForm from './form.jsx';
+import ProfileForm from './formData.jsx';
 
 // HOC
 import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
@@ -41,9 +41,17 @@ class Profile extends React.Component {
         editMode: false
     }
 
-    activateEditMode = () => {
+    activateEditMode = (e) => {
+        e.preventDefault();
         this.setState({
             editMode: true
+        })
+    }
+
+    deActivateEditMode = (e) => {
+        e.preventDefault();
+        this.setState({
+            editMode: false
         })
     }
 
@@ -66,7 +74,7 @@ class Profile extends React.Component {
             <div className="mt-5 mb-5">
                 <div className="row">
                     <div className="col-12">
-                        <h1 className="person__name">{this.props.person.fullName}</h1>
+                        <h1 className="title title_first">{this.props.person.fullName}</h1>
                         <Status id={this.props.id} userId={this.props.person.userId} status={this.props.status} 
                         updateStatusTC={this.props.updateStatusTC}/>
                     </div>
@@ -78,14 +86,21 @@ class Profile extends React.Component {
                             wrapper={React.createFactory('div')} 
                             preloader={spinner}>
                         </ImageLoader>
-                        {this.props.id === this.props.person.userId ? <Avatar {...this.props}/> : ''}
+                        {
+                            this.props.id === this.props.person.userId ? 
+                            <Panel activateEditMode={this.activateEditMode} {...this.props}/> : ''
+                        }
                     </div>
 
                     <div className="col-xl-9 col-lg-8 col-md-7 mt-5 mt-md-0">    
                         {   
                             this.state.editMode === false
-                            ? <ProfileData id={this.props.id} person={this.props.person} activateEditMode={this.activateEditMode}/> 
-                            : <ProfileForm onSubmit={this.onSubmit} initialValues={this.props.person}/>
+                            ? <ProfileData id={this.props.id} person={this.props.person}/> 
+                            : <ProfileForm 
+                                onSubmit={this.onSubmit} 
+                                initialValues={this.props.person} 
+                                deActivateEditMode={this.deActivateEditMode}
+                            />
                         }
                     </div>
                 </div>

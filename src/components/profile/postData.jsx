@@ -1,6 +1,4 @@
 import React from 'react';
-
-// Components
 import Post from './post.jsx';
 
 const PostData = (props) => {
@@ -24,10 +22,10 @@ const PostData = (props) => {
                 <h2 className="title title_first">Мои посты:</h2>
                 {postBox}
                 <h2 className="title title_second">Добавить новый пост</h2>
-                <form className="form">
-                    <textarea className="form-control" onChange={updatePost} value={props.post} ref={textarea} rows="5"
-                        placeholder="Enter your text..."/>
-                    <button onClick={addPost} className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Send</button>
+                <form className="formPost">
+                    <textarea className="formPost__field form-control p-3" onChange={updatePost} value={props.post} ref={textarea} rows="5"
+                        placeholder="Мой новый пост..."/>
+                    <button onClick={addPost} className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Добавить</button>
                 </form>
             </div>
         </div>

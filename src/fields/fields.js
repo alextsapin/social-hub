@@ -4,13 +4,13 @@ export const Textarea = ({input, meta, ...props}) => {
 
     let style = '';   
     if(meta.touched && meta.error) {
-        style = 'form-control is-invalid';  
+        style = 'p-3 formPost__field form-control is-invalid';  
     }
     else if(meta.touched && !meta.error) {
-        style = 'form-control is-valid';
+        style = 'p-3 formPost__field form-control is-valid';
     }
     else {
-        style = 'form-control';
+        style = 'p-3 formPost__field form-control';
     }
 
     return (

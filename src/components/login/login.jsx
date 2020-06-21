@@ -2,13 +2,15 @@ import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
+import ImageLoader from 'react-imageloader';
+import spinner from '../spinner/spinner.jsx';
 
 // Form
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
 import {InputText, InputPass, InputCheck} from '../../fields/fields.js';
 
 // Thunk creators
-import {loginTC} from '../../redux/reducers/auth.js';
+import {loginTC, getCaptchaUrlTC} from '../../redux/reducers/auth.js';
 
 // HOC
 import {withProfileRedirect} from '../../hoc/withProfileRedirect.js';
@@ -23,26 +25,26 @@ const LoginForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
             <div className="form-group">
-                <label>Email</label>
+                <label className="font-weight-bold mb-1">Email</label>
                 <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength3]}/>
                 <small className="form-text text-muted">alextsapin@yandex.ru</small>
             </div>
 
             <div className="form-group">
-                <label>Password</label>
+                <label className="font-weight-bold mb-1">Password</label>
                 <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength6]}/>
                 <small className="form-text text-muted">wXq1EbIL</small>
             </div>
 
-            <img className="img-thumbnail" src={props.captchaUrl}/>
+            <ImageLoader className="captchaImage" src={props.captchaUrl} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
 
             <div className="form-group">
-                <label>Captcha</label>
+                <label className="font-weight-bold mt-2 mb-1">Captcha</label>
                 <Field name="captcha" component={InputText} validate={[requiredField]}/>
             </div>
 
             <div className="form-group form-check">
-                <Field className="form-check-input" name="rememberMe" component={InputCheck} />
+                <Field className="form-check-input font-weight-bold mb-1" name="rememberMe" component={InputCheck} />
                 <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
             </div>
 
@@ -53,23 +55,30 @@ const LoginForm = (props) => {
 
 const LoginFormRedux = reduxForm({form: 'Login'})(LoginForm);
 
-const Login = (props) => {    
+class Login extends React.Component {
 
-    const onSubmit = (data) => {
-        props.loginTC(data.email, data.password, data.rememberMe, data.captcha)
+    componentDidMount() {   
+        this.props.getCaptchaUrlTC();
     }
     
-    return (
-        <div className="row mt-5 mb-5">
-            <div className="col-12">
-                <h1 className="title">Login</h1>
+
+    onSubmit = (data) => {
+        this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha)
+    }
+    
+    render() {
+        return (
+            <div className="row mt-5 mb-5">
+                <div className="col-12">
+                    <h1 className="title title_first">Login</h1>
+                </div>
+                
+                <div className="offset-md-3 col-md-6">
+                    <LoginFormRedux captchaUrl={this.props.captchaUrl} onSubmit={this.onSubmit}/>
+                </div>
             </div>
-            
-            <div className="offset-md-3 col-md-6">
-                <LoginFormRedux captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
-            </div>
-      </div>
-    );
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({
@@ -78,4 +87,4 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     //withProfileRedirect, 
-    connect(mapStateToProps, {loginTC}))(Login);
+    connect(mapStateToProps, {loginTC, getCaptchaUrlTC}))(Login);

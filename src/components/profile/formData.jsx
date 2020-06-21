@@ -1,7 +1,7 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
-import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
+import {maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
 import {InputText, InputCheck, Textarea} from '../../fields/fields.js';
 
 const maxLength20 = maxLengthCreator(20);
@@ -80,7 +80,8 @@ const ProfileForm = (props) => {
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">Сохранить</button>
+            <button type="submit" className="btn btn-success">Сохранить</button>
+            <button type="submit" className="btn btn-danger ml-3" onClick={props.deActivateEditMode}>Отмена</button>
         </form>
     )
 }

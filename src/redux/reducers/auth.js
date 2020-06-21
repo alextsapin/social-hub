@@ -47,7 +47,6 @@ export const authTC = () => {
             if(response.resultCode === 0) {
                 let {id, email, login} = response.data;
                 dispatch(setAuthDataAC(id, email, login, true));
-                dispatch(getCaptchaUrlTC());
             } else {
                 dispatch(setAuthDataAC(null, null, null, false));
             }
@@ -61,7 +60,7 @@ export const loginTC = (email, password, rememberMe, captcha) => {
             if(response.resultCode === 0) {
                 dispatch(authTC());
             } else if (response.resultCode === 10) {
-            
+                
             } else {
                 let error = response.messages[0].length > 0 ? response.messages[0] : 'Some error';
                 dispatch(stopSubmit('Login', {_error: error}));

@@ -1,4 +1,6 @@
 import React from 'react';
+// Icons
+import {GearIcon} from '../../icons/icons.js';
 
 const Avatar = (props) => {
 
@@ -9,12 +11,13 @@ const Avatar = (props) => {
     }
 
     return (
-        <form className="avatar">
+        <form className="panel">
             <div className="form-group mt-3">
-                <label className="avatar__label">Загрузите фото профиля</label>
+                <label className="font-weight-bold">Загрузите фото профиля</label>
                 <input onChange={savePhoto} type="file" className="form-control-file mt-3"/>
             </div>
             <button type="submit" className="btn btn-primary">Загрузить</button>
+            <button type="submit" className="btn btn-dark ml-3" onClick={props.activateEditMode}><GearIcon/></button>
         </form>
     );
 }

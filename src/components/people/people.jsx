@@ -30,13 +30,13 @@ import {PersonPlusIcon} from '../../icons/icons.js';
 const Follow = (props) => {
     if(props.followed) {
         return (
-            <button disabled={props.followUsers.some(id=>id===props.id)} className="btn btn-secondary" onClick={()=>{props.unfollowTC(props.id);}}>
+            <button disabled={props.followUsers.some(id=>id===props.id)} className="btn btn-secondary mt-1" onClick={()=>{props.unfollowTC(props.id);}}>
                 <PersonPlusIcon/>
                 <span>UNFOLLOW</span>
             </button>)
     } else {
         return (
-            <button disabled={props.followUsers.some(id=>id===props.id)} className="btn btn-secondary" onClick={()=>{props.followTC(props.id)}}>
+            <button disabled={props.followUsers.some(id=>id===props.id)} className="btn btn-secondary mt-1" onClick={()=>{props.followTC(props.id)}}>
                 <PersonPlusIcon/>
                 <span>FOLLOW</span>
             </button>
@@ -51,7 +51,7 @@ const Person = (props) => {
                 <div className="col-md-4">
                     <div className="people__avatar">
                         <NavLink to={'/profile/' + props.id}>
-                            <ImageLoader className="people__image" src={props.image} wrapper={React.createFactory('div')} 
+                            <ImageLoader src={props.image} wrapper={React.createFactory('div')} 
                                 preloader={spinner}>
                             </ImageLoader>
                         </NavLink>
