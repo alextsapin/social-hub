@@ -82,16 +82,21 @@ const setUserDataAC = (name, image) => {
 }
 
 // Thunk creators
-export const sendMessageTK = (id = 7020, message, name, image) => {
+export const setUserDataTK = (id) => {
     return (dispatch) => {
         // Получим данные пользователя
         getProfileAPI(id).then(data => {
             dispatch(setUserDataAC(data.fullName, data.photos.small));
-            // Уберем пробелы и проверим, что сообщение не пустое
-            if(message.replace(/\s+/g,'') !== '') {
-                dispatch(sendMessageAC(message));
-                dispatch(reset('Chat'));
-            }
         });
+    }
+}
+
+export const sendMessageTK = (id = 7020, message, name, image) => {
+    return (dispatch) => {
+        // Уберем пробелы и проверим, что сообщение не пустое
+        if(message.replace(/\s+/g,'') !== '') {
+            dispatch(sendMessageAC(message));
+            dispatch(reset('Chat'));
+        }
     }
 }

@@ -34,7 +34,6 @@ import {
 import {statusSelector, postSelector, dataSelector, personSelector} from '../../redux/selectors/profile.js';
 import {userIdSelector} from '../../redux/selectors/auth.js';
 
-
 // Презентацинная компонента Profile
 class Profile extends React.Component {
 

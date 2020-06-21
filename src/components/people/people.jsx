@@ -27,7 +27,6 @@ import {isAuthSelector} from '../../redux/selectors/auth.js';
 // Icons
 import {PersonPlusIcon} from '../../icons/icons.js';
 
-
 const Follow = (props) => {
     if(props.followed) {
         return (
@@ -71,8 +70,11 @@ const Person = (props) => {
 }
 
 const People = (props) => {
+    
     return (
         <div className="mt-5 mb-5">
+
+            <h1 className="title title_first mb-5">Всего пользователей: {props.count}</h1>
 
             {props.isConnect ? <Preloader/> :
             props.data.map(item => 
@@ -91,10 +93,10 @@ const People = (props) => {
             )}
 
             <Pagination 
-                onPageChanged = {props.onPageChanged} 
-                currentPage   = {props.currentPage} 
-                size          = {props.size} 
-                count         = {props.count}
+                onPageChanged     = {props.onPageChanged} 
+                currentPage       = {props.currentPage} 
+                onPageUsers       = {props.size} 
+                totalUsersCount   = {props.count}
             />
         </div>
     )
@@ -112,6 +114,8 @@ class PeopleServer extends React.Component {
     }
 
     render() {
+        console.log(this.props);
+        
         return ( 
             <People 
                 data             = {this.props.data}

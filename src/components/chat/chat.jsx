@@ -12,7 +12,7 @@ import {Textarea} from '../../fields/fields.js';
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
 
 // Thunk creators
-import {sendMessageTK} from '../../redux/reducers/chat.js';
+import {sendMessageTK, setUserDataTK} from '../../redux/reducers/chat.js';
 
 // HOC
 import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
@@ -55,6 +55,8 @@ const ChatFormRedux = reduxForm({form: 'Chat'})(ChatForm);
 // Презентационная компонента Chat
 const Chat = (props) => {
 
+    props.setUserDataTK(props.id);
+
     let userBox = props.chatData.map(item => (<Chatter key={item.id} id={item.id} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values) => {
@@ -82,4 +84,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(withAuthRedirect,connect(mapStateToProps, {sendMessageTK}))(Chat);
+export default compose(withAuthRedirect,connect(mapStateToProps, {sendMessageTK, setUserDataTK}))(Chat);
