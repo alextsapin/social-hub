@@ -66,7 +66,7 @@ export const LogoutIcon = () => {
     )
 }
 
-export const ArrowLeft = () => {
+export const ArrowLeftIcon = () => {
     return (
         <svg className="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
             xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@ export const ArrowLeft = () => {
     )
 }
 
-export const ArrowDoubleLeft = () => {
+export const ArrowDoubleLeftIcon = () => {
     return (
         <svg className="bi bi-chevron-double-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@ export const ArrowDoubleLeft = () => {
     )
 }
 
-export const ArrowRight = () => {
+export const ArrowRightIcon = () => {
     return (
         <svg className="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
             xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +94,7 @@ export const ArrowRight = () => {
     )
 }
 
-export const ArrowDoubleRight = () => {
+export const ArrowDoubleRightIcon = () => {
     return (
         <svg className="bi bi-chevron-double-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" 
             xmlns="http://www.w3.org/2000/svg">

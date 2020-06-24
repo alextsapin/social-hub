@@ -4,8 +4,9 @@ import {peopleAPI, followAPI, unfollowAPI} from '../../api/api.js';
 // Первичный state
 let initialState = {
     data: [],
-    size: 5,
-    count: 0,
+    onPageUsers: 5,
+    onPortionPage: 5,
+    usersTotal: 0,
     currentPage: 1,
     isConnect: false,
     followUsers: []
@@ -52,8 +53,8 @@ const peopleReducer = (state = initialState, action) => {
             return {...state, currentPage: action.currentPage} 
         }
 
-        case 'SET_TOTAL_USER_COUNT': {
-            return {...state, count: action.count} 
+        case 'SET_TOTAL_USERS_COUNT': {
+            return {...state, usersTotal: action.count} 
         }
 
         case 'TOGGLE_IS_FETCHING': {
@@ -107,7 +108,7 @@ const setCurrentPageAC = (currentPage) => {
 
 const setUsersCountAC = (count) => {
     return {
-        type: 'SET_TOTAL_USER_COUNT',
+        type: 'SET_TOTAL_USERS_COUNT',
         count
     }
 }

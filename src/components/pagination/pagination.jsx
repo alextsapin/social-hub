@@ -1,13 +1,13 @@
 import React from 'react';
 
 // Icons
-import {ArrowLeft, ArrowDoubleLeft, ArrowRight, ArrowDoubleRight} from '../../icons/icons.js';
+import {ArrowLeftIcon, ArrowDoubleLeftIcon, ArrowRightIcon, ArrowDoubleRightIcon} from '../../icons/icons.js';
 
 // Постраничная навигация
 class Pagination extends React.Component {
 
     componentDidMount() {   
-        this.props.onPageChanged(this.props.currentPage);
+        this.props.pageChange(this.props.currentPage);
         this.setState({
             portionNumber: Math.ceil(this.props.currentPage / this.props.onPageUsers)
         });
@@ -25,7 +25,7 @@ class Pagination extends React.Component {
 
     setPortionNumberLast() {
         this.setState({
-            portionNumber: 196
+            portionNumber: this.props.portionTotal
         });
     }
 
@@ -43,69 +43,72 @@ class Pagination extends React.Component {
 
     render() {
 
-        // Число страниц
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.onPageUsers);
-        let pages = [];
-
-        for(let i = 1; i <= pagesCount; i++) {
-            pages.push(i);
-        }
-
-        const onPortionPage = 5;
-
+        // Размер порции
+        const onPortionPage = this.props.onPortionPage;
         // Крайняя левая страница
         let leftPage = (this.state.portionNumber - 1) * onPortionPage + 1;
         // Крайняя правая страница
         let rightPage = this.state.portionNumber * onPortionPage;
-        // Число порций
-        let portionCount = Math.ceil(pagesCount / onPortionPage);
 
         return (
             <div className="pagination">
                 {   
                     this.state.portionNumber > 1 && 
-                    <button className="pagination__link" onClick={()=> {
-                        this.setPortionNumberFirst(); 
-                        this.props.onPageChanged(1);}}><ArrowDoubleLeft/>
+                    <button className="pagination__link" 
+                        onClick={ () => {
+                            this.setPortionNumberFirst(); 
+                            this.props.pageChange(1);
+                        }}>
+                        <ArrowDoubleLeftIcon/>
                     </button>
                 }
 
                 {  
                     this.state.portionNumber > 1 && 
-                    <button className="pagination__link" onClick={()=>{
-                        this.setPortionNumberDown(); 
-                        this.props.onPageChanged(leftPage - 1)}}><ArrowLeft/>
+                    <button className="pagination__link" 
+                        onClick={ () => {
+                            this.setPortionNumberDown(); 
+                            this.props.pageChange(leftPage - 1)
+                        }}>
+                        <ArrowLeftIcon/>
                     </button>
                 }
                 
                 {
-                    pages.filter(page => page >= leftPage && page <= rightPage).map((page) => {
+                    this.props.pages.filter(page => page >= leftPage && page <= rightPage).map((page) => {
                         return (
                             <button onClick={() => {
-                                this.props.onPageChanged(page);
+                                this.props.pageChange(page);
                             }} 
                                 className={
-                                    this.props.currentPage === page && 'pagination__link pagination__link_active' || 
-                                    'pagination__link'}>{page}
+                                    this.props.currentPage === page 
+                                    && 'pagination__link pagination__link_active' || 'pagination__link'}>
+                                    {page}
                             </button>
                         ); 
                     })
                 }
 
                 {
-                    this.state.portionNumber < portionCount && 
-                    <button className="pagination__link" onClick={()=>{
-                        this.setPortionNumberUp();
-                        this.props.onPageChanged(rightPage + 1);
-                    }}><ArrowRight/></button>
+                    this.state.portionNumber < this.props.portionTotal && 
+                    <button className="pagination__link" 
+                        onClick={() => {
+                            this.setPortionNumberUp();
+                            this.props.pageChange(rightPage + 1);
+                        }}>
+                        <ArrowRightIcon/>
+                    </button>
                 }
 
                 {
-                    this.state.portionNumber < portionCount && 
-                    <button className="pagination__link" onClick={()=>{
-                        this.setPortionNumberLast();
-                        this.props.onPageChanged(pagesCount);
-                    }}><ArrowDoubleRight/></button>
+                    this.state.portionNumber < this.props.portionTotal && 
+                    <button className="pagination__link" 
+                        onClick={() => {
+                            this.setPortionNumberLast();
+                            this.props.pageChange(this.props.pagesTotal);
+                        }}>
+                        <ArrowDoubleRightIcon/>
+                    </button>
                 }
             </div>
         );

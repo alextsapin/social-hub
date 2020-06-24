@@ -14,12 +14,17 @@ import stub from '../../images/stub.png';
 import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people.js';
 
 // Selectors
-import {peopleSelector, 
-        pageSizeSelector, 
-        peopleCountSelector, 
-        currentPageSelector,
-        isConnectSelector,
-        followUsersSelector
+import {
+    peopleSelector, 
+    onPageUsersSelector, 
+    onPortionPageSelector,
+    peopleCountSelector, 
+    currentPageSelector,
+    isConnectSelector,
+    followUsersSelector,
+    portionTotalSelector,
+    pagesArraySelector,
+    pagesTotalSelector
 } from '../../redux/selectors/people.js';
 
 import {isAuthSelector} from '../../redux/selectors/auth.js';
@@ -74,7 +79,7 @@ const People = (props) => {
     return (
         <div className="mt-5 mb-5">
 
-            <h1 className="title title_first mb-5">Всего пользователей: {props.count}</h1>
+            <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>
 
             {props.isConnect ? <Preloader/> :
             props.data.map(item => 
@@ -93,10 +98,14 @@ const People = (props) => {
             )}
 
             <Pagination 
-                onPageChanged     = {props.onPageChanged} 
-                currentPage       = {props.currentPage} 
-                onPageUsers       = {props.size} 
-                totalUsersCount   = {props.count}
+                pageChange = {props.pageChange} 
+                currentPage = {props.currentPage} 
+                pages = {props.pages}
+                onPageUsers = {props.onPageUsers} 
+                onPortionPage = {props.onPortionPage}
+                usersTotal = {props.usersTotal}
+                portionTotal = {props.portionTotal}
+                pagesTotal = {props.pagesTotal}
             />
         </div>
     )
@@ -106,28 +115,30 @@ const People = (props) => {
 class PeopleServer extends React.Component {
 
     componentDidMount() {   
-        this.props.getUsersTC(this.props.currentPage, this.props.size);
+        this.props.getUsersTC(this.props.currentPage, this.props.onPageUsers);
     }
 
-    onPageChanged = (page) => {
-        this.props.pageChangeTC(page, this.props.size)
+    pageChange = (page) => {
+        this.props.pageChangeTC(page, this.props.onPageUsers)
     }
 
-    render() {
-        console.log(this.props);
-        
+    render() {       
         return ( 
             <People 
-                data             = {this.props.data}
-                count            = {this.props.count} 
-                size             = {this.props.size}
-                currentPage      = {this.props.currentPage}
-                isConnect        = {this.props.isConnect}
-                onPageChanged    = {this.onPageChanged}
-                followUsers      = {this.props.followUsers}
-                followTC         = {this.props.followTC}
-                unfollowTC       = {this.props.unfollowTC}
-                isAuth           = {this.props.isAuth}
+                data = {this.props.data}
+                usersTotal = {this.props.usersTotal} 
+                portionTotal = {this.props.portionTotal}
+                pages = {this.props.pages}
+                pagesTotal = {this.props.pagesTotal}
+                onPageUsers = {this.props.onPageUsers}
+                onPortionPage = {this.props.onPortionPage}
+                currentPage = {this.props.currentPage}
+                isConnect = {this.props.isConnect}
+                pageChange = {this.pageChange}
+                followUsers = {this.props.followUsers}
+                followTC = {this.props.followTC}
+                unfollowTC = {this.props.unfollowTC}
+                isAuth = {this.props.isAuth}
             />
         );
     }
@@ -136,13 +147,17 @@ class PeopleServer extends React.Component {
 // Контейнерная компонента Profile
 let mapStateToProps = (state) => {
     return {
-        data:           peopleSelector(state),
-        size:           pageSizeSelector(state),
-        count:          peopleCountSelector(state),
-        currentPage:    currentPageSelector(state),
-        isConnect:      isConnectSelector(state),
-        followUsers:    followUsersSelector(state),
-        isAuth:         isAuthSelector(state),
+        data: peopleSelector(state),
+        pagesTotal: pagesTotalSelector(state),
+        pages: pagesArraySelector(state),
+        onPageUsers: onPageUsersSelector(state),
+        portionTotal: portionTotalSelector(state),
+        onPortionPage: onPortionPageSelector(state),
+        usersTotal: peopleCountSelector(state),
+        currentPage: currentPageSelector(state),
+        isConnect: isConnectSelector(state),
+        followUsers: followUsersSelector(state),
+        isAuth: isAuthSelector(state),
     }
 }
 
