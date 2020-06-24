@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
 import {maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
-import {InputText, InputCheck, Textarea} from '../../fields/fields.js';
+import {InputText, InputCheck, TextArea} from '../../fields/fields.js';
 
 const maxLength20 = maxLengthCreator(20);
 const minLength6 = minLengthCreator(6);
@@ -26,12 +26,12 @@ const ProfileForm = (props) => {
             <div className="mt-3 form-group row">
                 <div className="col-md-6">
                     <label className="font-weight-bold">Немного о себе</label>
-                    <Field name="aboutMe" component={Textarea}/>
+                    <Field name="aboutMe" component={TextArea}/>
                 </div>
 
                 <div className="col-md-6">
                     <label className="font-weight-bold">Причина поиска</label>
-                    <Field name="lookingForAJobDescription" component={Textarea}/>
+                    <Field name="lookingForAJobDescription" component={TextArea}/>
                 </div>
             </div>
 

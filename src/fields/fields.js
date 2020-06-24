@@ -1,58 +1,53 @@
 import React from 'react';
 
-export const Textarea = ({input, meta, ...props}) => {
+const getStyleTextArea = (error, touched, valid, value) => {
+  
+    if(error) {
+        return 'formPost__field form-control p-3 is-invalid';
+    } else if(touched && valid && value.length > 0) {
+        return 'formPost__field form-control p-3 is-valid'; 
+    } else {
+        return'formPost__field form-control p-3';
+    }
+}
 
-    let style = '';   
-    if(meta.touched && meta.error) {
-        style = 'p-3 formPost__field form-control is-invalid';  
+const getStyleInput = (error, touched) => {
+  
+    if(touched && error) {
+        return 'form-control is-invalid';  
+    } else if(touched && !error) {
+        return 'form-control is-valid';
+    } else {
+        return 'form-control';
     }
-    else if(meta.touched && !meta.error) {
-        style = 'p-3 formPost__field form-control is-valid';
-    }
-    else {
-        style = 'p-3 formPost__field form-control';
-    }
+}
+
+export const TextArea = (props) => {
+
+    let style = getStyleTextArea(props.meta.error, props.meta.touched, props.meta.valid, props.input.value);
 
     return (
         <div>
-            {meta.touched && meta.error && <p className="alert alert-danger text-center">{meta.error}</p>}
-            <textarea className={style} {...input} {...props} rows='5'/> 
+            {props.meta.error && <p className="alert alert-danger text-center">{props.meta.error}</p>}
+            <textarea className={style} {...props.input} rows='5' placeholder={props.placeholder}/> 
         </div>
     ) 
 }
 
 export const InputText = ({input, meta, ...props}) => {
 
-    let style = '';    
-    if(meta.touched && meta.error) {
-        style = 'form-control is-invalid';  
-    }
-    else if(meta.touched && !meta.error) {
-        style = 'form-control is-valid';
-    }
-    else {
-        style = 'form-control';
-    }
+    let style = getStyleInput(meta.error, meta.touched)
 
     return <input className={style} {...input} {...props} type="text"/>
 }
 
 export const InputPass = ({input, meta, ...props}) => {
 
-    let style = '';    
-    if(meta.touched && meta.error) {
-        style = 'form-control is-invalid';  
-    }
-    else if(meta.touched && !meta.error) {
-        style = 'form-control is-valid';
-    }
-    else {
-        style = 'form-control';
-    }
+    let style = getStyleInput(meta.error, meta.touched);
 
     return <input className={style} {...input} {...props} type="password"/>
 }
 
 export const InputCheck = ({input, meta, ...props}) => { 
-    return <input className="form-check-input" {...input} {...props} type="checkbox" value="false"/>
+    return <input className="form-check-input" {...input} {...props} type="checkbox"/>
 }

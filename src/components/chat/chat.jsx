@@ -6,10 +6,10 @@ import {connect} from 'react-redux';
 import spinner from '../spinner/spinner.jsx';
 
 // Fields
-import {Textarea} from '../../fields/fields.js';
+import {TextArea} from '../../fields/fields.js';
 
 // Validators
-import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
+import {maxLengthCreator} from '../../utilities/validators.js';
 
 // Thunk creators
 import {sendMessageTK, setUserDataTK} from '../../redux/reducers/chat.js';
@@ -36,15 +36,14 @@ const Chatter = (props) => {
         );
 }
 
-// Максимальное и минимальное число символов
+// Максимальное число символов
 const maxLength140 = maxLengthCreator(140);
-const minLength1 = minLengthCreator(1);
 
 // Компонент ChatForm
 const ChatForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className="formPost">
-            <Field component={Textarea} name="message" placeholder="Какой-то текст..." validate={[requiredField, maxLength140, minLength1]}/>
+            <Field component={TextArea} name="message" placeholder="Какой-то текст..." validate={[maxLength140]}/>
             <button className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Отправить</button>
         </form>
     );
