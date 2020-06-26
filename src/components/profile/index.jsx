@@ -41,6 +41,12 @@ class Profile extends React.Component {
         editMode: false
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps !== this.props) {
+            this.props.getProfileTC(this.props.profileId);
+        }
+    }
+
     activateEditMode = (e) => {
         e.preventDefault();
         this.setState({
@@ -56,7 +62,6 @@ class Profile extends React.Component {
     }
 
     onSubmit = (formData) => {
-        console.log(formData);
         this.props.saveProfileTC(this.props.person.userId, formData).then(
             () => {
                 this.setState({editMode: false});
@@ -131,13 +136,17 @@ class ProfileServer extends React.Component {
     }
 
     render() {
-        return <Profile 
-                    {...this.props} 
-                    id={this.props.id}
-                    status={this.props.status} 
-                    updateStatusTC={this.props.updateStatusTC} 
-                    saveProfileTC={this.props.saveProfileTC}
-                />
+        return (
+            <Profile 
+                {...this.props} 
+                id = {this.props.id}
+                profileId = {this.props.match.params.id ? this.props.match.params.id : this.props.id}
+                status = {this.props.status} 
+                updateStatusTC = {this.props.updateStatusTC} 
+                saveProfileTC = {this.props.saveProfileTC}
+                getProfileTC = {this.props.getProfileTC}
+            />
+        );
     }
 }
 

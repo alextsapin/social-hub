@@ -16,8 +16,7 @@ const Avatar = (props) => {
                 <label className="font-weight-bold">Загрузите фото профиля</label>
                 <input onChange={savePhoto} type="file" className="form-control-file mt-3"/>
             </div>
-            <button type="submit" className="btn btn-primary">Загрузить</button>
-            <button type="submit" className="btn btn-dark ml-3" onClick={props.activateEditMode}><GearIcon/></button>
+            <button type="submit" className="btn btn-lg btn-dark" onClick={props.activateEditMode}><GearIcon/></button>
         </form>
     );
 }

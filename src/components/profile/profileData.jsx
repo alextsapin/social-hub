@@ -3,20 +3,14 @@ import Contact from './contact.jsx';
 
 const ProfileData = (props) => {
 
+    console.log(props);
+
     return (
         <table className="table table-sm table-striped">
             <tbody>
                 <tr>
                     <th className="font-weight-bold">Немного о себе</th>
-                    <th>{props.person.aboutMe === null ? '...' : props.person.aboutMe}</th>
-                </tr>
-                <tr>
-                    <th className="font-weight-bold">В поиске работы?</th>
-                    <th>{props.person.lookingForAJob}</th>
-                </tr>
-                <tr>
-                    <th className="font-weight-bold">Причина поиска</th>
-                    <th>{props.person.lookingForAJobDescription === null ? '...' : props.person.lookingForAJobDescription}</th>
+                    <th>{props.person.aboutMe === null || props.person.aboutMe === '' ? '...' : props.person.aboutMe}</th>
                 </tr>
 
                 {Object.keys(props.person.contacts).filter(key => key !== 'mainLink').map(key => {

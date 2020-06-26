@@ -27,15 +27,17 @@ const LoginForm = (props) => {
             <div className="form-group">
                 <label className="font-weight-bold mb-1">Email</label>
                 <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength3]}/>
+                <small className="form-text text-muted">alextsapin@yandex.ru</small>
             </div>
 
             <div className="form-group">
                 <label className="font-weight-bold mb-1">Password</label>
                 <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength6]}/>
+                <small className="form-text text-muted">wXq1EbIL</small>
             </div>
 
             <div className="form-group form-check">
-                <Field className="form-check-input font-weight-bold mb-1" name="rememberMe" component={InputCheck} />
+                <Field className="form-check-input font-weight-bold mb-1" name="rememberMe" component={InputCheck}/>
                 <label className="form-check-label font-weight-bold" htmlFor="rememberMe">Запомнить меня</label>
             </div>
 
@@ -60,7 +62,6 @@ class Login extends React.Component {
     }
     
     onSubmit = (data) => {
-        console.log(data);
         this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha);
     }
 
@@ -84,5 +85,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    //withProfileRedirect, 
+    withProfileRedirect, 
     connect(mapStateToProps, {loginTC, getCaptchaUrlTC}))(Login);
