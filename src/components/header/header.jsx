@@ -9,7 +9,7 @@ import spinner from '../spinner/spinner.jsx';
 import logo from '../../images/logo.png';
 
 // Icons
-import {HouseIcon, PeopleIcon, PersonIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons.js';
+import {HouseIcon, PeopleIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons.js';
 
 const Header = (props) => {
     return (
@@ -28,13 +28,6 @@ const Header = (props) => {
                             <NavLink className="nav-link" exact to="/">
                                 <HouseIcon/>
                                 <span>Home</span>
-                            </NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/profile/2">
-                                <PersonIcon/>
-                                <span>Dmytry</span>
                             </NavLink>
                         </li>
 
@@ -71,7 +64,6 @@ const Header = (props) => {
 }
 
 const HeaderServer = (props) => {
-    
     return <Header {...props}/>
 }
 

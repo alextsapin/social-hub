@@ -58,18 +58,21 @@ export const loginTC = (email, password, rememberMe, captcha) => {
     return (dispatch) => {
         loginAPI(email, password, rememberMe, captcha).then(response => {
             if(response.resultCode === 0) {
+                console.log(response);
                 dispatch(authTC());
             } else if (response.resultCode === 10) {
-                console.log(1111111111);
                 console.log(response);
                 dispatch(stopSubmit('Login', {_error: response.messages[0]}));
             } else {
+                console.log(response);
+                console.log(response);
                 let error = response.messages[0].length > 0 ? response.messages[0] : 'Some error';
                 dispatch(stopSubmit('Login', {_error: error}));
             }
         });
     }
 }
+
 
 export const logoutTC = () => {
     return (dispatch) => {

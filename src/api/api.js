@@ -27,7 +27,7 @@ export const authAPI = () => {
 }
 
 // Login
-export const loginAPI = (email, password, rememberMe = false, captcha = null) => {
+export const loginAPI = (email, password, rememberMe, captcha) => {
     return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
         return response.data; 
     });

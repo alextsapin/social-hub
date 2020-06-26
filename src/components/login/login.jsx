@@ -3,7 +3,7 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import ImageLoader from 'react-imageloader';
-import spinner from '../spinner/spinner.jsx';
+import lineloader from '../lineloader/lineloader.jsx';
 
 // Form
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
@@ -27,25 +27,23 @@ const LoginForm = (props) => {
             <div className="form-group">
                 <label className="font-weight-bold mb-1">Email</label>
                 <Field name="email" component={InputText} validate={[requiredField, maxLength20, minLength3]}/>
-                <small className="form-text text-muted">alextsapin@yandex.ru</small>
             </div>
 
             <div className="form-group">
                 <label className="font-weight-bold mb-1">Password</label>
                 <Field name="password" component={InputPass} validate={[requiredField, maxLength20, minLength6]}/>
-                <small className="form-text text-muted">wXq1EbIL</small>
-            </div>
-
-            <ImageLoader className="captchaImage" src={props.captchaUrl} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>
-
-            <div className="form-group">
-                <label className="font-weight-bold mt-2 mb-1">Captcha</label>
-                <Field name="captcha" component={InputText} validate={[requiredField]}/>
             </div>
 
             <div className="form-group form-check">
                 <Field className="form-check-input font-weight-bold mb-1" name="rememberMe" component={InputCheck} />
-                <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
+                <label className="form-check-label font-weight-bold" htmlFor="rememberMe">Запомнить меня</label>
+            </div>
+
+            <ImageLoader className="captchaImage" src={props.captchaUrl} wrapper={React.createFactory('div')} preloader={lineloader}></ImageLoader>
+
+            <div className="form-group">
+                <label className="font-weight-bold mt-2 mb-1">Captcha</label>
+                <Field name="captcha" component={InputText} validate={[requiredField]}/>
             </div>
 
             <button type="submit" className="btn btn-secondary">Login</button>
@@ -61,11 +59,11 @@ class Login extends React.Component {
         this.props.getCaptchaUrlTC();
     }
     
-
     onSubmit = (data) => {
-        this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha)
+        console.log(data);
+        this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha);
     }
-    
+
     render() {
         return (
             <div className="row mt-5 mb-5">

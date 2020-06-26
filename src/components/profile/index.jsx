@@ -56,6 +56,7 @@ class Profile extends React.Component {
     }
 
     onSubmit = (formData) => {
+        console.log(formData);
         this.props.saveProfileTC(this.props.person.userId, formData).then(
             () => {
                 this.setState({editMode: false});

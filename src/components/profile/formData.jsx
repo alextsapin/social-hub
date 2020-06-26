@@ -4,8 +4,8 @@ import {Field, reduxForm} from 'redux-form';
 import {maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
 import {InputText, InputCheck, TextArea} from '../../fields/fields.js';
 
-const maxLength20 = maxLengthCreator(20);
-const minLength6 = minLengthCreator(6);
+const maxLength40 = maxLengthCreator(40);
+const minLength3 = minLengthCreator(3);
 
 const ProfileForm = (props) => {
     return (
@@ -18,8 +18,8 @@ const ProfileForm = (props) => {
                 </div>
 
                 <div className="col-md-6 form-check mt-4">
-                    <Field name="lookingForAJob" component={InputCheck}/>
-                    <label className="form-check-label font-weight-bold" htmlFor="lookingForAJob">В поиске работы ?</label>
+                    <Field className="form-check-input font-weight-bold mb-1" name="lookingForAJob" component={InputCheck}/>
+                    <label className="form-check-label font-weight-bold" htmlFor="lookingForAJob">В поиске работы?</label>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@ const ProfileForm = (props) => {
             <div className="mt-3 form-group row">
                 <div className="col-md-6">
                     <label className="font-weight-bold">Facebook</label>
-                    <Field name="contacts.facebook" component={InputText}/>
+                    <Field name="contacts.facebook" component={InputText} validate={[minLength3, maxLength40]}/>
                 </div>
 
                 <div className="col-md-6">
@@ -52,7 +52,7 @@ const ProfileForm = (props) => {
             <div className="mt-3 form-group row">
                 <div className="col-md-6">
                     <label className="font-weight-bold">VK</label>
-                    <Field name="contacts.vk" component={InputText}/>
+                    <Field name="contacts.vk" component={InputText} validate={[minLength3, maxLength40]}/>
                 </div>
 
                 <div className="col-md-6">
