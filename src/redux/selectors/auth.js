@@ -5,3 +5,7 @@ export const userIdSelector = (state) => {
 export const isAuthSelector = (state) => {
     return state.auth.isAuth;
 }
+
+export const userLoginSelector = (state) => {
+    return state.auth.login;
+}

@@ -8,6 +8,8 @@ import spinner from '../spinner/spinner.jsx';
 // IMG
 import logo from '../../images/logo.png';
 
+import {userIdSelector, isAuthSelector, userLoginSelector} from '../../redux/selectors/auth.js';
+
 // StateType
 import {appStateType} from '../../redux/store';
 
@@ -84,9 +86,9 @@ const HeaderServer = (props: propsType) => {
 }
 
 const mapStateToProps = (state: appStateType): mapStatePropsType => ({
-    id:     state.auth.id,
-    isAuth: state.auth.isAuth,
-    login:  state.auth.login
+    id: userIdSelector(state),
+    isAuth: isAuthSelector(state),
+    login: userLoginSelector(state)
 });
 
 export default connect<mapStatePropsType, mapDispatchPropsType, unknown, appStateType>(mapStateToProps, {logoutTC})(HeaderServer);

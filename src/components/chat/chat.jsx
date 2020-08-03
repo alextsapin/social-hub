@@ -3,22 +3,22 @@ import {compose} from 'redux';
 import ImageLoader from 'react-imageloader';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import spinner from '../spinner/spinner.jsx';
+import spinner from '../spinner/spinner';
 
 // Fields
-import {TextArea} from '../../fields/fields.js';
+import {TextArea} from '../../fields/fields';
 
 // Validators
-import {maxLengthCreator} from '../../utilities/validators.js';
+import {maxLengthCreator} from '../../utilities/validators';
 
 // Thunk creators
-import {sendMessageTK, setUserDataTK} from '../../redux/reducers/chat.js';
+import {sendMessageTK, setUserDataTK} from '../../redux/reducers/chat';
 
 // HOC
-import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 // Selector
-import {userIdSelector} from '../../redux/selectors/auth.js';
+import {userIdSelector} from '../../redux/selectors/auth';
 
 const Chatter = (props) => {
         return (
@@ -77,8 +77,8 @@ const Chat = (props) => {
 // Контейнерная компонента Chat
 let mapStateToProps = (state) => {
     return {
-        id:         userIdSelector(state),
-        chatData:   state.chat.data,
+        id: userIdSelector(state),
+        chatData: state.chat.data,
         newMessage: state.chat.newMessage
     }
 }

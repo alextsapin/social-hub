@@ -2,9 +2,6 @@ import React from 'react';
 import Contact from './contact.jsx';
 
 const ProfileData = (props) => {
-
-    console.log(props);
-
     return (
         <table className="table table-sm table-striped">
             <tbody>
