@@ -5,17 +5,17 @@ import {Route, Switch, withRouter} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 
 // Thunk creator
-import {initializeTC} from './redux/reducers/app.js';
+import {initializeTC} from './redux/reducers/app';
 
 // Компоненты
-import Header from './components/header/header.jsx';
-import ProfileBox from './components/profile/index.jsx';
-import ChatBox from './components/chat/chat.jsx';
-import PeopleBox from './components/people/people.jsx';
-import Footer from './components/footer/footer.jsx';
-import Login from './components/login/login.jsx';
-import Preloader from './components/preloader/preloader.jsx';
-import NotFound from './components/notfound/404.jsx';
+import Header from './components/header/header';
+import ProfileBox from './components/profile/index';
+import ChatBox from './components/chat/chat';
+import PeopleBox from './components/people/people';
+import Footer from './components/footer/footer';
+import Login from './components/login/login';
+import Preloader from './components/preloader/preloader';
+import NotFound from './components/notfound/404';
 
 // CSS
 import './font/roboto.css';

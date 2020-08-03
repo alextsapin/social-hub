@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 
 // STORE
-import store from "./redux/store.js";
+import store from "./redux/store";
 
 // Контекст
 import {Provider} from 'react-redux';

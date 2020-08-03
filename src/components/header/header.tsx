@@ -8,10 +8,26 @@ import spinner from '../spinner/spinner.jsx';
 // IMG
 import logo from '../../images/logo.png';
 
+// StateType
+import {appStateType} from '../../redux/store';
+
 // Icons
 import {HouseIcon, PeopleIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons.js';
 
-const Header = (props) => {
+type propsType = mapStatePropsType & mapDispatchPropsType;
+
+type mapDispatchPropsType = {
+    logoutTC: () => void;
+}
+
+type mapStatePropsType = {
+    id: number;
+    isAuth: boolean;
+    login: string;
+}
+
+const Header = (props: propsType) => {
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-xl">
@@ -63,14 +79,14 @@ const Header = (props) => {
     );
 }
 
-const HeaderServer = (props) => {
+const HeaderServer = (props: propsType) => {
     return <Header {...props}/>
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: appStateType): mapStatePropsType => ({
     id:     state.auth.id,
     isAuth: state.auth.isAuth,
     login:  state.auth.login
 });
 
-export default connect(mapStateToProps, {logoutTC})(HeaderServer);
+export default connect<mapStatePropsType, mapDispatchPropsType, unknown, appStateType>(mapStateToProps, {logoutTC})(HeaderServer);

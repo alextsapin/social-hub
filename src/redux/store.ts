@@ -11,7 +11,7 @@ import authReducer from './reducers/auth.js';
 import appReducer from './reducers/app.js';
 
 // Объединим редьюсеры
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profile: profileReducer,
     chat:    chatReducer,
     people:  peopleReducer,
@@ -20,7 +20,10 @@ let reducers = combineReducers({
     form:    formReducer
 });
 
+type rootReducerType = typeof rootReducer;
+export type appStateType = ReturnType<rootReducerType>;
+
 // Создадим store c помощью redux
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default store;
