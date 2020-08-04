@@ -5,6 +5,9 @@ import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import spinner from '../spinner/spinner';
 
+// StateType
+import {appStateType} from '../../redux/store';
+
 // Fields
 import {TextArea} from '../../fields/fields';
 
@@ -12,7 +15,7 @@ import {TextArea} from '../../fields/fields';
 import {maxLengthCreator} from '../../utilities/validators';
 
 // Thunk creators
-import {sendMessageTK, setUserDataTK} from '../../redux/reducers/chat';
+import {sendMessageTC, setUserDataTC} from '../../redux/reducers/chat';
 
 // HOC
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
@@ -20,7 +23,28 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 // Selector
 import {userIdSelector} from '../../redux/selectors/auth';
 
-const Chatter = (props) => {
+type ownPropsType = {
+    id: number;
+    name: string;
+    image: string;
+    message: string;
+    handleSubmit: any;
+}
+
+type mapDispatchPropsType = {
+    setUserDataTC: (id: number) => void;
+    sendMessageTC: (id: number, massage: string) => void;
+}
+
+type mapStatePropsType = {
+    id: number;
+    chatData: Array<any>;
+    newMessage: string;
+}
+
+type propsType = mapStatePropsType & mapDispatchPropsType & ownPropsType;
+
+const Chatter = (props: ownPropsType) => {
         return (
             <div className="chat row">
                 <div className="col-md-3">
@@ -39,8 +63,12 @@ const Chatter = (props) => {
 // Максимальное число символов
 const maxLength140 = maxLengthCreator(140);
 
+type propsChatFormType = {
+    handleSubmit: any;
+}
+
 // Компонент ChatForm
-const ChatForm = (props) => {
+const ChatForm = (props: propsChatFormType) => {
     return (
         <form onSubmit={props.handleSubmit} className="formPost">
             <Field component={TextArea} name="message" placeholder="Какой-то текст..." validate={[maxLength140]}/>
@@ -52,14 +80,15 @@ const ChatForm = (props) => {
 const ChatFormRedux = reduxForm({form: 'Chat'})(ChatForm);
 
 // Презентационная компонента Chat
-const Chat = (props) => {
+const Chat = (props: propsType) => {
 
-    props.setUserDataTK(props.id);
+    props.setUserDataTC(props.id);
 
+    // @ts-ignore
     let userBox = props.chatData.map(item => (<Chatter key={item.id} id={item.id} name={item.name} image={item.image} message={item.message}/>));
 
-    let sendMessage = (values) => {
-        props.sendMessageTK(props.id, values.message);
+    let sendMessage = (values: any) => {
+        props.sendMessageTC(props.id, values.message);
     }
 
     return (
@@ -75,7 +104,7 @@ const Chat = (props) => {
 }
 
 // Контейнерная компонента Chat
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: appStateType): mapStatePropsType => {
     return {
         id: userIdSelector(state),
         chatData: state.chat.data,
@@ -83,4 +112,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(withAuthRedirect,connect(mapStateToProps, {sendMessageTK, setUserDataTK}))(Chat);
+export default compose(withAuthRedirect,connect(mapStateToProps, {sendMessageTC, setUserDataTC}))(Chat);

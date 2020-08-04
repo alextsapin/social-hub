@@ -82,7 +82,7 @@ const setUserDataAC = (name, image) => {
 }
 
 // Thunk creators
-export const setUserDataTK = (id) => {
+export const setUserDataTC = (id) => {
     return (dispatch) => {
         // Получим данные пользователя
         getProfileAPI(id).then(data => {
@@ -91,7 +91,7 @@ export const setUserDataTK = (id) => {
     }
 }
 
-export const sendMessageTK = (id = 7020, message, name, image) => {
+export const sendMessageTC = (id = 7020, message = ' ', name, image) => {
     return (dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {
