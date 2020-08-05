@@ -1,6 +1,18 @@
 import React from 'react';
 
-class Status extends React.Component {
+type stateType = {
+    editMode: boolean;
+    status: string;
+}
+
+type propsType = {
+    userId: number;
+    id: number;
+    status: string;
+    updateStatusTC: (status: string) => void;
+}
+
+class Status extends React.Component<propsType, stateType> {
     
     state = {
         editMode: false,
@@ -22,14 +34,14 @@ class Status extends React.Component {
         this.props.updateStatusTC(this.state.status);
     }
 
-    onStatusChange = (e) => {
+    onStatusChange = (e: any) => {
         this.setState({
             status: e.currentTarget.value
             
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: propsType) {
         if(prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
