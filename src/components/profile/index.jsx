@@ -5,16 +5,16 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 // Components
-import Status from './status.jsx';
-import Panel from './panel.jsx';
-import PostData from './postData.jsx';
-import ProfileData from './profileData.jsx';
-import Preloader from '../preloader/preloader.jsx';
-import spinner from '../spinner/spinner.jsx';
-import ProfileForm from './formData.jsx';
+import Status from './status';
+import Panel from './panel';
+import PostData from './postData';
+import ProfileData from './profileData';
+import Preloader from '../preloader/preloader';
+import spinner from '../spinner/spinner';
+import ProfileForm from './formData';
 
 // HOC
-import {withAuthRedirect} from '../../hoc/withAuthRedirect.js';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 // IMG
 import stub from '../../images/stub.png';
@@ -31,8 +31,8 @@ import {
 } from '../../redux/reducers/profile.js';
 
 // Selectors
-import {statusSelector, postSelector, dataSelector, personSelector} from '../../redux/selectors/profile.js';
-import {userIdSelector} from '../../redux/selectors/auth.js';
+import {statusSelector, postSelector, dataSelector, personSelector} from '../../redux/selectors/profile';
+import {userIdSelector} from '../../redux/selectors/auth';
 
 // Презентацинная компонента Profile
 class Profile extends React.Component {
