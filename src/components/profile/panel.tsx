@@ -2,9 +2,14 @@ import React from 'react';
 // Icons
 import {GearIcon} from '../../icons/icons';
 
-const Avatar = (props) => {
+type propsType = {
+    setAvatarTC: (e: any) => void;
+    activateEditMode: () => void;
+}
 
-    let savePhoto = (e) => {
+const Avatar = (props: propsType) => {
+
+    let savePhoto = (e: any) => {
         if(e.target.files.length) {
             props.setAvatarTC(e.target.files[0]);
         }

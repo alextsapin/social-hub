@@ -1,7 +1,17 @@
 import React from 'react';
 import Contact from './contact';
 
-const ProfileData = (props) => {
+type personPropsType = {
+    aboutMe: string;
+    contacts: any;
+}
+
+type propsType = {
+    person: personPropsType;
+    
+}
+
+const ProfileData = (props: propsType) => {
     return (
         <table className="table table-sm table-striped">
             <tbody>
