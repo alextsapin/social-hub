@@ -1,5 +1,5 @@
 import React from 'react';
-import Post from './post.jsx';
+import Post from './post';
 
 const PostData = (props) => {
 

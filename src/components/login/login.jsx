@@ -3,17 +3,17 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import ImageLoader from 'react-imageloader';
-import lineloader from '../lineloader/lineloader.jsx';
+import lineloader from '../spinners/captchaSpinner';
 
 // Form
-import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
-import {InputText, InputPass, InputCheck} from '../../fields/fields.js';
+import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators';
+import {InputText, InputPass, InputCheck} from '../../fields/fields';
 
 // Thunk creators
-import {loginTC, getCaptchaUrlTC} from '../../redux/reducers/auth.js';
+import {loginTC, getCaptchaUrlTC} from '../../redux/reducers/auth';
 
 // HOC
-import {withProfileRedirect} from '../../hoc/withProfileRedirect.js';
+import {withProfileRedirect} from '../../hoc/withProfileRedirect';
 
 const maxLength20 = maxLengthCreator(20);
 const minLength3 = minLengthCreator(3);

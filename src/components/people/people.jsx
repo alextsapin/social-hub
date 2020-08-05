@@ -3,15 +3,15 @@ import {compose} from 'redux';
 import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import {connect} from 'react-redux';
-import Pagination from '../pagination/pagination.jsx';
-import Preloader from '../preloader/preloader.jsx';
-import spinner from '../spinner/spinner.jsx';
+import Pagination from '../pagination/pagination';
+import Preloader from '../spinners/pageSpinner';
+import spinner from '../spinners/imageSpinner';
 
 // IMG
 import stub from '../../images/stub.png';
 
 // Thunk creators
-import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people.js';
+import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people';
 
 // Selectors
 import {

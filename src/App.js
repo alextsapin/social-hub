@@ -14,7 +14,7 @@ import ChatBox from './components/chat/chat';
 import PeopleBox from './components/people/people';
 import Footer from './components/footer/footer';
 import Login from './components/login/login';
-import Preloader from './components/preloader/preloader';
+import Preloader from './components/spinners/pageSpinner';
 import NotFound from './components/notfound/404';
 
 // CSS

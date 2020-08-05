@@ -2,19 +2,19 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ImageLoader from 'react-imageloader';
-import {logoutTC} from '../../redux/reducers/auth.js';
-import spinner from '../spinner/spinner.jsx';
+import {logoutTC} from '../../redux/reducers/auth';
+import spinner from '../spinners/imageSpinner';
 
 // IMG
 import logo from '../../images/logo.png';
 
-import {userIdSelector, isAuthSelector, userLoginSelector} from '../../redux/selectors/auth.js';
+import {userIdSelector, isAuthSelector, userLoginSelector} from '../../redux/selectors/auth';
 
 // StateType
 import {appStateType} from '../../redux/store';
 
 // Icons
-import {HouseIcon, PeopleIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons.js';
+import {HouseIcon, PeopleIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons';
 
 type propsType = mapStatePropsType & mapDispatchPropsType;
 
@@ -29,7 +29,6 @@ type mapStatePropsType = {
 }
 
 const Header = (props: propsType) => {
-
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-xl">

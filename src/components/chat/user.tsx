@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageLoader from 'react-imageloader';
-import spinner from '../spinner/spinner';
+import spinner from '../spinners/imageSpinner';
 
 type PropsType = {
     id: number;

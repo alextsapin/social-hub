@@ -1,11 +1,11 @@
 import React from 'react';
-import stub from './lineloader.gif';
+import stub from './images/image.gif';
 
 // Функция, возвращающая крутилку для ImageLoader
-const lineloader = () => {
+const ImageSpinner = () => {
 	return (
 		<img src={stub} alt="spinner"/>
 	);
 }
 
-export default lineloader;
+export default ImageSpinner;

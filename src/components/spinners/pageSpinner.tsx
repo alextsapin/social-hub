@@ -1,7 +1,7 @@
 import React from 'react';
-import loading from './loading.gif';
+import loading from './images/page.gif';
 
-const Preloader = () => {
+const PageSpinner = () => {
 	return (
 		<div id="content">
 			<img className="preloader" src={loading} alt="preloader"/>
@@ -9,4 +9,4 @@ const Preloader = () => {
 	);
 }
 
-export default Preloader;
+export default PageSpinner;

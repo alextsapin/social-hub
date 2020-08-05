@@ -1,11 +1,11 @@
 import React from 'react';
-import stub from './spinner.gif';
+import stub from './images/captcha.gif';
 
 // Функция, возвращающая крутилку для ImageLoader
-const spinner = () => {
+const CaptchaSpinner = () => {
 	return (
 		<img src={stub} alt="spinner"/>
 	);
 }
 
-export default spinner;
+export default CaptchaSpinner;

@@ -9,8 +9,8 @@ import Status from './status';
 import Panel from './panel';
 import PostData from './postData';
 import ProfileData from './profileData';
-import Preloader from '../preloader/preloader';
-import spinner from '../spinner/spinner';
+import Preloader from '../spinners/pageSpinner';
+import spinner from '../spinners/imageSpinner';
 import ProfileForm from './formData';
 
 // HOC
