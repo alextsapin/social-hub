@@ -1,8 +1,8 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
-import {maxLengthCreator, minLengthCreator} from '../../utilities/validators.js';
-import {InputText, InputCheck, TextArea} from '../../fields/fields.js';
+import {maxLengthCreator, minLengthCreator} from '../../utilities/validators';
+import {InputText, InputCheck, TextArea} from '../../fields/fields';
 
 const maxLength60 = maxLengthCreator(60);
 const minLength3 = minLengthCreator(3);

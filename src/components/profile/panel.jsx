@@ -1,6 +1,6 @@
 import React from 'react';
 // Icons
-import {GearIcon} from '../../icons/icons.js';
+import {GearIcon} from '../../icons/icons';
 
 const Avatar = (props) => {
 

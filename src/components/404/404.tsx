@@ -1,7 +1,6 @@
 import React from 'react';
 
-const NotFound = () => {
-
+const Error404 = () => {
     return (
         <div className="row">
             <div className="col-12">
@@ -11,4 +10,4 @@ const NotFound = () => {
     );
 }
 
-export default NotFound;
+export default Error404;

@@ -15,7 +15,7 @@ import PeopleBox from './components/people/people';
 import Footer from './components/footer/footer';
 import Login from './components/login/login';
 import Preloader from './components/spinners/pageSpinner';
-import NotFound from './components/notfound/404';
+import NotFound from './components/404/404';
 
 // CSS
 import './font/roboto.css';

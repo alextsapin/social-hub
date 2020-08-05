@@ -1,5 +1,5 @@
 import React from 'react';
-import Contact from './contact.jsx';
+import Contact from './contact';
 
 const ProfileData = (props) => {
     return (

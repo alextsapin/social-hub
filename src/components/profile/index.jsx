@@ -28,7 +28,7 @@ import {
     updateStatusTC, 
     setAvatarTC,
     saveProfileTC
-} from '../../redux/reducers/profile.js';
+} from '../../redux/reducers/profile';
 
 // Selectors
 import {statusSelector, postSelector, dataSelector, personSelector} from '../../redux/selectors/profile';

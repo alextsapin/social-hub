@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Contact = ({title, value}) => {
+type propsType = {
+    title: string;
+    value: string;
+}
+
+const Contact: React.FC<propsType> = ({title, value}) => {
     return (
         <tr>
             <td className="font-weight-bold">{title}</td>
