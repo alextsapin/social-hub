@@ -1,10 +1,24 @@
 import React from 'react';
 
 // Icons
-import {ArrowLeftIcon, ArrowDoubleLeftIcon, ArrowRightIcon, ArrowDoubleRightIcon} from '../../icons/icons.js';
+import {ArrowLeftIcon, ArrowDoubleLeftIcon, ArrowRightIcon, ArrowDoubleRightIcon} from '../../icons/icons';
+
+type propsType = {
+    currentPage: number;
+    onPageUsers: number;
+    portionTotal: number;
+    onPortionPage: number;
+    pages: Array<number>;
+    pagesTotal: number;
+    pageChange: (currentPage: number) => void;
+}
+
+type stateType = {
+    portionNumber: number;
+}
 
 // Постраничная навигация
-class Pagination extends React.Component {
+class Pagination extends React.Component<propsType, stateType> {
 
     componentDidMount() {   
         this.props.pageChange(this.props.currentPage);

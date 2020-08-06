@@ -1,5 +1,5 @@
 import {stopSubmit} from 'redux-form';
-import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api.js';
+import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api';
 
 // Первичный state
 let initialState = {

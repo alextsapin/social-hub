@@ -1,5 +1,5 @@
 import {reset} from 'redux-form';
-import {getProfileAPI} from '../../api/api.js';
+import {getProfileAPI} from '../../api/api';
 
 // Первичный state
 let initialState = {

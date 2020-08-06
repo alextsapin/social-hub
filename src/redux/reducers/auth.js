@@ -1,5 +1,5 @@
 import {stopSubmit} from 'redux-form';
-import {authAPI, loginAPI, logoutAPI, getCaptchaUrlAPI} from '../../api/api.js';
+import {authAPI, loginAPI, logoutAPI, getCaptchaUrlAPI} from '../../api/api';
 
 // Первичный state
 let initialState = {

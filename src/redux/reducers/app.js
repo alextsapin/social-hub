@@ -1,4 +1,4 @@
-import {authTC} from './auth.js';
+import {authTC} from './auth';
 
 // Первичный state
 let initialState = {
