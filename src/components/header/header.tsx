@@ -30,7 +30,7 @@ type mapStatePropsType = {
 
 const Header = (props: propsType) => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-xl">
                 <NavLink className="navbar-brand" to="/">
                     <ImageLoader className="logo" src={logo} wrapper={React.createFactory('div')} preloader={spinner}></ImageLoader>

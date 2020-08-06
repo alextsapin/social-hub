@@ -18,7 +18,7 @@ const ChatForm = (props: PropsType) => {
     return (
         <form onSubmit={props.handleSubmit} className="formPost">
             <Field component={TextArea} name="message" placeholder="Какой-то текст..." validate={[maxLength140]}/>
-            <button className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Отправить</button>
+            <button className="btn btn-warning mt-2 float-right" type="submit">Отправить</button>
         </form>
     );
 }

@@ -25,7 +25,7 @@ const PostData = (props) => {
                 <form className="formPost">
                     <textarea className="formPost__field form-control p-3" onChange={updatePost} value={props.post} ref={textarea} rows="5"
                         placeholder="Мой новый пост..."/>
-                    <button onClick={addPost} className="btn btn-lg btn-secondary mt-2 float-right" type="submit">Добавить</button>
+                    <button onClick={addPost} className="btn btn-warning mt-2 float-right" type="submit">Добавить</button>
                 </form>
             </div>
         </div>

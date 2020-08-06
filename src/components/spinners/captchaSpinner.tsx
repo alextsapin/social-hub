@@ -1,5 +1,5 @@
 import React from 'react';
-import stub from './images/captcha.gif';
+import stub from './loaders/captcha.gif';
 
 // Функция, возвращающая крутилку для ImageLoader
 const CaptchaSpinner = () => {

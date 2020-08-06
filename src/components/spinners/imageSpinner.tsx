@@ -1,5 +1,5 @@
 import React from 'react';
-import stub from './images/image.gif';
+import stub from './loaders/image.gif';
 
 // Функция, возвращающая крутилку для ImageLoader
 const ImageSpinner = () => {

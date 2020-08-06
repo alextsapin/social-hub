@@ -4,11 +4,11 @@ import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 
 // Reducers
-import profileReducer from './reducers/profile.js';
-import chatReducer from './reducers/chat.js';
-import peopleReducer from './reducers/people.js';
-import authReducer from './reducers/auth.js';
-import appReducer from './reducers/app.js';
+import profileReducer from './reducers/profile';
+import chatReducer from './reducers/chat';
+import peopleReducer from './reducers/people';
+import authReducer from './reducers/auth';
+import appReducer from './reducers/app';
 
 // Объединим редьюсеры
 let rootReducer = combineReducers({

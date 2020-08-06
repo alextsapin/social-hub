@@ -1,5 +1,5 @@
 import React from 'react';
-import loading from './images/page.gif';
+import loading from './loaders/page.gif';
 
 const PageSpinner = () => {
 	return (

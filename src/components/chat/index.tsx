@@ -18,18 +18,18 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 // Selector
 import {userIdSelector} from '../../redux/selectors/auth';
 
-type MapDispatchPropsType = {
+type mapDispatchPropsType = {
     setUserDataTC: (id: number) => void;
     sendMessageTC: (id: number, massage: string) => void;
 }
 
-type MapStatePropsType = {
+type mapStatePropsType = {
     id: number;
     chatData: Array<any>;
     newMessage: string;
 }
 
-type PropsType = MapStatePropsType & MapDispatchPropsType;
+type PropsType = mapStatePropsType & mapDispatchPropsType;
 
 // Презентационная компонента Chat
 const Chat = (props: PropsType) => {
@@ -55,7 +55,7 @@ const Chat = (props: PropsType) => {
 }
 
 // Контейнерная компонента Chat
-let mapStateToProps = (state: appStateType): MapStatePropsType => {
+let mapStateToProps = (state: appStateType): mapStatePropsType => {
     return {
         id: userIdSelector(state),
         chatData: state.chat.data,
