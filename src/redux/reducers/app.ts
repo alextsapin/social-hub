@@ -38,7 +38,7 @@ export const initializeAC = () => ({
 
 // Thunk creators
 export const initializeTC = (): ThunkAction<Promise<void>, appStateType, unknown, initializeACType> => {
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         let promise = dispatch(authTC());
         Promise.all([promise]).then(() => {
             dispatch(initializeAC());
