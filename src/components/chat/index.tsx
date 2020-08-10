@@ -15,8 +15,9 @@ import {sendMessageTC, setUserDataTC} from '../../redux/reducers/chat';
 // HOC
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
-// Selector
+// Selectors
 import {userIdSelector} from '../../redux/selectors/auth';
+import {chatDataSelector, newMessageSelector} from '../../redux/selectors/chat';
 
 type mapDispatchPropsType = {
     setUserDataTC: (id: number) => void;
@@ -58,8 +59,8 @@ const Chat = (props: PropsType) => {
 let mapStateToProps = (state: appStateType): mapStatePropsType => {
     return {
         id: userIdSelector(state),
-        chatData: state.chat.data,
-        newMessage: state.chat.newMessage
+        chatData: chatDataSelector(state),
+        newMessage: newMessageSelector(state)
     }
 }
 
