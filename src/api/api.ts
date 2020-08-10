@@ -1,4 +1,10 @@
-import * as axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
+
+export enum resultCodeEnum {
+    success = 0,
+    error = 1,
+    captchaIsRequired = 10
+}
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,7 +15,7 @@ const instance = axios.create({
 });
 
 // Получим данные авторизации
-export const setAvatarAPI = (photoFile) => {
+export const setAvatarAPI = (photoFile: any) => {
     let formData = new FormData();
     formData.append('image', photoFile);
     return instance.put(`profile/photo`, formData, {headers: {
@@ -19,15 +25,25 @@ export const setAvatarAPI = (photoFile) => {
     });
 }
 
+type authAPIType = {
+    data: {
+        id: number;
+        login: string;
+        email: string;
+    };
+    resultCode: number;
+    messages: Array<string>
+}
+
 // Получим данные авторизации
 export const authAPI = () => {
-    return instance.get(`auth/me`).then(response => {
+    return instance.get<authAPIType>(`auth/me`).then((response) => {
         return response.data; 
     });
 }
 
 // Login
-export const loginAPI = (email, password, rememberMe, captcha) => {
+export const loginAPI = (email: string, password: string, rememberMe: boolean, captcha: null | string) => {
     return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
         return response.data; 
     });
@@ -41,13 +57,14 @@ export const logoutAPI = () => {
 }
 
 // Получим всех пользователей
-export const peopleAPI = (page, limit) => {
+export const peopleAPI = (page: number, limit: number) => {
     return instance.get(`users?page=${page}&count=${limit}`)
     .then(response => response.data);
+    
 }
 
 // Функция ля подписки
-export const followAPI = (id) => {
+export const followAPI = (id: number) => {
     return instance.post(`follow/${id}`, {})
     .then(response => {
         return response.data;
@@ -55,7 +72,7 @@ export const followAPI = (id) => {
 }
 
 // Функция для отписки
-export const unfollowAPI = (id) => {
+export const unfollowAPI = (id: number) => {
     return instance.delete(`follow/${id}`)
     .then(response => {
         return response.data;
@@ -63,7 +80,7 @@ export const unfollowAPI = (id) => {
 }
 
 // Получим профиль пользователя
-export const getProfileAPI = (id) => {
+export const getProfileAPI = (id: number) => {
     return instance.get(`profile/${id}`)
     .then(response => {
         return response.data;
@@ -71,7 +88,7 @@ export const getProfileAPI = (id) => {
 }
 
 // Получим профиль пользователя
-export const getStatusAPI = (id) => {
+export const getStatusAPI = (id: number) => {
     return instance.get(`profile/status/${id}`)
     .then(response => {
         return response.data;
@@ -79,7 +96,7 @@ export const getStatusAPI = (id) => {
 }
 
 // Получим профиль пользователя
-export const updateStatusAPI = (text) => {
+export const updateStatusAPI = (text: string) => {
     return instance.put(`profile/status`, {status: text})
     .then(response => {
         return response.data;
@@ -87,7 +104,7 @@ export const updateStatusAPI = (text) => {
 }
 
 // Получим профиль пользователя
-export const saveProfileAPI = (data) => {
+export const saveProfileAPI = (data: any) => {
     return instance.put(`profile/`, data)
     .then(response => {
         return response.data;
