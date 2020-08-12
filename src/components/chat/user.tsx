@@ -3,7 +3,6 @@ import ImageLoader from 'react-imageloader';
 import spinner from '../spinners/imageSpinner';
 
 type PropsType = {
-    id: number;
     name: string;
     image: string;
     message: string;

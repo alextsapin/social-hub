@@ -11,7 +11,7 @@ import spinner from '../spinners/imageSpinner';
 import stub from '../../images/stub.png';
 
 // Thunk creators
-import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people';
+import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people.js';
 
 // Selectors
 import {
@@ -74,8 +74,7 @@ const Person = (props) => {
     )
 }
 
-const People = (props) => {
-    
+const People = (props) => {    
     return (
         <div className="mt-5 mb-5">
 

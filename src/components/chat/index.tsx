@@ -35,9 +35,11 @@ type PropsType = mapStatePropsType & mapDispatchPropsType;
 // Презентационная компонента Chat
 const Chat = (props: PropsType) => {
 
+    console.log(props);
+
     props.setUserDataTC(props.id);
 
-    let userBox = props.chatData.map(item => (<User key={item.id} id={item.id} name={item.name} image={item.image} message={item.message}/>));
+    let userBox = props.chatData.map(item => (<User key={item.id} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values: any) => {
         props.sendMessageTC(props.id, values.message);

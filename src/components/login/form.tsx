@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, InjectedFormProps} from 'redux-form';
 import ImageLoader from 'react-imageloader';
 import lineloader from '../spinners/captchaSpinner';
 
@@ -11,13 +11,18 @@ const maxLength20 = maxLengthCreator(20);
 const minLength3 = minLengthCreator(3);
 const minLength6 = minLengthCreator(6);
 
-type propsType = {
-    error: string;
-    handleSubmit: any;
-    captchaUrl?: any;
+type loginFormOwnProps = {
+    captchaUrl: string;
 }
 
-const LoginForm = (props: propsType) => {  
+type loginFormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
+}
+
+const LoginForm: React.FC<InjectedFormProps<loginFormValuesType, loginFormOwnProps> & loginFormOwnProps> = (props) => {  
     return (
         <form onSubmit={props.handleSubmit}>
             {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
@@ -52,5 +57,4 @@ const LoginForm = (props: propsType) => {
     );
 }
 
-export default reduxForm({form: 'Login'})(LoginForm);
-
+export default reduxForm<loginFormValuesType, loginFormOwnProps>({form: 'Login'})(LoginForm);

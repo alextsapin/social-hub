@@ -129,7 +129,7 @@ export const sendMessageTC = (id = 7020, message = ' ', name: string, image: str
     return async (dispatch: Dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {
-            dispatch(sendMessageAC( message, name, image));
+            dispatch(sendMessageAC(message, name, image));
             dispatch(reset('Chat'));
         }
     }

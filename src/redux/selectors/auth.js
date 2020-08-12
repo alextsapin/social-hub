@@ -9,3 +9,7 @@ export const isAuthSelector = (state) => {
 export const userLoginSelector = (state) => {
     return state.auth.login;
 }
+
+export const getCaptchaUrlSelector = (state) => {
+    return state.auth.captchaUrl;
+}

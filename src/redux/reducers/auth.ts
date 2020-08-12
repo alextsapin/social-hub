@@ -10,7 +10,7 @@ type initialStateType = {
     email: string | null; 
     login: string | null;
     isAuth: boolean;
-    captchaUrl: string | null;
+    captchaUrl: string;
 }
 
 // Первичный state
@@ -19,7 +19,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: 'https://i.ibb.co/6tMC3gs/captcha.gif'
 }
 
 const authReducer = (state = initialState, action: ACType): initialStateType => {

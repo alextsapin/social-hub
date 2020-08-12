@@ -14,13 +14,28 @@ import {appStateType} from '../../redux/store';
 // Form
 import LoginForm from './form';
 
-class Login extends React.Component {
+// Selector
+import {getCaptchaUrlSelector} from '../../redux/selectors/auth.js';
+
+type mapStatePropsType = {
+    captchaUrl: string;
+    isAuth?: boolean;
+}
+
+type mapDispatchPropsType = {
+    getCaptchaUrlTC: () => void;
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
+}
+
+type propsType = mapStatePropsType & mapDispatchPropsType;
+
+class Login extends React.Component<propsType> {
 
     componentDidMount() {   
         this.props.getCaptchaUrlTC();
     }
     
-    onSubmit = (data) => {
+    onSubmit = (data: any) => {
         this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha);
     }
 
@@ -39,9 +54,8 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    captchaUrl: state.auth.captchaUrl
+const mapStateToProps = (state: appStateType) => ({
+    captchaUrl: getCaptchaUrlSelector(state)
 })
 
-export default compose(withProfileRedirect, 
-    connect(mapStateToProps, {loginTC, getCaptchaUrlTC}))(Login);
+export default compose(withProfileRedirect, connect(mapStateToProps, {loginTC, getCaptchaUrlTC}))(Login);
