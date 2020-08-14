@@ -86,16 +86,12 @@ export default chatReducer;
 type sendMessageACType = {
     type: string;
     message: string;
-    name: string;
-    image: string;
 }
 
-const sendMessageAC = (message: string, name: string, image: string): sendMessageACType => {
+const sendMessageAC = (message: string): sendMessageACType => {
     return {
         type: 'SEND_MESSAGE',
-        message: message,
-        name: name,
-        image: image
+        message: message
     }
 }
 
@@ -125,11 +121,11 @@ export const setUserDataTC = (id: number): ThunkAction<Promise<any>, appStateTyp
     }
 }
 
-export const sendMessageTC = (id = 7020, message = ' ', name: string, image: string): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const sendMessageTC = (message = ' '): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
     return async (dispatch: Dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {
-            dispatch(sendMessageAC(message, name, image));
+            dispatch(sendMessageAC(message));
             dispatch(reset('Chat'));
         }
     }

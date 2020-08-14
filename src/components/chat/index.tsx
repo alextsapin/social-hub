@@ -21,7 +21,7 @@ import {chatDataSelector, newMessageSelector} from '../../redux/selectors/chat';
 
 type mapDispatchPropsType = {
     setUserDataTC: (id: number) => void;
-    sendMessageTC: (id: number, massage: string) => void;
+    sendMessageTC: (massage: string) => void;
 }
 
 type mapStatePropsType = {
@@ -35,14 +35,12 @@ type PropsType = mapStatePropsType & mapDispatchPropsType;
 // Презентационная компонента Chat
 const Chat = (props: PropsType) => {
 
-    console.log(props);
-
     props.setUserDataTC(props.id);
 
     let userBox = props.chatData.map(item => (<User key={item.id} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values: any) => {
-        props.sendMessageTC(props.id, values.message);
+        props.sendMessageTC(values.message);
     }
 
     return (

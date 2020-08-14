@@ -10,8 +10,8 @@ import {initializeTC} from './redux/reducers/app';
 // Компоненты
 import Header from './components/header/header';
 import ProfileBox from './components/profile/index';
-import ChatBox from './components/chat';
-import PeopleBox from './components/people/people';
+import ChatBox from './components/chat/index';
+import PeopleBox from './components/people/index';
 import Footer from './components/footer/footer';
 import Login from './components/login';
 import Preloader from './components/spinners/pageSpinner';
