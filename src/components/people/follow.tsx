@@ -1,15 +1,8 @@
 import React from 'react';
-
-// Icons
 import {PersonPlusIcon} from '../../icons/icons.js';
+import {personFollowType, personFollowUsersType, personFollowTCType} from './type';
 
-type propsType = {
-    id: number;
-    followed: boolean;
-    followUsers: Array<number>;
-    unfollowTC: (id: number) => void;
-    followTC: (id: number) => void;
-}
+type propsType = personFollowType & personFollowUsersType & personFollowTCType;
 
 const Follow = (props: propsType) => {
     if(props.followed) {

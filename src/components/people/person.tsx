@@ -5,17 +5,10 @@ import spinner from '../spinners/imageSpinner';
 
 import Follow from './follow';
 
-type propsType = {
-    id: number;
-    name: string;
-    isAuth: boolean;
-    image: string;
-    status: string;
-    followed: boolean;
-    followUsers: Array<number>;
-    unfollowTC: (id: number) => void;
-    followTC: (id: number) => void;
-}
+// Типы
+import {personType, personFollowType, personFollowUsersType, personFollowTCType} from './type';
+
+type propsType = personType & personFollowType & personFollowUsersType & personFollowTCType;
 
 const Person = (props: propsType) => {
     return (
@@ -28,7 +21,13 @@ const Person = (props: propsType) => {
                                 preloader={spinner}>
                             </ImageLoader>
                         </NavLink>
-                        {props.isAuth ? <Follow {...props}/> : ''}
+                        {props.isAuth ? <Follow 
+                                            id={props.id} 
+                                            followed={props.followed} 
+                                            followUsers={props.followUsers} 
+                                            followTC={props.followTC}
+                                            unfollowTC={props.unfollowTC}
+                                        /> : ''}
                     </div>
                 </div>
                 <div className="col-md-8">

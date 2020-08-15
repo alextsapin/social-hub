@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Person from './person';
 import Pagination from '../pagination/pagination';
 import Preloader from '../spinners/pageSpinner';
@@ -7,28 +6,14 @@ import Preloader from '../spinners/pageSpinner';
 // IMG
 import stub from '../../images/stub.png';
 
-type propsType = {
-  
-    followUsers: Array<number>
-    followTC: (id: number) => void  
-    unfollowTC: (id: number) => void
-    isAuth: boolean
-    isConnect: boolean
-    data: Array<any>
-    pageChange: (page: number) => void 
-    currentPage: number
-    pages: Array<number>
-    onPageUsers: number
-    onPortionPage: number
-    usersTotal: number
-    portionTotal: number
-    pagesTotal: number
-}
+// Типы
+import {peopleType, personFollowTCType, personFollowUsersType} from './type';
+
+type propsType = peopleType & personFollowUsersType & personFollowTCType;
 
 const People = (props: propsType) => {    
     return (
         <div className="mt-5 mb-5">
-
             <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>
 
             {props.isConnect ? <Preloader/> :
@@ -41,9 +26,9 @@ const People = (props: propsType) => {
                     image = {item.photos.small == null ? stub : item.photos.small}
                     status = {item.status == null ? '.............' : item.status}
                     followUsers = {props.followUsers}
+                    isAuth = {props.isAuth}
                     followTC = {props.followTC}
                     unfollowTC = {props.unfollowTC}
-                    isAuth = {props.isAuth}
                 />
             )}
 

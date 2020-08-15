@@ -26,27 +26,10 @@ import {
 
 import {isAuthSelector} from '../../redux/selectors/auth';
 
-type propsType = {
+// Типы
+import {personFollowUsersType, peopleType, personFollowTCType, peopleServerTCType} from './type';
 
-    data: Array<any>
-    pagesTotal: number
-    pages: Array<number>
-    onPageUsers: number
-    portionTotal: number
-    onPortionPage: number
-    usersTotal: number
-    currentPage: number
-    isConnect: boolean
-    followUsers: Array<number>
-    isAuth: boolean
-
-    getUsersTC: (currentPage: number, onPageUsers: number) => void
-    pageChangeTC: (page: number, onPageUsers: number) => void
-
-    followTC: (id: number) => void
-    unfollowTC: (id: number) => void
-}
-
+type propsType = personFollowUsersType & peopleType & personFollowTCType & peopleServerTCType; 
 
 // Презентацинная компонента Profile
 class PeopleServer extends React.Component<propsType> {
@@ -63,19 +46,21 @@ class PeopleServer extends React.Component<propsType> {
         return ( 
             <People 
                 data = {this.props.data}
-                usersTotal = {this.props.usersTotal} 
-                portionTotal = {this.props.portionTotal}
+                currentPage = {this.props.currentPage}
                 pages = {this.props.pages}
-                pagesTotal = {this.props.pagesTotal}
                 onPageUsers = {this.props.onPageUsers}
                 onPortionPage = {this.props.onPortionPage}
-                currentPage = {this.props.currentPage}
+                usersTotal = {this.props.usersTotal} 
+                portionTotal = {this.props.portionTotal}
+                pagesTotal = {this.props.pagesTotal}
                 isConnect = {this.props.isConnect}
-                pageChange = {this.pageChange}
+                isAuth = {this.props.isAuth}
                 followUsers = {this.props.followUsers}
+                pageChange = {this.pageChange}
                 followTC = {this.props.followTC}
                 unfollowTC = {this.props.unfollowTC}
-                isAuth = {this.props.isAuth}
+                
+
             />
         );
     }
@@ -85,16 +70,18 @@ class PeopleServer extends React.Component<propsType> {
 let mapStateToProps = (state: appStateType) => {
     return {
         data: peopleSelector(state),
-        pagesTotal: pagesTotalSelector(state),
+        currentPage: currentPageSelector(state),
         pages: pagesArraySelector(state),
         onPageUsers: onPageUsersSelector(state),
-        portionTotal: portionTotalSelector(state),
         onPortionPage: onPortionPageSelector(state),
         usersTotal: peopleCountSelector(state),
-        currentPage: currentPageSelector(state),
+        portionTotal: portionTotalSelector(state),
+        pagesTotal: pagesTotalSelector(state),
         isConnect: isConnectSelector(state),
-        followUsers: followUsersSelector(state),
-        isAuth: isAuthSelector(state)
+        isAuth: isAuthSelector(state),
+        followUsers: followUsersSelector(state)
+
+        
     }
 }
 
