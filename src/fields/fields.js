@@ -22,10 +22,9 @@ const getStyleInput = (error, touched) => {
     }
 }
 
+
 export const TextArea = (props) => {
-
     let style = getStyleTextArea(props.meta.error, props.meta.touched, props.meta.valid, props.input.value);
-
     return (
         <div>
             {props.meta.error && <p className="alert alert-danger text-center">{props.meta.error}</p>}
@@ -34,10 +33,9 @@ export const TextArea = (props) => {
     ) 
 }
 
+
 export const InputText = ({input, meta, ...props}) => {
-
     let style = getStyleInput(meta.error, meta.touched)
-
     return <input className={style} {...input} {...props} type="text"/>
 }
 

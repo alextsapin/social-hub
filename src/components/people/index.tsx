@@ -42,7 +42,7 @@ class PeopleServer extends React.Component<propsType> {
         this.props.pageChangeTC(page, this.props.onPageUsers)
     }
 
-    render() {       
+    render() {     
         return ( 
             <People 
                 data = {this.props.data}
@@ -59,8 +59,6 @@ class PeopleServer extends React.Component<propsType> {
                 pageChange = {this.pageChange}
                 followTC = {this.props.followTC}
                 unfollowTC = {this.props.unfollowTC}
-                
-
             />
         );
     }
