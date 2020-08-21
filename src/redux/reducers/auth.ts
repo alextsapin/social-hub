@@ -1,23 +1,22 @@
 import {stopSubmit} from 'redux-form';
 import {authAPI, loginAPI, logoutAPI, getCaptchaUrlAPI} from '../../api/api';
-
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import {appStateType} from '../store';
 
 type initialStateType = {
-    id: number | null;
-    email: string | null; 
-    login: string | null;
+    id: number;
+    email: string; 
+    login: string;
     isAuth: boolean;
     captchaUrl: string;
 }
 
 // Первичный state
 let initialState = {
-    id: null,
-    email: null,
-    login: null,
+    id: 0,
+    email: '',
+    login: '',
     isAuth: false,
     captchaUrl: 'https://i.ibb.co/6tMC3gs/captcha.gif'
 }

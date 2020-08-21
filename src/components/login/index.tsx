@@ -15,7 +15,7 @@ import {appStateType} from '../../redux/store';
 import LoginForm from './form';
 
 // Selector
-import {getCaptchaUrlSelector} from '../../redux/selectors/auth.js';
+import {getCaptchaUrlSelector} from '../../redux/selectors/auth';
 
 type mapStatePropsType = {
     captchaUrl: string;
