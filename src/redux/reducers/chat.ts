@@ -1,6 +1,5 @@
 import {reset} from 'redux-form';
 import {getProfileAPI} from '../../api/api';
-
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import {appStateType} from '../store';

@@ -1,7 +1,21 @@
 import {stopSubmit} from 'redux-form';
 import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api';
+import {Dispatch} from 'redux';
+import {ThunkAction} from 'redux-thunk';
+import {appStateType} from '../store';
 
-// Первичный state
+type InitialStateDataType = {
+    id: number
+    text: string
+}
+
+type InitialStateType = {
+    data: Array<InitialStateDataType>,
+    post: string,
+    person: null
+    status: string
+}
+
 let initialState = {
     data: [
         {id:1, text:"В Китае успешно проверили российские тест-системы на коронавирус."},
@@ -13,7 +27,7 @@ let initialState = {
     status: ''
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: GeneralACType): InitialStateType => {
     let stateCopy = {
         ...state,
         data: [...state.data]
@@ -58,58 +72,89 @@ const profileReducer = (state = initialState, action) => {
 
 export default profileReducer;
 
-export const addPostAC = () => {
+type AddPostACType = {
+    type: string
+}
+
+export const addPostAC = (): AddPostACType => {
     return {
         type: 'ADD_POST'
     }
 }
 
-export const updatePostAC = (newPost) => {
+type UpdatePostACType = {
+    type: string
+    post: string
+}
+
+export const updatePostAC = (newPost: string): UpdatePostACType => {
     return {
         type: 'UPDATE_POST', 
         post: newPost
     }
 }
 
-export const delPostAC = (id) => {
+type DelPostACType = {
+    type: string
+    id: number
+}
+
+export const delPostAC = (id: number): DelPostACType => {
     return {
         type: 'DELETE_POST', 
         id: id
     }
 }
 
-export const setProfileAC = (person) => {
+type SetProfileACType = {
+    type: string
+    person: any
+}
+
+export const setProfileAC = (person: any): SetProfileACType => {
     return {
         type: 'SET_USER_PROFILE', 
         person
     }
 }
 
-export const setStatusAC = (status) => {
+type SetStatusACType = {
+    type: string
+    status: string
+}
+
+export const setStatusAC = (status: string): SetStatusACType => {
     return {
         type: 'SET_STATUS', 
         status
     }
 }
 
-export const setAvatarAC = (file) => {
+type SetAvatarACType = {
+    type: string
+    file: File
+}
+
+export const setAvatarAC = (file: File): SetAvatarACType => {
     return {
         type: 'SET_AVATAR', 
         file
     }
 }
 
+type GeneralACType = AddPostACType & UpdatePostACType & DelPostACType & SetProfileACType & SetStatusACType & SetAvatarACType;
+
 // Thunk creators
-export const setAvatarTC = (file) => {
-    return (dispatch) => {
+export const setAvatarTC = (file: File) => {
+    return (dispatch: Dispatch) => {
         setAvatarAPI(file).then(data => {
             dispatch(setAvatarAC(data));
         });
     }
 }
 
-export const getProfileTC = (id) => {
-    return (dispatch) => {
+export const getProfileTC = (id: number) => {
+    return (dispatch: Dispatch) => {
         // Получим данные пользователя
         getProfileAPI(id).then(data => {
             dispatch(setProfileAC(data));
@@ -117,8 +162,8 @@ export const getProfileTC = (id) => {
     }
 }
 
-export const addPostTC = (message) => {
-    return (dispatch) => {
+export const addPostTC = (message: string) => {
+    return (dispatch: Dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {
             dispatch(addPostAC());
@@ -128,22 +173,22 @@ export const addPostTC = (message) => {
     }
 }
 
-export const updatePostTC = (message) => {
-    return (dispatch) => {
+export const updatePostTC = (message: string) => {
+    return (dispatch: Dispatch) => {
         dispatch(updatePostAC(message));
     }
 }
 
-export const getStatusTC = (id) => {
-    return (dispatch) => {
+export const getStatusTC = (id: number) => {
+    return (dispatch: Dispatch) => {
         getStatusAPI(id).then(data => {
             dispatch(setStatusAC(data));
         });
     }
 }
 
-export const updateStatusTC = (status) => {
-    return (dispatch) => {
+export const updateStatusTC = (status: string) => {
+    return (dispatch: Dispatch) => {
         updateStatusAPI(status).then(data => {
             if(data.resultCode === 0) {
                 dispatch(setStatusAC(status));
@@ -152,8 +197,8 @@ export const updateStatusTC = (status) => {
     }
 }
 
-export const saveProfileTC = (id, data) => {
-    return async (dispatch) => {
+export const saveProfileTC = (id: number, data: any) => {
+    return async (dispatch: any) => {
         let response = await saveProfileAPI(data);            
         if(response.resultCode === 0) {
             dispatch(getProfileTC(id));
