@@ -1,3 +1,5 @@
+import {appStateType} from '../store';
+
 export const userIdSelector = (state) => {
     return state.auth.id;
 }
