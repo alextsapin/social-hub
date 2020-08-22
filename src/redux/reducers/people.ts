@@ -21,7 +21,7 @@ type InitialStateType = {
     usersTotal: number
     currentPage: number
     isConnect: boolean
-    followUsers: Array<any>
+    followUsers: Array<number>
 }
 
 let initialState = {
@@ -40,7 +40,7 @@ let initialState = {
     usersTotal: 0,
     currentPage: 1,
     isConnect: false,
-    followUsers: []
+    followUsers: [9]
 }
 
 const peopleReducer = (state = initialState, action: GeneralACType): InitialStateType => {
