@@ -2,13 +2,27 @@ import React from 'react';
 import Post from './post';
 import Button from '@material-ui/core/Button';
 
-const PostData = (props) => {
+type PropsType = {
+    isAuth: boolean
+    data: Array<{
+        id: number
+        text: string
+    }>
+    post: string
+    addPostTC: (value: string) => void
+    updatePostTC: (value: string) => void
+}
 
+
+const PostData = (props: PropsType) => {
+    
     // Посты пользователя
     let postBox = props.data.map(item => (<Post key={item.id} post={item.text}/>));
-    let textarea = React.createRef();
+    let textarea: any = React.createRef();
 
-    let addPost = (e) => {
+    console.log(textarea)
+
+    let addPost = (e: any) => {
         e.preventDefault();
         props.addPostTC(textarea.current.value);
     }
@@ -24,7 +38,7 @@ const PostData = (props) => {
                 {postBox}
                 <h2 className="title title_second">Добавить новый пост</h2>
                 <form className="formPost">
-                    <textarea className="formPost__field form-control p-3" onChange={updatePost} value={props.post} ref={textarea} rows="5"
+                    <textarea className="formPost__field form-control p-3" onChange={updatePost} value={props.post} ref={textarea}
                         placeholder="Мой новый пост..."/>
                     <Button variant="contained" color="primary" onClick={addPost} className="mt-2 float-right" type="submit">Добавить</Button>
                 </form>
