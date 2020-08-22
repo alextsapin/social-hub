@@ -26,9 +26,6 @@ import {
 
 import {isAuthSelector} from '../../redux/selectors/auth';
 
-// Типы
-import {personFollowUsersType, peopleType, personFollowTCType, peopleServerTCType} from './type';
-
 type PropsType = {
     data: Array<{
         name: string
@@ -69,7 +66,6 @@ class PeopleServer extends React.Component<PropsType> {
     }
 
     render() {    
-        console.log(this.props); 
         return ( 
             <People 
                 data = {this.props.data}
@@ -87,7 +83,7 @@ class PeopleServer extends React.Component<PropsType> {
                 followTC = {this.props.followTC}
                 unfollowTC = {this.props.unfollowTC}
             />
-        );
+        )
     }
 }
 

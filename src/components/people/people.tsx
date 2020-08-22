@@ -6,12 +6,33 @@ import Preloader from '../spinners/pageSpinner';
 // IMG
 import stub from '../../images/stub.png';
 
-// Типы
-import {peopleType, personFollowTCType, personFollowUsersType} from './type';
+type PropsType = {
+    data: Array<{
+        name: string
+        id: number
+        photos: {
+            small: null | string
+            large: null | string
+        }
+        status: null | string
+        followed: boolean
+    }>
+    currentPage: number
+    pages: Array<number>
+    onPageUsers: number
+    onPortionPage: number
+    usersTotal: number
+    portionTotal: number
+    pagesTotal: number
+    isConnect: boolean
+    isAuth: boolean
+    followUsers: Array<number>
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
+    pageChange: (id: number) => void
+} 
 
-type propsType = peopleType & personFollowUsersType & personFollowTCType;
-
-const People = (props: propsType) => {    
+const People = (props: PropsType) => {    
     return (
         <div className="mt-5 mb-5">
             <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>

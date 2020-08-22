@@ -1,24 +1,30 @@
 import React from 'react';
-import {PersonPlusIcon} from '../../icons/icons.js';
-import {personFollowType, personFollowUsersType, personFollowTCType} from './type';
+import Button from '@material-ui/core/Button';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-type propsType = personFollowType & personFollowUsersType & personFollowTCType;
+type PropsType = {
+    id: number
+    followed: boolean
+    followUsers: Array<number>
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
+}
 
-const Follow = (props: propsType) => {
+const Follow = (props: PropsType) => {
     if(props.followed) {
         return (
-            <button disabled={props.followUsers.some(id => id === props.id)} className="btn btn-secondary mt-1" 
-                onClick={()=>{props.unfollowTC(props.id);}}>
-                <PersonPlusIcon/>
-                <span>UNFOLLOW</span>
-            </button>)
+            <Button disabled={props.followUsers.some(id => id === props.id)} className="mt-1"
+                onClick={()=>{props.unfollowTC(props.id);}} color="primary" variant="contained">
+                <PersonAddIcon/>
+                <span className="ml-1">UNFOLLOW</span>
+            </Button>)
     } else {
         return (
-            <button disabled={props.followUsers.some(id => id === props.id)} className="btn btn-secondary mt-1" 
-                onClick={()=>{props.followTC(props.id)}}>
-                <PersonPlusIcon/>
-                <span>FOLLOW</span>
-            </button>
+            <Button disabled={props.followUsers.some(id => id === props.id)} className="mt-1" 
+                onClick={()=>{props.followTC(props.id)}} color="primary" variant="contained">
+                <PersonAddIcon/>
+                <span className="ml-1">FOLLOW</span>
+            </Button>
         )
     }
 }

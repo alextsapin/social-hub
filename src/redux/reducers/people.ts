@@ -40,7 +40,7 @@ let initialState = {
     usersTotal: 0,
     currentPage: 1,
     isConnect: false,
-    followUsers: [9]
+    followUsers: []
 }
 
 const peopleReducer = (state = initialState, action: GeneralACType): InitialStateType => {
@@ -50,8 +50,7 @@ const peopleReducer = (state = initialState, action: GeneralACType): InitialStat
         case 'FOLLOW': 
             let stateCopy = {
                 ...state,
-                data: [...state.data],
-                data2: state.data.map(user => {
+                data: state.data.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: true}
                     } else {
@@ -64,8 +63,7 @@ const peopleReducer = (state = initialState, action: GeneralACType): InitialStat
         case 'UNFOLLOW': {
             let stateCopy = {
                 ...state,
-                data: [...state.data],
-                data2: state.data.map(user => {
+                data: state.data.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: false}
                     } else {

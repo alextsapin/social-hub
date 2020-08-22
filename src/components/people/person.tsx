@@ -2,15 +2,21 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import ImageLoader from 'react-imageloader';
 import spinner from '../spinners/imageSpinner';
-
 import Follow from './follow';
 
-// Типы
-import {personType, personFollowType, personFollowUsersType, personFollowTCType} from './type';
+type PropsType = {
+    id: number
+    followed: boolean
+    name: string
+    image: string
+    status: string
+    isAuth: boolean
+    followUsers: Array<number>
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
+}
 
-type propsType = personType & personFollowType & personFollowUsersType & personFollowTCType;
-
-const Person = (props: propsType) => {
+const Person = (props: PropsType) => {
     return (
         <div className="people__person">
             <div className="row">
@@ -21,13 +27,14 @@ const Person = (props: propsType) => {
                                 preloader={spinner}>
                             </ImageLoader>
                         </NavLink>
-                        {props.isAuth ? <Follow 
-                                            id={props.id} 
-                                            followed={props.followed} 
-                                            followUsers={props.followUsers} 
-                                            followTC={props.followTC}
-                                            unfollowTC={props.unfollowTC}
-                                        /> : ''}
+                        {props.isAuth ? 
+                            <Follow 
+                                id={props.id} 
+                                followed={props.followed} 
+                                followUsers={props.followUsers} 
+                                followTC={props.followTC}
+                                unfollowTC={props.unfollowTC}
+                            /> : ''}
                     </div>
                 </div>
                 <div className="col-md-8">
