@@ -6,7 +6,7 @@ import {reducer as formReducer} from 'redux-form';
 // Reducers
 import profileReducer from './reducers/profile';
 import chatReducer from './reducers/chat';
-import peopleReducer from './reducers/people.js';
+import peopleReducer from './reducers/people';
 import authReducer from './reducers/auth';
 import appReducer from './reducers/app';
 

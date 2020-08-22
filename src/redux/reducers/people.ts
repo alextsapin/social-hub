@@ -1,9 +1,40 @@
-// DAL
 import {peopleAPI, followAPI, unfollowAPI} from '../../api/api';
 
-// Первичный state
+import {Dispatch} from 'redux';
+import {ThunkAction} from 'redux-thunk';
+import {appStateType} from '../store';
+
+
+type InitialStateType = {
+    data: Array<{
+        id: number
+        name: string
+        status: string
+        photos: {
+            small: string | null
+            large: string| null
+        }
+        followed: boolean
+    }> | null
+    onPageUsers: number
+    onPortionPage: number
+    usersTotal: number
+    currentPage: number
+    isConnect: boolean
+    followUsers: Array<any>
+}
+
 let initialState = {
-    data: [],
+    data: [{
+        id: 2,
+        name: 'fff',
+        status: '',
+        photos: {
+            small: null,
+            large: null
+        },
+        followed: false
+    }],
     onPageUsers: 5,
     onPortionPage: 5,
     usersTotal: 0,
@@ -12,7 +43,7 @@ let initialState = {
     followUsers: []
 }
 
-const peopleReducer = (state = initialState, action) => {
+const peopleReducer = (state = initialState, action: GeneralACType): InitialStateType => {
 
     switch(action.type) {
 
@@ -20,7 +51,7 @@ const peopleReducer = (state = initialState, action) => {
             let stateCopy = {
                 ...state,
                 data: [...state.data],
-                data: state.data.map(user => {
+                data2: state.data.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: true}
                     } else {
@@ -34,7 +65,7 @@ const peopleReducer = (state = initialState, action) => {
             let stateCopy = {
                 ...state,
                 data: [...state.data],
-                data: state.data.map(user => {
+                data2: state.data.map(user => {
                     if(user.id === action.id) {
                         return {...user, followed: false}
                     } else {
@@ -77,50 +108,97 @@ const peopleReducer = (state = initialState, action) => {
     return state;
 }
 
+export default peopleReducer;
+
 // ACTION CREATORS
-const followAC = (id) => {
+type FollowACType = {
+    type: string
+    id: number
+}
+
+const followAC = (id: number): FollowACType => {
     return {
         type: 'FOLLOW',
         id
     }
 }
 
-const unfollowAC = (id) => {
+type UnfollowACType = {
+    type: string
+    id: number
+}
+
+const unfollowAC = (id: number): UnfollowACType => {
     return {
         type: 'UNFOLLOW',
         id
     }
 }
 
-const setUsersDataAC = (data) => {
+type SetUsersDataACType = {
+    type: string
+    data: Array<{
+        id: number
+        name: string
+        status: string
+        photos: {
+            small: string | null
+            large: string| null
+        }
+        followed: boolean
+    }> | null
+}
+
+const setUsersDataAC = (data: any): SetUsersDataACType => {
     return {
         type: 'SET_USERS',
         data
     }
 }
 
-const setCurrentPageAC = (currentPage) => {
+type SetCurrentPageACType = {
+    type: string
+    currentPage: number
+}
+
+const setCurrentPageAC = (currentPage: number): SetCurrentPageACType => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage
     }
 }
 
-const setUsersCountAC = (count) => {
+type setUsersCountACType = {
+    type: string
+    count: number
+}
+
+const setUsersCountAC = (count: number): setUsersCountACType => {
     return {
         type: 'SET_TOTAL_USERS_COUNT',
         count
     }
 }
 
-const toggleIsConnectAC = (isConnect) => {
+type ToggleIsConnectACType = {
+    type: string
+    isConnect: boolean
+}
+
+const toggleIsConnectAC = (isConnect: boolean): ToggleIsConnectACType => {
     return {
         type: 'TOGGLE_IS_FETCHING',
         isConnect
     }
 }
 
-const toggleFollowingAC = (isConnect, id) => {
+type ToggleFollowingACType = {
+    type: string
+    isConnect: boolean
+    id: number
+}
+
+const toggleFollowingAC = (isConnect: boolean, id: number): ToggleFollowingACType => {
     return {
         type: 'TOGGLE_FOLLOWING',
         isConnect,
@@ -128,11 +206,12 @@ const toggleFollowingAC = (isConnect, id) => {
     }
 }
 
-export default peopleReducer;
+type GeneralACType = FollowACType & UnfollowACType & SetUsersDataACType & setUsersCountACType &SetCurrentPageACType & ToggleIsConnectACType & ToggleFollowingACType;
+
 
 // Thunk creators
-export const getUsersTC = (page, size) => {
-    return (dispatch) => {
+export const getUsersTC = (page: number, size: number) => {
+    return (dispatch: Dispatch) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));    
         peopleAPI(page, size).then(data => {
@@ -146,8 +225,8 @@ export const getUsersTC = (page, size) => {
     }
 }
 
-export const pageChangeTC = (page, size) => {
-    return (dispatch) => {
+export const pageChangeTC = (page: number, size: number) => {
+    return (dispatch: Dispatch) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));
         // Установим текущую страницу
@@ -161,8 +240,8 @@ export const pageChangeTC = (page, size) => {
     }
 }
 
-export const followTC = (id) => {
-    return (dispatch) => {
+export const followTC = (id: number) => {
+    return (dispatch: Dispatch) => {
         // Заблокируем кнопку
         dispatch(toggleFollowingAC(true, id));
         followAPI(id).then(data => {
@@ -175,8 +254,8 @@ export const followTC = (id) => {
     }
 }
 
-export const unfollowTC = (id) => {
-    return (dispatch) => {
+export const unfollowTC = (id: number) => {
+    return (dispatch: Dispatch) => {
         // Заблокируем кнопку
         dispatch(toggleFollowingAC(true, id));
         unfollowAPI(id).then(data => {
