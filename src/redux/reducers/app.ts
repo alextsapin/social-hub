@@ -2,7 +2,6 @@ import {authTC} from './auth';
 
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-
 import {appStateType} from '../store';
 
 type initialStateType = {
