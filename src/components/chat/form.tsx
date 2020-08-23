@@ -1,5 +1,6 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
+import Button from '@material-ui/core/Button';
 
 // Fields
 import {TextArea} from '../../fields/fields';
@@ -18,7 +19,7 @@ const ChatForm = (props: PropsType) => {
     return (
         <form onSubmit={props.handleSubmit} className="formPost">
             <Field component={TextArea} name="message" placeholder="Какой-то текст..." validate={[maxLength140]}/>
-            <button className="btn btn-warning mt-2 float-right" type="submit">Отправить</button>
+            <Button variant="contained" color="primary" className="mt-2 float-right" type="submit">Отправить</Button>
         </form>
     );
 }
