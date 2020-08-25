@@ -1,11 +1,27 @@
 import React from 'react';
 import {Field, reduxForm, InjectedFormProps} from 'redux-form';
 import ImageLoader from 'react-imageloader';
+import Button from '@material-ui/core/Button';
 import lineloader from '../spinners/captchaSpinner';
+
+import Avatar from '@material-ui/core/Avatar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 // Form
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators';
-import {InputText, InputPass, InputCheck} from '../../fields/fields';
+import {InputText} from '../../fields/input/text';
+import {InputPass} from '../../fields/input/password';
+import {InputCheck} from '../../fields/input/checkbox';
 
 const maxLength20 = maxLengthCreator(20);
 const minLength3 = minLengthCreator(3);
@@ -38,7 +54,7 @@ const LoginForm: React.FC<InjectedFormProps<loginFormValuesType, loginFormOwnPro
                 <small className="form-text text-muted">wXq1EbIL</small>
             </div>
 
-            <div className="form-group form-check">
+            <div className="form-group">
                 <Field className="form-check-input font-weight-bold mb-1" name="rememberMe" component={InputCheck}/>
                 <label className="form-check-label font-weight-bold" htmlFor="rememberMe">Запомнить меня</label>
             </div>
@@ -49,10 +65,10 @@ const LoginForm: React.FC<InjectedFormProps<loginFormValuesType, loginFormOwnPro
 
             <div className="form-group">
                 <label className="font-weight-bold mt-2 mb-1">Captcha</label>
-                <Field name="captcha" component={InputText} validate={[requiredField]}/>
+                <Field name="captcha" component={InputText}/>
             </div>
 
-            <button type="submit" className="btn btn-warning">Login</button>
+            <Button  variant="contained" color="primary" type="submit">Вход</Button>
         </form>
     );
 }

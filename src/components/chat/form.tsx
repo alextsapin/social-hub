@@ -3,7 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import Button from '@material-ui/core/Button';
 
 // Fields
-import {TextArea} from '../../fields/fields';
+import {TextArea} from '../../fields/textarea';
 
 // Validators
 import {maxLengthCreator} from '../../utilities/validators';

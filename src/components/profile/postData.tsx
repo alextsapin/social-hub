@@ -20,8 +20,6 @@ const PostData = (props: PropsType) => {
     let postBox = props.data.map(item => (<Post key={item.id} post={item.text}/>));
     let textarea: any = React.createRef();
 
-    console.log(textarea)
-
     let addPost = (e: any) => {
         e.preventDefault();
         props.addPostTC(textarea.current.value);
