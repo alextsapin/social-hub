@@ -11,7 +11,7 @@ import logo from '../../images/logo.png';
 import {userIdSelector, isAuthSelector, userLoginSelector} from '../../redux/selectors/auth';
 
 // StateType
-import {appStateType} from '../../redux/store';
+import {AppStateType} from '../../redux/store';
 
 // Icons
 import {HouseIcon, PeopleIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons';
@@ -84,10 +84,10 @@ const HeaderServer = (props: propsType) => {
     return <Header {...props}/>
 }
 
-const mapStateToProps = (state: appStateType): mapStatePropsType => ({
+const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
     id: userIdSelector(state),
     isAuth: isAuthSelector(state),
     login: userLoginSelector(state)
 });
 
-export default connect<mapStatePropsType, mapDispatchPropsType, unknown, appStateType>(mapStateToProps, {logoutTC})(HeaderServer);
+export default connect<mapStatePropsType, mapDispatchPropsType, unknown, AppStateType>(mapStateToProps, {logoutTC})(HeaderServer);

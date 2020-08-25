@@ -2,7 +2,7 @@ import {reset} from 'redux-form';
 import {getProfileAPI} from '../../api/api';
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {appStateType} from '../store';
+import {AppStateType} from '../store';
 
 type initialStateType = {
     userName: string,
@@ -111,7 +111,7 @@ const setUserDataAC = (name: string, image: string): setUserDataACType => {
 }
 
 // Thunk creators
-export const setUserDataTC = (id: number): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const setUserDataTC = (id: number): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
     return async (dispatch: Dispatch) => {
         // Получим данные пользователя
         getProfileAPI(id).then(data => {
@@ -120,7 +120,7 @@ export const setUserDataTC = (id: number): ThunkAction<Promise<any>, appStateTyp
     }
 }
 
-export const sendMessageTC = (message = ' '): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const sendMessageTC = (message = ' '): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
     return async (dispatch: Dispatch) => {
         // Уберем пробелы и проверим, что сообщение не пустое
         if(message.replace(/\s+/g,'') !== '') {

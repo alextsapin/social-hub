@@ -21,7 +21,7 @@ let rootReducer = combineReducers({
 });
 
 type rootReducerType = typeof rootReducer;
-export type appStateType = ReturnType<rootReducerType>;
+export type AppStateType = ReturnType<rootReducerType>;
 
 // Создадим store c помощью redux
 let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

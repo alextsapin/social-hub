@@ -2,7 +2,7 @@ import {authTC} from './auth';
 
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {appStateType} from '../store';
+import {AppStateType} from '../store';
 
 type initialStateType = {
     initialize: boolean;
@@ -36,7 +36,7 @@ export const initializeAC = () => ({
 })
 
 // Thunk creators
-export const initializeTC = (): ThunkAction<Promise<void>, appStateType, unknown, initializeACType> => {
+export const initializeTC = (): ThunkAction<Promise<void>, AppStateType, unknown, initializeACType> => {
     return async (dispatch) => {
         let promise = dispatch(authTC());
         Promise.all([promise]).then(() => {

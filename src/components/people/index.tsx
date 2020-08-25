@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import People from './people';
 
 // Global State Type
-import {appStateType} from '../../redux/store';
+import {AppStateType} from '../../redux/store';
 
 // Thunk creators
 import {getUsersTC, pageChangeTC, followTC, unfollowTC} from '../../redux/reducers/people';
@@ -88,7 +88,7 @@ class PeopleServer extends React.Component<PropsType> {
 }
 
 // Контейнерная компонента Profile
-let mapStateToProps = (state: appStateType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         data: peopleSelector(state),
         currentPage: currentPageSelector(state),

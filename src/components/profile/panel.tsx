@@ -4,7 +4,7 @@ import {GearIcon} from '../../icons/icons';
 
 type propsType = {
     setAvatarTC: (e: any) => void;
-    activateEditMode: () => void;
+    activateEditMode: (e: any) => void;
 }
 
 const Avatar = (props: propsType) => {

@@ -2,7 +2,7 @@ import {stopSubmit} from 'redux-form';
 import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api';
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {appStateType} from '../store';
+import {AppStateType} from '../store';
 
 type InitialStateDataType = {
     id: number

@@ -2,7 +2,7 @@ import {stopSubmit} from 'redux-form';
 import {authAPI, loginAPI, logoutAPI, getCaptchaUrlAPI} from '../../api/api';
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {appStateType} from '../store';
+import {AppStateType} from '../store';
 
 type initialStateType = {
     id: number;
@@ -71,7 +71,7 @@ const getCaptchaUrlAC = (captchaUrl: string) => ({
 type ACType = setAuthDataACType & getCaptchaUrlACType;
 
 // Thunk creators
-export const authTC = (): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const authTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
     return async (dispatch: Dispatch) => {
         let response = await authAPI();
         if(response.resultCode === 0) {
@@ -83,7 +83,7 @@ export const authTC = (): ThunkAction<Promise<any>, appStateType, unknown, ACTyp
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
     return async (dispatch: any) => {
         let response = await loginAPI(email, password, rememberMe, captcha);
         if(response.resultCode === 0) {
@@ -98,7 +98,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
     }
 }
 
-export const logoutTC = (): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const logoutTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
     return async (dispatch: Dispatch) => {
         let response = await logoutAPI();
         if(response.resultCode === 0) {
@@ -107,7 +107,7 @@ export const logoutTC = (): ThunkAction<Promise<any>, appStateType, unknown, ACT
     }
 }
 
-export const getCaptchaUrlTC = (): ThunkAction<Promise<any>, appStateType, unknown, ACType> => {
+export const getCaptchaUrlTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
     return async (dispatch: Dispatch) => {
         let response = await getCaptchaUrlAPI();
         let captchaUrl = response.data.url;

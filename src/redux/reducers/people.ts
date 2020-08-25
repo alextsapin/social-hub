@@ -2,7 +2,7 @@ import {peopleAPI, followAPI, unfollowAPI} from '../../api/api';
 
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import {appStateType} from '../store';
+import {AppStateType} from '../store';
 
 
 type InitialStateType = {

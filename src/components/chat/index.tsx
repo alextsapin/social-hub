@@ -7,7 +7,7 @@ import User from './user';
 import ChatForm from './form';
 
 // StateType
-import {appStateType} from '../../redux/store';
+import {AppStateType} from '../../redux/store';
 
 // Thunk creators
 import {sendMessageTC, setUserDataTC} from '../../redux/reducers/chat';
@@ -56,7 +56,7 @@ const Chat = (props: PropsType) => {
 }
 
 // Контейнерная компонента Chat
-let mapStateToProps = (state: appStateType): mapStatePropsType => {
+let mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         id: userIdSelector(state),
         chatData: chatDataSelector(state),

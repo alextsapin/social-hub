@@ -9,7 +9,7 @@ import {loginTC, getCaptchaUrlTC} from '../../redux/reducers/auth';
 import {withProfileRedirect} from '../../hoc/withProfileRedirect';
 
 // Global State Type
-import {appStateType} from '../../redux/store';
+import {AppStateType} from '../../redux/store';
 
 // Form
 import LoginForm from './form';
@@ -54,7 +54,7 @@ class Login extends React.Component<propsType> {
     }
 }
 
-const mapStateToProps = (state: appStateType) => ({
+const mapStateToProps = (state: AppStateType) => ({
     captchaUrl: getCaptchaUrlSelector(state)
 })
 

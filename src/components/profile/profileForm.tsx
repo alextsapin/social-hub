@@ -7,20 +7,25 @@ const maxLength60 = maxLengthCreator(60);
 const minLength3 = minLengthCreator(3);
 
 type FormOwnPropsType = {
-    deActivateEditMode: () => void
+    deActivateEditMode: (e: any) => void
 }
 
 type FormValuesType = {
-    fullName: string
-    aboutMe: string
+    userId: number
+    fullName: number
+    photos: {
+        small: string | null
+        large: string | null
+    }
     contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        githab: string
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        githab: string | null
+        mainLink: string | null
     }
 }
 
