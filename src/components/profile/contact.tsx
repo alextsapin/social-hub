@@ -1,4 +1,5 @@
 import React from 'react';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
 type propsType = {
     title: string;
@@ -9,7 +10,7 @@ const Contact: React.FC<propsType> = ({title, value}) => {
     return (
         <tr>
             <td className="font-weight-bold">{title}</td>
-            <td>{value === null || value === '' ? '...' : value}</td>
+            <td>{value === null || value === '' ? <NotInterestedIcon/> : value}</td>
         </tr>
     )
 }

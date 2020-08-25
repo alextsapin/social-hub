@@ -1,12 +1,31 @@
 import React from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, InjectedFormProps} from 'redux-form';
 import {maxLengthCreator, minLengthCreator} from '../../utilities/validators';
 import {InputText} from '../../fields/input/text';
 
 const maxLength60 = maxLengthCreator(60);
 const minLength3 = minLengthCreator(3);
 
-const ProfileForm = (props) => {
+type FormOwnPropsType = {
+    deActivateEditMode: () => void
+}
+
+type FormValuesType = {
+    fullName: string
+    aboutMe: string
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        githab: string
+    }
+}
+
+const ProfileForm: React.FC<InjectedFormProps<FormValuesType, FormOwnPropsType> & FormOwnPropsType> = (props) => {
+    console.log(props);
     return (
         <form onSubmit={props.handleSubmit}>
             {props.error && <p className="alert alert-danger text-center" role="alert">{props.error}</p>}
@@ -71,4 +90,4 @@ const ProfileForm = (props) => {
     )
 }
 
-export default reduxForm({form: 'profile'})(ProfileForm);
+export default reduxForm<FormValuesType, FormOwnPropsType>({form: 'profile'})(ProfileForm);

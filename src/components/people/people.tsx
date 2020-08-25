@@ -2,8 +2,6 @@ import React from 'react';
 import Person from './person';
 import Pagination from '../pagination/pagination';
 import Preloader from '../spinners/pageSpinner';
-
-// IMG
 import stub from '../../images/stub.png';
 
 type PropsType = {
