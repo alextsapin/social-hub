@@ -3,6 +3,9 @@ import {Field, reduxForm, InjectedFormProps} from 'redux-form';
 import {maxLengthCreator, minLengthCreator} from '../../utilities/validators';
 import {InputText} from '../../fields/input/text';
 
+// Type
+import {PersonType} from '../../types/person';
+
 const maxLength60 = maxLengthCreator(60);
 const minLength3 = minLengthCreator(3);
 
@@ -10,24 +13,7 @@ type FormOwnPropsType = {
     deActivateEditMode: (e: any) => void
 }
 
-type FormValuesType = {
-    userId: number
-    fullName: number
-    photos: {
-        small: string | null
-        large: string | null
-    }
-    contacts: {
-        facebook: string | null
-        website: string | null
-        vk: string | null
-        twitter: string | null
-        instagram: string | null
-        youtube: string | null
-        githab: string | null
-        mainLink: string | null
-    }
-}
+type FormValuesType = PersonType
 
 const ProfileForm: React.FC<InjectedFormProps<FormValuesType, FormOwnPropsType> & FormOwnPropsType> = (props) => {
     console.log(props);

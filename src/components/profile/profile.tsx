@@ -13,6 +13,9 @@ import ProfileForm from './profileForm';
 // IMG
 import stub from '../../images/stub.png';
 
+// Type
+import {PersonType} from '../../types/person';
+
 type StateType = {
     editMode: boolean
 }
@@ -21,25 +24,7 @@ type PropsType = {
     id: number
     status: string
     profileId: number
-    person: {
-        userId: number
-        fullName: number
-        aboutMe: string | null
-        photos: {
-            small: string | null
-            large: string | null
-        }
-        contacts: {
-            facebook: string | null
-            website: string | null
-            vk: string | null
-            twitter: string | null
-            instagram: string | null
-            youtube: string | null
-            githab: string | null
-            mainLink: string | null
-        }
-    }
+    person: PersonType
 
     getProfileTC: (profileId: number) => void
     saveProfileTC: (userId: number, formData: any) => any
