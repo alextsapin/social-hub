@@ -1,7 +1,7 @@
 import React from 'react';
 import {Field, reduxForm, InjectedFormProps} from 'redux-form';
 import {maxLengthCreator, minLengthCreator} from '../../utilities/validators';
-import {InputText} from '../../fields/input/text';
+import {InputText} from '../../fields/text';
 
 // Type
 import {PersonType} from '../../types/person';

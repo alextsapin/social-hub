@@ -65,7 +65,6 @@ class ProfileServer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.getUserData();
-        console.log(this.props);
     }
 
     // Перерисуем компонент, если изменился id

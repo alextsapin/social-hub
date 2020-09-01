@@ -6,9 +6,9 @@ import lineloader from '../spinners/captchaSpinner';
 
 // Form
 import {requiredField, maxLengthCreator, minLengthCreator} from '../../utilities/validators';
-import {InputText} from '../../fields/input/text';
-import {InputPass} from '../../fields/input/password';
-import {InputCheck} from '../../fields/input/checkbox';
+import {InputText} from '../../fields/text';
+import {InputPass} from '../../fields/password';
+import {InputCheck} from '../../fields/checkbox';
 
 const maxLength20 = maxLengthCreator(20);
 const minLength3 = minLengthCreator(3);

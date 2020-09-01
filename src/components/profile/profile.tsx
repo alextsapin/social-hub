@@ -4,7 +4,7 @@ import ImageLoader from 'react-imageloader';
 // Components
 import Status from './status';
 import Panel from './panel';
-import PostData from './postData';
+import PostData from './PostData';
 import ProfileData from './profileData';
 import Preloader from '../spinners/pageSpinner';
 import spinner from '../spinners/imageSpinner';

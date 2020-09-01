@@ -13,7 +13,6 @@ type PropsType = {
     updatePostTC: (value: string) => void
 }
 
-
 const PostData = (props: PropsType) => {
     
     // Посты пользователя
