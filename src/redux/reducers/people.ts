@@ -27,7 +27,7 @@ type InitialStateType = {
 let initialState = {
     data: [{
         id: 2,
-        name: 'fff',
+        name: '',
         status: '',
         photos: {
             small: null,
@@ -35,7 +35,7 @@ let initialState = {
         },
         followed: false
     }],
-    onPageUsers: 5,
+    onPageUsers: 20,
     onPortionPage: 5,
     usersTotal: 0,
     currentPage: 1,

@@ -34,23 +34,25 @@ const People = (props: PropsType) => {
     return (
         <div className="mt-5 mb-5">
             <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>
-
-            {
-                props.isConnect ? <Preloader/> :
-                props.data.map(item => 
-                    <Person 
-                        key = {item.id}
-                        id = {item.id} 
-                        followed = {item.followed}
-                        name = {item.name}
-                        image = {item.photos.small == null ? stub : item.photos.small}
-                        status = {item.status == null ? '.............' : item.status}
-                        followUsers = {props.followUsers}
-                        isAuth = {props.isAuth}
-                        followTC = {props.followTC}
-                        unfollowTC = {props.unfollowTC}
-                    />
-                )
+            {props.isConnect ? <Preloader/> :
+                <div className="row">
+                    {
+                        props.data.map(item => 
+                            <Person 
+                                key = {item.id}
+                                id = {item.id} 
+                                followed = {item.followed}
+                                name = {item.name}
+                                image = {item.photos.small == null ? stub : item.photos.small}
+                                status = {item.status}
+                                followUsers = {props.followUsers}
+                                isAuth = {props.isAuth}
+                                followTC = {props.followTC}
+                                unfollowTC = {props.unfollowTC}
+                            />
+                        )
+                    }
+                </div>
             }
 
             <Pagination 

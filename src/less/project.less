@@ -111,11 +111,21 @@
 /*---------------*/
 /***** USERS *****/
 /*---------------*/
+.people__name {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: @text;
+    &:hover {
+        color: @active;
+        text-decoration: none;
+    }
+}
+
 .people__person {
     margin-top: 30px;
-    background: #F4F4F4;
     border-radius: @borderRadius;
     padding: 20px;
+    .center();
 }
 
 .people__avatar {
@@ -127,31 +137,6 @@
         width: 100px;
         .thumbnail();
     }
-}
-
-.people__name {
-    font-size: 1.625rem;
-    text-decoration: none;
-    color: @text;
-    &:hover {
-        color: @text;
-        text-decoration: underline;
-    }
-}
-
-.people__info {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    @media @mobile {
-        margin-top: 30px;
-        .center();
-    }
-}
-
-.people__status {
-    margin-top: 20px;
 }
 
 /*----------------*/
