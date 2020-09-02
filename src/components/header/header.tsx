@@ -5,6 +5,13 @@ import ImageLoader from 'react-imageloader';
 import {logoutTC} from '../../redux/reducers/auth';
 import spinner from '../spinners/imageSpinner';
 
+// Material — UI
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleIcon from '@material-ui/icons/People';
+import TextsmsIcon from '@material-ui/icons/Textsms';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 // IMG
 import logo from '../../images/logo.png';
 
@@ -12,9 +19,6 @@ import {userIdSelector, isAuthSelector, userLoginSelector} from '../../redux/sel
 
 // StateType
 import {AppStateType} from '../../redux/store';
-
-// Icons
-import {HouseIcon, PeopleIcon, ChatIcon, LoginIcon, LogoutIcon} from '../../icons/icons';
 
 type propsType = mapStatePropsType & mapDispatchPropsType;
 
@@ -43,21 +47,21 @@ const Header = (props: propsType) => {
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
                             <NavLink className="nav-link" exact to="/">
-                                <HouseIcon/>
+                                <HomeIcon className="mb-1 mr-1"/>
                                 <span>Home</span>
                             </NavLink>
                         </li>
 
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/users">
-                                <PeopleIcon/>
+                                <PeopleIcon className="mb-1 mr-1"/>
                                 <span>Users</span>
                             </NavLink>
                         </li>
 
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/chat">
-                                <ChatIcon/>
+                                <TextsmsIcon className="mr-1"/>
                                 <span>Chat</span>
                             </NavLink>
                         </li>
@@ -67,10 +71,16 @@ const Header = (props: propsType) => {
                         {
                             !   props.isAuth
                             ?   <li className="nav-item">
-                                    <NavLink className="nav-link" to="/login"><LoginIcon/>Login</NavLink>
+                                    <NavLink className="nav-link" to="/login">
+                                        <VpnKeyIcon className="mb-1 mr-1"/>
+                                        Login
+                                    </NavLink>
                                 </li>
                             :   <li className="nav-item">
-                                    <button onClick={props.logoutTC} className="nav-link"><LogoutIcon/>Logout</button>
+                                    <button onClick={props.logoutTC} className="nav-link">
+                                        <ExitToAppIcon className="mb-1 mr-1"/>
+                                        Logout
+                                    </button>
                                 </li>
                         }
                     </ul>

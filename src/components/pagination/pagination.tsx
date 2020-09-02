@@ -1,7 +1,8 @@
 import React from 'react';
-
-// Icons
-import {ArrowLeftIcon, ArrowDoubleLeftIcon, ArrowRightIcon, ArrowDoubleRightIcon} from '../../icons/icons';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 type propsType = {
     currentPage: number;
@@ -73,7 +74,7 @@ class Pagination extends React.Component<propsType, stateType> {
                             this.setPortionNumberFirst(); 
                             this.props.pageChange(1);
                         }}>
-                        <ArrowDoubleLeftIcon/>
+                        <SkipPreviousIcon/>
                     </button>
                 }
 
@@ -84,7 +85,7 @@ class Pagination extends React.Component<propsType, stateType> {
                             this.setPortionNumberDown(); 
                             this.props.pageChange(leftPage - 1)
                         }}>
-                        <ArrowLeftIcon/>
+                        <ChevronLeftIcon/>
                     </button>
                 }
                 
@@ -110,7 +111,7 @@ class Pagination extends React.Component<propsType, stateType> {
                             this.setPortionNumberUp();
                             this.props.pageChange(rightPage + 1);
                         }}>
-                        <ArrowRightIcon/>
+                        <ChevronRightIcon/>
                     </button>
                 }
 
@@ -121,7 +122,7 @@ class Pagination extends React.Component<propsType, stateType> {
                             this.setPortionNumberLast();
                             this.props.pageChange(this.props.pagesTotal);
                         }}>
-                        <ArrowDoubleRightIcon/>
+                        <SkipNextIcon/>
                     </button>
                 }
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
 type PropsType = {
     id: number
@@ -15,7 +16,7 @@ const Follow = (props: PropsType) => {
         return (
             <Button disabled={props.followUsers.some(id => id === props.id)} className="mt-2"
                 onClick={()=>{props.unfollowTC(props.id);}} color="primary" variant="contained">
-                <PersonAddIcon/>
+                <PersonAddDisabledIcon/>
                 <span className="ml-1">UNFOLLOW</span>
             </Button>)
     } else {
