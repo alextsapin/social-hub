@@ -1,8 +1,6 @@
 import {stopSubmit} from 'redux-form';
 import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api';
 import {Dispatch} from 'redux';
-import {ThunkAction} from 'redux-thunk';
-import {AppStateType} from '../store';
 
 type InitialStateDataType = {
     id: number
@@ -135,7 +133,7 @@ type SetAvatarACType = {
     file: File
 }
 
-export const setAvatarAC = (file: File): SetAvatarACType => {
+export const setAvatarAC = (file: any): SetAvatarACType => {
     return {
         type: 'SET_AVATAR', 
         file
@@ -145,7 +143,7 @@ export const setAvatarAC = (file: File): SetAvatarACType => {
 type GeneralACType = AddPostACType & UpdatePostACType & DelPostACType & SetProfileACType & SetStatusACType & SetAvatarACType;
 
 // Thunk creators
-export const setAvatarTC = (file: File) => {
+export const setAvatarTC = (file: any) => {
     return (dispatch: Dispatch) => {
         setAvatarAPI(file).then(data => {
             dispatch(setAvatarAC(data));

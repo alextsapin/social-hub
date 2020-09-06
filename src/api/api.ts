@@ -1,9 +1,16 @@
 import axios, {AxiosResponse} from 'axios';
+import {PersonType} from '../types/person';
 
-export enum resultCodeEnum {
+export enum ResultCodeEnum {
     success = 0,
     error = 1,
     captchaIsRequired = 10
+}
+
+type ResponseType<D = {}, RC = ResultCodeEnum> = {
+    data: D
+    messages: Array<string>
+    resultCode: RC
 }
 
 const instance = axios.create({
@@ -14,37 +21,44 @@ const instance = axios.create({
     }
 });
 
+type PhotosType = {
+    photos: {
+        small: string | null
+        large: string | null
+    }
+}
+
 // Получим данные авторизации
 export const setAvatarAPI = (photoFile: any) => {
     let formData = new FormData();
     formData.append('image', photoFile);
-    return instance.put(`profile/photo`, formData, {headers: {
+    return instance.put<ResponseType<PhotosType>>(`profile/photo`, formData, {headers: {
         'Content-Type': 'multipart/form-data'}
     }).then(response => {
         return response.data; 
     });
 }
 
-type authAPIType = {
-    data: {
-        id: number;
-        login: string;
-        email: string;
-    };
-    resultCode: number;
-    messages: Array<string>
+type AuthType = {
+    id: number
+    login: string
+    email: string
 }
 
 // Получим данные авторизации
 export const authAPI = () => {
-    return instance.get<authAPIType>(`auth/me`).then((response) => {
+    return instance.get<ResponseType<AuthType>>(`auth/me`).then((response) => {
         return response.data; 
     });
 }
 
+type LoginType = {
+    userId: number
+}
+
 // Login
 export const loginAPI = (email: string, password: string, rememberMe: boolean, captcha: null | string) => {
-    return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
+    return instance.post<ResponseType<LoginType>>(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
         return response.data; 
     });
 }
@@ -56,16 +70,21 @@ export const logoutAPI = () => {
     });
 }
 
+type PeopleType = {
+    items: Array<PersonType>
+    totalCount: number
+    error: string | null
+}
+
 // Получим всех пользователей
 export const peopleAPI = (page: number, limit: number) => {
-    return instance.get(`users?page=${page}&count=${limit}`)
+    return instance.get<PeopleType>(`users?page=${page}&count=${limit}`)
     .then(response => response.data);
-    
 }
 
 // Функция ля подписки
 export const followAPI = (id: number) => {
-    return instance.post(`follow/${id}`, {})
+    return instance.post<ResponseType>(`follow/${id}`, {})
     .then(response => {
         return response.data;
     });
@@ -75,7 +94,7 @@ export const followAPI = (id: number) => {
 export const unfollowAPI = (id: number) => {
     return instance.delete(`follow/${id}`)
     .then(response => {
-        return response.data;
+        return response.data as Promise<ResponseType>
     });
 }
 
@@ -97,7 +116,7 @@ export const getStatusAPI = (id: number) => {
 
 // Получим профиль пользователя
 export const updateStatusAPI = (text: string) => {
-    return instance.put(`profile/status`, {status: text})
+    return instance.put<ResponseType>(`profile/status`, {status: text})
     .then(response => {
         return response.data;
     });
@@ -111,7 +130,11 @@ export const saveProfileAPI = (data: any) => {
     });
 }
 
+type GetCaptchaUrlType = {
+    url: string
+}
+
 // Капча
 export const getCaptchaUrlAPI = () => {
-    return instance.get(`security/get-captcha-url`);
+    return instance.get<GetCaptchaUrlType>(`security/get-captcha-url`);
 }

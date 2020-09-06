@@ -15,7 +15,7 @@ const minLength3 = minLengthCreator(3);
 const minLength6 = minLengthCreator(6);
 
 type loginFormOwnProps = {
-    captchaUrl: string;
+    captchaUrl: string | null;
 }
 
 type loginFormValuesType = {
@@ -23,6 +23,23 @@ type loginFormValuesType = {
     password: string
     rememberMe: boolean
     captcha: string
+}
+
+type PropsType = {
+    captchaUrl: string | null
+}
+
+const CaptchaField = (props: PropsType) => {
+    let url = props.captchaUrl !== null ? props.captchaUrl : 'https://i.ibb.co/6tMC3gs/captcha.gif';
+    return (
+        <div>
+            <ImageLoader className="captchaImage" src={url} wrapper={React.createFactory('div')} preloader={lineloader}></ImageLoader>
+            <div className="form-group">
+                <label className="font-weight-bold mt-2 mb-1">Captcha</label>
+                <Field name="captcha" component={InputText}/>
+            </div>
+        </div>
+    )
 }
 
 const LoginForm: React.FC<InjectedFormProps<loginFormValuesType, loginFormOwnProps> & loginFormOwnProps> = (props) => {  
@@ -46,15 +63,8 @@ const LoginForm: React.FC<InjectedFormProps<loginFormValuesType, loginFormOwnPro
                 <label className="form-check-label font-weight-bold" htmlFor="rememberMe">Запомнить меня</label>
             </div>
 
-            <ImageLoader className="captchaImage" src={props.captchaUrl} wrapper={React.createFactory('div')} 
-                preloader={lineloader}>
-            </ImageLoader>
-
-            <div className="form-group">
-                <label className="font-weight-bold mt-2 mb-1">Captcha</label>
-                <Field name="captcha" component={InputText}/>
-            </div>
-
+            {props.captchaUrl !== null ? <CaptchaField captchaUrl={props.captchaUrl} /> : ''}
+            
             <Button  variant="contained" color="primary" type="submit">Вход</Button>
         </form>
     );

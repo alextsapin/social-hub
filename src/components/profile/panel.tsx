@@ -1,13 +1,12 @@
 import React from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-type propsType = {
+type PropsType = {
     setAvatarTC: (e: any) => void;
     activateEditMode: (e: any) => void;
 }
 
-const Avatar = (props: propsType) => {
-
+const Avatar = (props: PropsType) => {
     let savePhoto = (e: any) => {
         if(e.target.files.length) {
             props.setAvatarTC(e.target.files[0]);

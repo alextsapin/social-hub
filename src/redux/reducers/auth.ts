@@ -9,7 +9,7 @@ type initialStateType = {
     email: string; 
     login: string;
     isAuth: boolean;
-    captchaUrl: string;
+    captchaUrl: null | string;
 }
 
 // Первичный state
@@ -18,7 +18,7 @@ let initialState = {
     email: '',
     login: '',
     isAuth: false,
-    captchaUrl: 'https://i.ibb.co/6tMC3gs/captcha.gif'
+    captchaUrl: null
 }
 
 const authReducer = (state = initialState, action: ACType): initialStateType => {
@@ -88,12 +88,13 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
         let response = await loginAPI(email, password, rememberMe, captcha);
         if(response.resultCode === 0) {
             dispatch(authTC());
-        } else if (response.resultCode === 10) {
-            console.log(response);
-            dispatch(stopSubmit('Login', {_error: response.messages[0]}));
         } else {
-            let error = response.messages[0].length > 0 ? response.messages[0] : 'Some error';
-            dispatch(stopSubmit('Login', {_error: error}));
+            if (response.resultCode === 10) {
+                dispatch(getCaptchaUrlTC());
+            } else {
+                let error = response.messages[0].length > 0 ? response.messages[0] : 'Some error';
+                dispatch(stopSubmit('Login', {_error: error}));
+            }
         }
     }
 }

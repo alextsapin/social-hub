@@ -3,7 +3,7 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 
 // Thunk creators
-import {loginTC, getCaptchaUrlTC} from '../../redux/reducers/auth';
+import {loginTC} from '../../redux/reducers/auth';
 
 // HOC
 import {withProfileRedirect} from '../../hoc/withProfileRedirect';
@@ -18,22 +18,17 @@ import LoginForm from './form';
 import {getCaptchaUrlSelector} from '../../redux/selectors/auth';
 
 type mapStatePropsType = {
-    captchaUrl: string;
+    captchaUrl: null | string;
     isAuth?: boolean;
 }
 
 type mapDispatchPropsType = {
-    getCaptchaUrlTC: () => void;
     loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
 }
 
 type propsType = mapStatePropsType & mapDispatchPropsType;
 
 class Login extends React.Component<propsType> {
-
-    componentDidMount() {   
-        this.props.getCaptchaUrlTC();
-    }
     
     onSubmit = (data: any) => {
         this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha);
@@ -58,4 +53,4 @@ const mapStateToProps = (state: AppStateType) => ({
     captchaUrl: getCaptchaUrlSelector(state)
 })
 
-export default compose(withProfileRedirect, connect(mapStateToProps, {loginTC, getCaptchaUrlTC}))(Login);
+export default compose(withProfileRedirect, connect(mapStateToProps, {loginTC}))(Login);
