@@ -1,8 +1,8 @@
 import {createSelector} from 'reselect';
 import {AppStateType} from '../store';
 
-const getPeople = (state) => {
-    return state.people.data
+const getPeople = (state: AppStateType) => {
+    return state.people['data']
 };
 
 // Вернем пользователей
@@ -11,23 +11,23 @@ export const peopleSelector = createSelector(getPeople, (data) => {
 });
 
 // Число пользователей на страницу
-export const onPageUsersSelector = (state) => {
-    return state.people.onPageUsers;
+export const onPageUsersSelector = (state: AppStateType) => {
+    return state.people['onPageUsers']
 }
 
 // Число страниц на экране (размер порции)
-export const onPortionPageSelector = (state) => {
-    return state.people.onPortionPage;
+export const onPortionPageSelector = (state: AppStateType) => {
+    return state.people['onPortionPage']
 }
 
 // Общее число пользователей
-export const peopleCountSelector = (state) => {
-    return state.people.usersTotal;
+export const peopleCountSelector = (state: AppStateType) => {
+    return state.people['usersTotal']
 }
 
 // Общее число страниц
-export const pagesTotalSelector = (state) => {
-    return Math.ceil(state.people.usersTotal / state.people.onPageUsers);
+export const pagesTotalSelector = (state: AppStateType) => {
+    return Math.ceil(state.people['usersTotal'] / state.people['onPageUsers']);
 }
 
 // Массив страниц
@@ -41,18 +41,18 @@ export const pagesArraySelector = createSelector(pagesTotalSelector, (count) => 
 
 
 // Текущая страница
-export const currentPageSelector = (state) => {
-    return state.people.currentPage;
+export const currentPageSelector = (state: AppStateType) => {
+    return state.people['currentPage']
 }
 
 // Проверка соединения с сервером
-export const isConnectSelector = (state) => {
-    return state.people.isConnect;
+export const isConnectSelector = (state: AppStateType) => {
+    return state.people['isConnect']
 }
 
 // Пользователи на которых подписался
-export const followUsersSelector = (state) => {
-    return state.people.followUsers;
+export const followUsersSelector = (state: AppStateType) => {
+    return state.people['followUsers']
 }
 
 // Число порций

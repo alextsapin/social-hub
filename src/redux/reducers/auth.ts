@@ -4,7 +4,7 @@ import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
 
-type initialStateType = {
+type InitialStateType = {
     id: number;
     email: string; 
     login: string;
@@ -21,7 +21,7 @@ let initialState = {
     captchaUrl: null
 }
 
-const authReducer = (state = initialState, action: ACType): initialStateType => {
+const authReducer = (state = initialState, action: ACType): InitialStateType => {
     switch(action.type) {
         case 'SET_USER_DATA':
             return {
