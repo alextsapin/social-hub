@@ -2,13 +2,11 @@ import {stopSubmit} from 'redux-form';
 import {getProfileAPI, getStatusAPI, updateStatusAPI, setAvatarAPI, saveProfileAPI} from '../../api/api';
 import {Dispatch} from 'redux';
 
-type InitialStateDataType = {
-    id: number
-    text: string
-}
-
-type InitialStateType = {
-    data: Array<InitialStateDataType>,
+export type InitialStateType = {
+    data: Array<{
+        id: number
+        text: string
+    }>,
     post: string,
     person: null
     status: string
@@ -25,7 +23,7 @@ let initialState = {
     status: ''
 }
 
-const profileReducer = (state = initialState, action: GeneralACType): InitialStateType => {
+const profileReducer = (state = initialState, action: any): InitialStateType => {
     let stateCopy = {
         ...state,
         data: [...state.data]
@@ -140,7 +138,7 @@ export const setAvatarAC = (file: any): SetAvatarACType => {
     }
 }
 
-type GeneralACType = AddPostACType & UpdatePostACType & DelPostACType & SetProfileACType & SetStatusACType & SetAvatarACType;
+export type GeneralACType = AddPostACType & UpdatePostACType & DelPostACType & SetProfileACType & SetStatusACType & SetAvatarACType;
 
 // Thunk creators
 export const setAvatarTC = (file: any) => {

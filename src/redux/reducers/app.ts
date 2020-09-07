@@ -1,10 +1,8 @@
 import {authTC} from './auth';
-
-import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
 
-type initialStateType = {
+type InitialStateType = {
     initialize: boolean;
 }
 
@@ -13,7 +11,7 @@ let initialState = {
     initialize: false
 }
 
-const appReducer = (state = initialState, action: initializeACType): initialStateType => {
+const appReducer = (state = initialState, action: InitializeACType): InitialStateType => {
     switch(action.type) {
         case 'SET_INITIALIZE':
         return {
@@ -26,8 +24,8 @@ const appReducer = (state = initialState, action: initializeACType): initialStat
 
 export default appReducer;
 
-type initializeACType = {
-    type: string;
+type InitializeACType = {
+    type: string
 }
 
 // Action creators
@@ -36,7 +34,7 @@ export const initializeAC = () => ({
 })
 
 // Thunk creators
-export const initializeTC = (): ThunkAction<Promise<void>, AppStateType, unknown, initializeACType> => {
+export const initializeTC = (): ThunkAction<Promise<void>, AppStateType, unknown, InitializeACType> => {
     return async (dispatch) => {
         let promise = dispatch(authTC());
         Promise.all([promise]).then(() => {

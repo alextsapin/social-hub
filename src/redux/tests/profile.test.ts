@@ -1,4 +1,4 @@
-import profileReducer, {addPostAC, updatePostAC, delPostAC} from '../reducers/profile.js';
+import profileReducer, {addPostAC, updatePostAC, delPostAC} from '../reducers/profile';
 
 // Исходные данные
 let state = {
@@ -7,7 +7,9 @@ let state = {
         {id:2, text:"Разработана система борьбы с астеройдами."},
         {id:3, text:"В Монголии нашли нефть."}
     ],
-    post: ''
+    post: '',
+    person: null,
+    status: ''
 }
 
 let updateAction = updatePostAC('Facebook is social network too.');
