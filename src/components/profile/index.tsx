@@ -100,7 +100,7 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     withRouter,
     withAuthRedirect,
     connect(mapStateToProps, {addPostTC, updatePostTC, getProfileTC, getStatusTC, updateStatusTC, setAvatarTC, saveProfileTC}))(ProfileServer);

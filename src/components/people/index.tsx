@@ -104,4 +104,4 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC}))(PeopleServer);
+export default compose<React.ComponentType>(connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC}))(PeopleServer);

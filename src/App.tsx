@@ -2,7 +2,6 @@ import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Route, Switch, withRouter} from 'react-router-dom';
-import ScrollToTop from 'react-router-scroll-top';
 
 // Thunk creator
 import {initializeTC} from './redux/reducers/app';
@@ -23,13 +22,22 @@ import './css/bootstrap.min.css';
 import './css/reset.css';
 import './css/main.css';
 
+// Types
+import {AppStateType} from './redux/store';
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+
+type DispatchPropsType = {
+    initializeTC: () => void
+}
+
 // Главный компоненент
-class App extends React.Component {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
 
     // Обработка ошибок
-    catchAllUnhandleErrors = (reason, promise) => {
+    catchAllUnhandleErrors = (e: PromiseRejectionEvent) => {
         console.log('Some error!');
-        console.log(reason, promise);
+        console.log(e.reason, e.promise);
     }
 
     componentDidMount() {
@@ -48,7 +56,7 @@ class App extends React.Component {
         }
 
         return (
-            <ScrollToTop>             
+            <div>             
                 <Header/>
                     <div className="container-xl">
                         <div className="row">
@@ -67,13 +75,13 @@ class App extends React.Component {
                         </div>
                     </div>
                 <Footer/>
-            </ScrollToTop>
+            </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialize: state.app.initialize
 });
 
-export default compose(withRouter, connect(mapStateToProps, {initializeTC}))(App);
+export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, {initializeTC}))(App);
