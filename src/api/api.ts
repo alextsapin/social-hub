@@ -14,10 +14,10 @@ type ResponseType<D = {}, RC = ResultCodeEnum> = {
 }
 
 const instance = axios.create({
-    withCredentials: true,
+    withCredentials: false,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'API-KEY': '44e63aad-21a5-4b72-9cf5-77d24b5669cc'
+        'API-KEY': '1f975373-0b21-436f-bd12-e9e6f63d529e'
     }
 });
 
