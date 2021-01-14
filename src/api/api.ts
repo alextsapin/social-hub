@@ -14,7 +14,7 @@ type ResponseType<D = {}, RC = ResultCodeEnum> = {
 }
 
 const instance = axios.create({
-    withCredentials: false,
+    withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
         'API-KEY': '1f975373-0b21-436f-bd12-e9e6f63d529e'

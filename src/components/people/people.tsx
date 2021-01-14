@@ -1,8 +1,12 @@
 import React from 'react';
+import {Formik, Form, Field} from 'formik';
+
 import Person from './person';
 import Pagination from '../pagination/pagination';
 import Preloader from '../spinners/pageSpinner';
 import stub from '../../images/stub.png';
+import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
 
 type PropsType = {
     data: Array<{
@@ -30,10 +34,46 @@ type PropsType = {
     pageChange: (id: number) => void
 } 
 
+type SearchFormType = {
+    term : string
+}
+
+const SearchForm = () => {
+
+    const formValidate = (values: any) => {
+        const errors = {};
+        return errors;
+    }
+
+    const submit = (values: SearchFormType, {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}) => {
+        setTimeout(() => {
+           alert(JSON.stringify(values, null, 2));
+           setSubmitting(false);
+         }, 400);
+    }
+
+    return (
+        <div>
+            <p className="mb-2 font-weight-bold">Найти пользователя</p>
+            <Formik initialValues={{term: ''}} validate={formValidate} onSubmit={submit}>
+                {({isSubmitting}) => (
+                <Form className="form-inline">
+                    <div className="form-group mr-2">
+                        <Field className="form-control" type="text" name="term"/>
+                    </div>
+                    <Button type="submit" disabled={isSubmitting} color="primary" variant="contained"><SearchIcon/></Button>
+                </Form>
+                )}
+            </Formik>
+        </div>
+    )
+}
+
 const People = (props: PropsType) => {    
     return (
         <div className="mt-5 mb-5">
             <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>
+            <SearchForm/>
             {props.isConnect ? <Preloader/> :
                 <div className="row">
                     {

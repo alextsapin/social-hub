@@ -2,6 +2,7 @@ import React from 'react';
 import ImageLoader from 'react-imageloader';
 import spinner from '../spinners/imageSpinner';
 
+// IMG
 import logo from './../../images/my-logo.png';
 
 const Footer = () => {

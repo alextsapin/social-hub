@@ -1,5 +1,4 @@
 import React from 'react';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 type PropsType = {
     setAvatarTC: (e: any) => void;
@@ -19,7 +18,7 @@ const Avatar = (props: PropsType) => {
                 <label className="font-weight-bold">Загрузите фото профиля</label>
                 <input onChange={savePhoto} type="file" className="form-control-file mt-3"/>
             </div>
-            <button type="submit" className="btn btn-lg btn-dark" onClick={props.activateEditMode}><SettingsIcon/></button>
+            <button type="submit" className="btn btn-dark" onClick={props.activateEditMode}>Редактировать профиль</button>
         </form>
     );
 }
