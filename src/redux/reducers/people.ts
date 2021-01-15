@@ -22,6 +22,9 @@ type InitialStateType = {
     currentPage: number
     isConnect: boolean
     followUsers: Array<number>
+    filter: {
+        term: string
+    }
 }
 
 let initialState = {
@@ -40,7 +43,10 @@ let initialState = {
     usersTotal: 0,
     currentPage: 1,
     isConnect: false,
-    followUsers: []
+    followUsers: [],
+    filter: {
+        term: ''
+    }
 }
 
 const peopleReducer = (state = initialState, action: GeneralACType): InitialStateType => {
@@ -101,6 +107,12 @@ const peopleReducer = (state = initialState, action: GeneralACType): InitialStat
             } 
         }
 
+        case 'SET_FILTER': {
+            return {
+                ...state, filter: action.payload
+            } 
+        }
+
         default: break;  
     }
     return state;
@@ -109,6 +121,21 @@ const peopleReducer = (state = initialState, action: GeneralACType): InitialStat
 export default peopleReducer;
 
 // ACTION CREATORS
+type SetFilterACType =  {
+    type: string,
+    payload: {
+        term: string
+    }
+}
+
+const setFilterAC = (term: string) => {
+    return {
+        type: 'SET_FILTER',
+        payload: {term}
+    }
+}
+
+
 type FollowACType = {
     type: string
     id: number
@@ -204,15 +231,15 @@ const toggleFollowingAC = (isConnect: boolean, id: number): ToggleFollowingACTyp
     }
 }
 
-type GeneralACType = FollowACType & UnfollowACType & SetUsersDataACType & setUsersCountACType &SetCurrentPageACType & ToggleIsConnectACType & ToggleFollowingACType;
+type GeneralACType = FollowACType & UnfollowACType & SetUsersDataACType & setUsersCountACType &SetCurrentPageACType & ToggleIsConnectACType & ToggleFollowingACType & SetFilterACType;
 
 
 // Thunk creators
-export const getUsersTC = (page: number, size: number) => {
+export const getUsersTC = (page: number, size: number, term: string) => {
     return (dispatch: Dispatch) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));    
-        peopleAPI(page, size).then(data => {
+        peopleAPI(page, size, term).then(data => {
             // Получим количество пользователей
             dispatch(setUsersCountAC(data.totalCount));
             // Получим пользователей

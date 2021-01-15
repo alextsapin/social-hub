@@ -11,7 +11,7 @@ type propsType = {
     onPortionPage: number;
     pages: Array<number>;
     pagesTotal: number;
-    pageChange: (currentPage: number) => void;
+    onPageChanged: (currentPage: number) => void;
 }
 
 type stateType = {
@@ -22,7 +22,7 @@ type stateType = {
 class Pagination extends React.Component<propsType, stateType> {
 
     componentDidMount() {   
-        this.props.pageChange(this.props.currentPage);
+        this.props.onPageChanged(this.props.currentPage);
         this.setState({
             portionNumber: Math.ceil(this.props.currentPage / this.props.onPageUsers)
         });
@@ -72,7 +72,7 @@ class Pagination extends React.Component<propsType, stateType> {
                     <button className="pagination__link" 
                         onClick={ () => {
                             this.setPortionNumberFirst(); 
-                            this.props.pageChange(1);
+                            this.props.onPageChanged(1);
                         }}>
                         <SkipPreviousIcon/>
                     </button>
@@ -83,7 +83,7 @@ class Pagination extends React.Component<propsType, stateType> {
                     <button className="pagination__link" 
                         onClick={ () => {
                             this.setPortionNumberDown(); 
-                            this.props.pageChange(leftPage - 1)
+                            this.props.onPageChanged(leftPage - 1)
                         }}>
                         <ChevronLeftIcon/>
                     </button>
@@ -93,7 +93,7 @@ class Pagination extends React.Component<propsType, stateType> {
                     this.props.pages.filter(page => page >= leftPage && page <= rightPage).map((page) => {
                         return (
                             <button onClick={() => {
-                                this.props.pageChange(page);
+                                this.props.onPageChanged(page);
                             }} 
                                 className={
                                     this.props.currentPage === page 
@@ -109,7 +109,7 @@ class Pagination extends React.Component<propsType, stateType> {
                     <button className="pagination__link" 
                         onClick={() => {
                             this.setPortionNumberUp();
-                            this.props.pageChange(rightPage + 1);
+                            this.props.onPageChanged(rightPage + 1);
                         }}>
                         <ChevronRightIcon/>
                     </button>
@@ -120,7 +120,7 @@ class Pagination extends React.Component<propsType, stateType> {
                     <button className="pagination__link" 
                         onClick={() => {
                             this.setPortionNumberLast();
-                            this.props.pageChange(this.props.pagesTotal);
+                            this.props.onPageChanged(this.props.pagesTotal);
                         }}>
                         <SkipNextIcon/>
                     </button>

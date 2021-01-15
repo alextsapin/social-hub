@@ -8,6 +8,12 @@ import stub from '../../images/stub.png';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 
+// Thunk creators
+import {getUsersTC, pageChangeTC} from '../../redux/reducers/people';
+type FilterType = {
+    term: string
+}
+
 type PropsType = {
     data: Array<{
         name: string
@@ -29,16 +35,17 @@ type PropsType = {
     isConnect: boolean
     isAuth: boolean
     followUsers: Array<number>
+    onPageChanged: (page: number) => void
+    onFilterChanged: (filter: FilterType) => void
     followTC: (id: number) => void
     unfollowTC: (id: number) => void
-    pageChange: (id: number) => void
 } 
 
 type SearchFormType = {
     term : string
 }
 
-const SearchForm = () => {
+const SearchForm = (props: any) => {
 
     const formValidate = (values: any) => {
         const errors = {};
@@ -46,10 +53,8 @@ const SearchForm = () => {
     }
 
     const submit = (values: SearchFormType, {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}) => {
-        setTimeout(() => {
-           alert(JSON.stringify(values, null, 2));
-           setSubmitting(false);
-         }, 400);
+        props.onFilterChanged(values);
+        setSubmitting(false);
     }
 
     return (
@@ -61,6 +66,12 @@ const SearchForm = () => {
                     <div className="form-group mr-2">
                         <Field className="form-control" type="text" name="term"/>
                     </div>
+                    <select className="custom-select mr-sm-3" id="inlineFormCustomSelect">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
                     <Button type="submit" disabled={isSubmitting} color="primary" variant="contained"><SearchIcon/></Button>
                 </Form>
                 )}
@@ -73,7 +84,7 @@ const People = (props: PropsType) => {
     return (
         <div className="mt-5 mb-5">
             <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>
-            <SearchForm/>
+            <SearchForm onFilterChanged={props.onFilterChanged}/>
             {props.isConnect ? <Preloader/> :
                 <div className="row">
                     {
@@ -96,7 +107,7 @@ const People = (props: PropsType) => {
             }
 
             <Pagination 
-                pageChange = {props.pageChange} 
+                onPageChanged = {props.onPageChanged} 
                 currentPage = {props.currentPage} 
                 pages = {props.pages}
                 onPageUsers = {props.onPageUsers} 
