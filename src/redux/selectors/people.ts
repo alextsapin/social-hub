@@ -30,6 +30,10 @@ export const pagesTotalSelector = (state: AppStateType) => {
     return Math.ceil(state.people['usersTotal'] / state.people['onPageUsers']);
 }
 
+export const getFilterSelector = (state: AppStateType) => {
+    return state.people['filter'];
+}
+
 // Массив страниц
 export const pagesArraySelector = createSelector(pagesTotalSelector, (count) => {
     let pages = [];

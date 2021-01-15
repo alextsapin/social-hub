@@ -240,6 +240,8 @@ export const getUsersTC = (page: number, size: number, term: string) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));    
         peopleAPI(page, size, term).then(data => {
+            // Установим строку поиска
+            dispatch(setFilterAC(term));
             // Получим количество пользователей
             dispatch(setUsersCountAC(data.totalCount));
             // Получим пользователей
@@ -250,14 +252,14 @@ export const getUsersTC = (page: number, size: number, term: string) => {
     }
 }
 
-export const pageChangeTC = (page: number, size: number) => {
+export const pageChangeTC = (page: number, size: number, term: string) => {
     return (dispatch: Dispatch) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));
         // Установим текущую страницу
         dispatch(setCurrentPageAC(page));
         // Получим пользователей
-        peopleAPI(page, size).then(data => {
+        peopleAPI(page, size, term).then(data => {
             dispatch(setUsersDataAC(data.items));
             // Уберем прелоадер
             dispatch(toggleIsConnectAC(false));

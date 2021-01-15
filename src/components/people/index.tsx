@@ -22,7 +22,8 @@ import {
     followUsersSelector,
     portionTotalSelector,
     pagesArraySelector,
-    pagesTotalSelector
+    pagesTotalSelector,
+    getFilterSelector
 } from '../../redux/selectors/people';
 
 import {isAuthSelector} from '../../redux/selectors/auth';
@@ -49,8 +50,11 @@ type PropsType = {
     isConnect: boolean
     isAuth: boolean
     followUsers: Array<number>
+    filter: {
+        term: string
+    }
     getUsersTC: (currentPage: number, onPageUsers: number, term: string) => void
-    pageChangeTC: (page: number, onPageUsers: number) => void
+    pageChangeTC: (page: number, onPageUsers: number, term: string) => void
     followTC: (id: number) => void
     unfollowTC: (id: number) => void
 } 
@@ -67,7 +71,7 @@ class PeopleServer extends React.Component<PropsType> {
     }
 
     onPageChanged = (page: number) => {
-        this.props.pageChangeTC(page, this.props.onPageUsers)
+        this.props.pageChangeTC(page, this.props.onPageUsers, this.props.filter.term)
     }
 
     onFilterChanged = (filter: FilterType) => {
@@ -103,6 +107,7 @@ let mapStateToProps = (state: AppStateType) => {
         data: peopleSelector(state),
         currentPage: currentPageSelector(state),
         pages: pagesArraySelector(state),
+        filter: getFilterSelector(state),
         onPageUsers: onPageUsersSelector(state),
         onPortionPage: onPortionPageSelector(state),
         usersTotal: peopleCountSelector(state),
