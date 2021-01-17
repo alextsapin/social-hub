@@ -2,16 +2,14 @@ import {authTC} from './auth';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
 
-type InitialStateType = {
-    initialize: boolean;
-}
+type StateType = typeof initialState;
 
 // Первичный state
 let initialState = {
     initialize: false
 }
 
-const appReducer = (state = initialState, action: InitializeACType): InitialStateType => {
+const appReducer = (state = initialState, action: InitializeACType): StateType => {
     switch(action.type) {
         case 'SET_INITIALIZE':
         return {
@@ -24,11 +22,8 @@ const appReducer = (state = initialState, action: InitializeACType): InitialStat
 
 export default appReducer;
 
-type InitializeACType = {
-    type: string
-}
-
 // Action creators
+type InitializeACType = ReturnType<typeof initializeAC>
 export const initializeAC = () => ({
     type: 'SET_INITIALIZE'
 })
