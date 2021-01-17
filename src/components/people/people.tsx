@@ -11,7 +11,8 @@ import Button from '@material-ui/core/Button';
 // Thunk creators
 import {getUsersTC, pageChangeTC} from '../../redux/reducers/people';
 type FilterType = {
-    term: string
+    term: string,
+    friend: null | boolean
 }
 
 type PropsType = {
@@ -43,10 +44,10 @@ type PropsType = {
 
 type SearchFormType = {
     term : string
+    friend: null | boolean
 }
 
 const SearchForm = (props: any) => {
-
     const formValidate = (values: any) => {
         const errors = {};
         return errors;
@@ -60,18 +61,17 @@ const SearchForm = (props: any) => {
     return (
         <div>
             <p className="mb-2 font-weight-bold">Найти пользователя</p>
-            <Formik initialValues={{term: ''}} validate={formValidate} onSubmit={submit}>
+            <Formik initialValues={{term: '', friend: null}} validate={formValidate} onSubmit={submit}>
                 {({isSubmitting}) => (
                 <Form className="form-inline">
                     <div className="form-group mr-2">
                         <Field className="form-control" type="text" name="term"/>
                     </div>
-                    <select className="custom-select mr-sm-3" id="inlineFormCustomSelect">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                    <Field as="select" name="friend" className="custom-select mr-sm-3">
+                        <option value="null">Все</option>
+                        <option value="true">Подписанные</option>
+                        <option value="false">Неподписанные</option>
+                    </Field>
                     <Button type="submit" disabled={isSubmitting} color="primary" variant="contained"><SearchIcon/></Button>
                 </Form>
                 )}

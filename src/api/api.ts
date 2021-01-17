@@ -77,8 +77,8 @@ type PeopleType = {
 }
 
 // Получим всех пользователей
-export const peopleAPI = (page: number, limit: number, term: string = '') => {
-    return instance.get<PeopleType>(`users?page=${page}&count=${limit}&term=${term}`)
+export const peopleAPI = (page: number, limit: number, term: string = '', friend: null | boolean) => {
+    return instance.get<PeopleType>(`users?page=${page}&count=${limit}&term=${term}` + (friend === null ? '' : `&friend=${friend}`))
     .then(response => response.data);
 }
 

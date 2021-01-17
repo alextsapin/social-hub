@@ -4,7 +4,6 @@ import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
 
-
 type InitialStateType = {
     data: Array<{
         id: number
@@ -23,7 +22,8 @@ type InitialStateType = {
     isConnect: boolean
     followUsers: Array<number>
     filter: {
-        term: string
+        term: string,
+        friend: null | boolean
     }
 }
 
@@ -45,7 +45,8 @@ let initialState = {
     isConnect: false,
     followUsers: [],
     filter: {
-        term: ''
+        term: '',
+        friend: null
     }
 }
 
@@ -124,14 +125,18 @@ export default peopleReducer;
 type SetFilterACType =  {
     type: string,
     payload: {
-        term: string
+        term: string,
+        friend: null | boolean
     }
 }
 
-const setFilterAC = (term: string) => {
+const setFilterAC = (term: string, friend: null | boolean) => {
     return {
         type: 'SET_FILTER',
-        payload: {term}
+        payload: {
+            term,
+            friend
+        }
     }
 }
 
@@ -235,13 +240,13 @@ type GeneralACType = FollowACType & UnfollowACType & SetUsersDataACType & setUse
 
 
 // Thunk creators
-export const getUsersTC = (page: number, size: number, term: string) => {
+export const getUsersTC = (page: number, size: number, term: string, friend: null | boolean) => {
     return (dispatch: Dispatch) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));    
-        peopleAPI(page, size, term).then(data => {
+        peopleAPI(page, size, term, friend).then(data => {
             // Установим строку поиска
-            dispatch(setFilterAC(term));
+            dispatch(setFilterAC(term, friend));
             // Получим количество пользователей
             dispatch(setUsersCountAC(data.totalCount));
             // Получим пользователей
@@ -252,14 +257,14 @@ export const getUsersTC = (page: number, size: number, term: string) => {
     }
 }
 
-export const pageChangeTC = (page: number, size: number, term: string) => {
+export const pageChangeTC = (page: number, size: number, term: string, friend: null | boolean) => {
     return (dispatch: Dispatch) => {
         // Покажем прелоадер
         dispatch(toggleIsConnectAC(true));
         // Установим текущую страницу
         dispatch(setCurrentPageAC(page));
         // Получим пользователей
-        peopleAPI(page, size, term).then(data => {
+        peopleAPI(page, size, term, friend).then(data => {
             dispatch(setUsersDataAC(data.items));
             // Уберем прелоадер
             dispatch(toggleIsConnectAC(false));

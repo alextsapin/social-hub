@@ -52,30 +52,32 @@ type PropsType = {
     followUsers: Array<number>
     filter: {
         term: string
+        friend: null | boolean
     }
-    getUsersTC: (currentPage: number, onPageUsers: number, term: string) => void
-    pageChangeTC: (page: number, onPageUsers: number, term: string) => void
+    getUsersTC: (currentPage: number, onPageUsers: number, term: string, friend: null | boolean) => void
+    pageChangeTC: (page: number, onPageUsers: number, term: string, friend: null | boolean) => void
     followTC: (id: number) => void
     unfollowTC: (id: number) => void
 } 
 
 type FilterType = {
     term: string
+    friend: null | boolean
 }
 
 // Презентацинная компонента Profile
 class PeopleServer extends React.Component<PropsType> {
 
     componentDidMount() {   
-        this.props.getUsersTC(this.props.currentPage, this.props.onPageUsers, '');
+        this.props.getUsersTC(this.props.currentPage, this.props.onPageUsers, '', null);
     }
 
     onPageChanged = (page: number) => {
-        this.props.pageChangeTC(page, this.props.onPageUsers, this.props.filter.term)
+        this.props.pageChangeTC(page, this.props.onPageUsers, this.props.filter.term, this.props.filter.friend)
     }
 
     onFilterChanged = (filter: FilterType) => {
-        this.props.getUsersTC(this.props.currentPage, this.props.onPageUsers, filter.term);
+        this.props.getUsersTC(this.props.currentPage, this.props.onPageUsers, filter.term, filter.friend);
     }
 
     render() {    
