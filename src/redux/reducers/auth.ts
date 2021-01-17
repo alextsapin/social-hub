@@ -4,33 +4,24 @@ import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
 
-type InitialStateType = {
-    id: number;
-    email: string; 
-    login: string;
-    isAuth: boolean;
-    captchaUrl: null | string;
-}
+// Выведем тип из первичного стрейта
+type StateType = typeof initialState;
 
 // Первичный state
 let initialState = {
-    id: 0,
-    email: '',
-    login: '',
+    id: null as null | number,
+    email: null as null | string,
+    login: null as null | string,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: null as null | string
 }
 
-const authReducer = (state = initialState, action: ACType): InitialStateType => {
+const authReducer = (state = initialState, action: JoinACType): StateType => {
     switch(action.type) {
         case 'SET_USER_DATA':
-            return {
-                ...state,
-                ...action.data
-            }
+        return {...state,...action.data}
     
         case 'GET_CAPTCHA_URL':
-
         return {...state, captchaUrl: action.captchaUrl}
 
         default:
@@ -40,38 +31,27 @@ const authReducer = (state = initialState, action: ACType): InitialStateType => 
 
 export default authReducer;
 
-type setAuthUserDataACType = {
-    id: number;
-    email: string;
-    login: string;
-    isAuth: boolean;
-}
-
-type setAuthDataACType = {
-    type: string;
-    data: setAuthUserDataACType;
-}
-
 // Action creators
+type SetAuthDataACType = ReturnType<typeof setAuthDataAC>
+
 const setAuthDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
     type: 'SET_USER_DATA',
     data: {id, email, login, isAuth}
 })
 
-type getCaptchaUrlACType = {
-    type: string;
-    captchaUrl: string;
-}
+// Выведем тип из Action
+type GetCaptchaUrlACType = ReturnType<typeof getCaptchaUrlAC>
 
 const getCaptchaUrlAC = (captchaUrl: string) => ({
     type: 'GET_CAPTCHA_URL',
     captchaUrl
 })
 
-type ACType = setAuthDataACType & getCaptchaUrlACType;
+// Общий тип
+type JoinACType = SetAuthDataACType & GetCaptchaUrlACType;
 
 // Thunk creators
-export const authTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
+export const authTC = (): ThunkAction<Promise<any>, AppStateType, unknown, JoinACType> => {
     return async (dispatch: Dispatch) => {
         let response = await authAPI();
         if(response.resultCode === 0) {
@@ -83,7 +63,7 @@ export const authTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACTyp
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkAction<Promise<any>, AppStateType, unknown, JoinACType> => {
     return async (dispatch: any) => {
         let response = await loginAPI(email, password, rememberMe, captcha);
         if(response.resultCode === 0) {
@@ -99,7 +79,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
     }
 }
 
-export const logoutTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
+export const logoutTC = (): ThunkAction<Promise<any>, AppStateType, unknown, JoinACType> => {
     return async (dispatch: Dispatch) => {
         let response = await logoutAPI();
         if(response.resultCode === 0) {
@@ -108,7 +88,7 @@ export const logoutTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACT
     }
 }
 
-export const getCaptchaUrlTC = (): ThunkAction<Promise<any>, AppStateType, unknown, ACType> => {
+export const getCaptchaUrlTC = (): ThunkAction<Promise<any>, AppStateType, unknown, JoinACType> => {
     return async (dispatch: Dispatch) => {
         let response = await getCaptchaUrlAPI();
         let captchaUrl = response.data.url;

@@ -17,7 +17,7 @@ import Preloader from './components/spinners/pageSpinner';
 import NotFound from './components/404/404';
 
 // CSS
-import './font/roboto.css';
+import './font/OpenSans.css';
 import './css/bootstrap.min.css';
 import './css/reset.css';
 import './css/main.css';
