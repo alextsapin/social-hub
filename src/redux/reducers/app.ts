@@ -12,19 +12,19 @@ let initialState = {
 const appReducer = (state = initialState, action: InitializeACType): StateType => {
     switch(action.type) {
         case 'SET_INITIALIZE':
-        return {
-            ...state,
-            initialize: true
-        }
+        return {...state, initialize: true}
+
+        default:
+        return state
     }
-    return state;
 }
 
 export default appReducer;
 
 // Action creators
 type InitializeACType = ReturnType<typeof initializeAC>
-export const initializeAC = () => ({
+
+const initializeAC = () => ({
     type: 'SET_INITIALIZE'
 })
 

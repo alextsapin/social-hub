@@ -25,7 +25,7 @@ type mapDispatchPropsType = {
 }
 
 type mapStatePropsType = {
-    id: number;
+    id: any;
     chatData: Array<any>;
     newMessage: string;
 }
@@ -64,4 +64,6 @@ let mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
-export default compose(withAuthRedirect,connect(mapStateToProps, {sendMessageTC, setUserDataTC}))(Chat);
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {sendMessageTC, setUserDataTC}))(Chat);

@@ -28,29 +28,30 @@ type mapDispatchPropsType = {
 
 type propsType = mapStatePropsType & mapDispatchPropsType;
 
-class Login extends React.Component<propsType> {
+const Login = (props: propsType) => {
     
-    onSubmit = (data: any) => {
-        this.props.loginTC(data.email, data.password, data.rememberMe, data.captcha);
+    const onSubmit = (data: any) => {
+        props.loginTC(data.email, data.password, data.rememberMe, data.captcha);
     }
 
-    render() {
-        return (
-            <div className="row mt-5 mb-5">
-                <div className="col-12">
-                    <h1 className="title title_first">Login</h1>
-                </div>
-                
-                <div className="offset-md-3 col-md-6">
-                    <LoginForm captchaUrl={this.props.captchaUrl} onSubmit={this.onSubmit}/>
-                </div>
+    return (
+        <div className="row mt-5 mb-5">
+            <div className="col-12">
+                <h1 className="title title_first">Login</h1>
             </div>
-        );
-    }
+            
+            <div className="offset-md-3 col-md-6">
+                <LoginForm captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
+            </div>
+        </div>
+    );
+    
 }
 
 const mapStateToProps = (state: AppStateType) => ({
     captchaUrl: getCaptchaUrlSelector(state)
 })
 
-export default compose(withProfileRedirect, connect(mapStateToProps, {loginTC}))(Login);
+export default compose<React.ComponentType>(
+    withProfileRedirect, 
+    connect(mapStateToProps, {loginTC}))(Login);

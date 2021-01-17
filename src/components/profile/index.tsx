@@ -29,7 +29,7 @@ import {userIdSelector} from '../../redux/selectors/auth';
 import {AppStateType} from '../../redux/store';
 
 type PropsType = {
-    id: number
+    id: any
     status: string
     profileId: number
     person: PersonType

@@ -27,9 +27,9 @@ type mapDispatchPropsType = {
 }
 
 type mapStatePropsType = {
-    id: number;
+    id: null | number;
     isAuth: boolean;
-    login: string;
+    login: null | string;
 }
 
 const Header = (props: propsType) => {

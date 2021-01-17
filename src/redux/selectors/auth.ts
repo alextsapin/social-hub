@@ -1,6 +1,6 @@
 import {AppStateType} from '../store';
 
-export const userIdSelector = (state: AppStateType): number => {
+export const userIdSelector = (state: AppStateType): null | number => {
     return state.auth['id']
 }
 

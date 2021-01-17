@@ -1,13 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {AppStateType} from '../redux/store';
 
-type PropsType = {
+type MapStatePropsType = {
     isAuth: boolean
 }
 
-export function withProfileRedirect<WP>(WrappedComponent: React.ComponentType<WP>) {
-    return (props: WP & PropsType) => {
-        if(!props.isAuth) return <Redirect to='/profile'/>
-        return <WrappedComponent {...props} />
+let mapStateToProps = (state: AppStateType) => {
+    return {
+        isAuth:  state.auth.isAuth
     }
+}
+
+export function withProfileRedirect<WCP>(WrappedComponent: React.ComponentType<WCP>) {
+    function RedirectComponent(props: MapStatePropsType) {
+        let {isAuth, ...restProps} = props
+        if(isAuth) return <Redirect to='/profile'/>
+        return <WrappedComponent {...restProps as WCP} />
+    }
+
+    return connect(mapStateToProps)(RedirectComponent);
 }
