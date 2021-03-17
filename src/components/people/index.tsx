@@ -26,7 +26,7 @@ import {
     getFilterSelector
 } from '../../redux/selectors/people';
 
-import {isAuthSelector} from '../../redux/selectors/auth';
+import {isAuthSL} from '../../redux/selectors/auth';
 
 type PropsType = {
     data: Array<{
@@ -84,11 +84,9 @@ class PeopleServer extends React.Component<PropsType> {
         return ( 
             <People 
                 data = {this.props.data}
-                currentPage = {this.props.currentPage}
                 pages = {this.props.pages}
                 onPageUsers = {this.props.onPageUsers}
                 onPortionPage = {this.props.onPortionPage}
-                usersTotal = {this.props.usersTotal} 
                 portionTotal = {this.props.portionTotal}
                 pagesTotal = {this.props.pagesTotal}
                 isConnect = {this.props.isConnect}
@@ -107,18 +105,22 @@ class PeopleServer extends React.Component<PropsType> {
 let mapStateToProps = (state: AppStateType) => {
     return {
         data: peopleSelector(state),
-        currentPage: currentPageSelector(state),
         pages: pagesArraySelector(state),
         filter: getFilterSelector(state),
         onPageUsers: onPageUsersSelector(state),
         onPortionPage: onPortionPageSelector(state),
-        usersTotal: peopleCountSelector(state),
         portionTotal: portionTotalSelector(state),
         pagesTotal: pagesTotalSelector(state),
         isConnect: isConnectSelector(state),
-        isAuth: isAuthSelector(state),
+        isAuth: isAuthSL(state),
         followUsers: followUsersSelector(state)
     }
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {getUsersTC, pageChangeTC, followTC, unfollowTC}))(PeopleServer);
+export default compose<React.ComponentType>(connect(
+    mapStateToProps, {
+        getUsersTC, 
+        pageChangeTC, 
+        followTC, 
+        unfollowTC
+    }))(PeopleServer);

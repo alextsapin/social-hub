@@ -1,9 +1,17 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {connect} from 'react-redux';
 import ImageLoader from 'react-imageloader';
-import {logoutTC} from '../../redux/reducers/auth';
+import {useSelector, useDispatch} from 'react-redux';
+
+// IMG
+import logo from '../../images/logo.png';
 import spinner from '../spinners/imageSpinner';
+
+// Selectors
+import {isAuthSL} from '../../redux/selectors/auth';
+
+// ThunkCraators
+import {logoutTC} from '../../redux/reducers/auth';
 
 // Material — UI
 import HomeIcon from '@material-ui/icons/Home';
@@ -12,27 +20,37 @@ import TextsmsIcon from '@material-ui/icons/Textsms';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-// IMG
-import logo from '../../images/logo.png';
+const Login = () => {
+	return (
+        <li className="nav-item">
+            <NavLink className="nav-link" to="/login">
+                <VpnKeyIcon className="mb-1 mr-1"/>Login
+            </NavLink>
+        </li>
+	);
+};
 
-import {userIdSelector, isAuthSelector, userLoginSelector} from '../../redux/selectors/auth';
+const Logout = () => {
 
-// StateType
-import {AppStateType} from '../../redux/store';
+    const dispatch = useDispatch();
 
-type propsType = mapStatePropsType & mapDispatchPropsType;
+    const onLogout = () => {
+        dispatch(logoutTC())
+    }
 
-type mapDispatchPropsType = {
-    logoutTC: () => void;
-}
+	return (
+        <li className="nav-item">
+            <button onClick={onLogout} className="nav-link">
+                <ExitToAppIcon className="mb-1 mr-1"/>Logout
+            </button>
+        </li>
+	);
+};
 
-type mapStatePropsType = {
-    id: null | number;
-    isAuth: boolean;
-    login: null | string;
-}
+const Header = () => {
 
-const Header = (props: propsType) => {
+    const isAuth = useSelector(isAuthSL);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-xl">
@@ -68,21 +86,7 @@ const Header = (props: propsType) => {
                     </ul>
 
                     <ul className="navbar-nav ml-auto">
-                        {
-                            !   props.isAuth
-                            ?   <li className="nav-item">
-                                    <NavLink className="nav-link" to="/login">
-                                        <VpnKeyIcon className="mb-1 mr-1"/>
-                                        Login
-                                    </NavLink>
-                                </li>
-                            :   <li className="nav-item">
-                                    <button onClick={props.logoutTC} className="nav-link">
-                                        <ExitToAppIcon className="mb-1 mr-1"/>
-                                        Logout
-                                    </button>
-                                </li>
-                        }
+                        {!isAuth ? <Login/> : <Logout/>}
                     </ul>
                 </div>
             </div>
@@ -90,14 +94,4 @@ const Header = (props: propsType) => {
     );
 }
 
-const HeaderServer = (props: propsType) => {
-    return <Header {...props}/>
-}
-
-const mapStateToProps = (state: AppStateType): mapStatePropsType => ({
-    id: userIdSelector(state),
-    isAuth: isAuthSelector(state),
-    login: userLoginSelector(state)
-});
-
-export default connect<mapStatePropsType, mapDispatchPropsType, unknown, AppStateType>(mapStateToProps, {logoutTC})(HeaderServer);
+export default Header;

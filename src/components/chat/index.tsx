@@ -16,7 +16,7 @@ import {sendMessageTC, setUserDataTC} from '../../redux/reducers/chat';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 // Selectors
-import {userIdSelector} from '../../redux/selectors/auth';
+import {userIdSL} from '../../redux/selectors/auth';
 import {chatDataSelector, newMessageSelector} from '../../redux/selectors/chat';
 
 type mapDispatchPropsType = {
@@ -37,7 +37,7 @@ const Chat = (props: PropsType) => {
 
     props.setUserDataTC(props.id);
 
-    let userBox = props.chatData.map(item => (<User key={item.id} name={item.name} image={item.image} message={item.message}/>));
+    let userBox = props.chatData.map((item, index) => (<User key={index} name={item.name} image={item.image} message={item.message}/>));
 
     let sendMessage = (values: any) => {
         props.sendMessageTC(values.message);
@@ -58,12 +58,10 @@ const Chat = (props: PropsType) => {
 // Контейнерная компонента Chat
 let mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        id: userIdSelector(state),
+        id: userIdSL(state),
         chatData: chatDataSelector(state),
         newMessage: newMessageSelector(state)
     }
 }
 
-export default compose<React.ComponentType>(
-    withAuthRedirect,
-    connect(mapStateToProps, {sendMessageTC, setUserDataTC}))(Chat);
+export default compose<React.ComponentType>(withAuthRedirect,connect(mapStateToProps, {sendMessageTC, setUserDataTC}))(Chat);

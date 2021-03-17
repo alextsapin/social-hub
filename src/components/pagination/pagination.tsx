@@ -90,9 +90,9 @@ class Pagination extends React.Component<propsType, stateType> {
                 }
                 
                 {
-                    this.props.pages.filter(page => page >= leftPage && page <= rightPage).map((page) => {
+                    this.props.pages.filter(page => page >= leftPage && page <= rightPage).map((page, index) => {
                         return (
-                            <button onClick={() => {
+                            <button key={index} onClick={() => {
                                 this.props.onPageChanged(page);
                             }} 
                                 className={

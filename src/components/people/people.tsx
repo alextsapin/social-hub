@@ -1,5 +1,6 @@
 import React from 'react';
 import {Formik, Form, Field} from 'formik';
+import {useSelector, useDispatch} from 'react-redux';
 
 import Person from './person';
 import Pagination from '../pagination/pagination';
@@ -10,6 +11,22 @@ import Button from '@material-ui/core/Button';
 
 // Thunk creators
 import {getUsersTC, pageChangeTC} from '../../redux/reducers/people';
+
+// Selectors
+import {
+    peopleCountSelector, 
+    currentPageSelector,
+    peopleSelector, 
+    onPageUsersSelector, 
+    onPortionPageSelector,
+    isConnectSelector,
+    followUsersSelector,
+    portionTotalSelector,
+    pagesArraySelector,
+    pagesTotalSelector,
+    getFilterSelector
+} from '../../redux/selectors/people';
+
 type FilterType = {
     term: string,
     friend: null | boolean
@@ -26,11 +43,9 @@ type PropsType = {
         status: null | string
         followed: boolean
     }>
-    currentPage: number
     pages: Array<number>
     onPageUsers: number
     onPortionPage: number
-    usersTotal: number
     portionTotal: number
     pagesTotal: number
     isConnect: boolean
@@ -81,9 +96,13 @@ const SearchForm = (props: any) => {
 }
 
 const People = (props: PropsType) => {    
+
+    const usersTotal = useSelector(peopleCountSelector);
+    const currentPage = useSelector(currentPageSelector);
+
     return (
         <div className="mt-5 mb-5">
-            <h1 className="title title_first mb-5">Всего пользователей: {props.usersTotal}</h1>
+            <h1 className="title title_first mb-5">Всего пользователей: {usersTotal}</h1>
             <SearchForm onFilterChanged={props.onFilterChanged}/>
             {props.isConnect ? <Preloader/> :
                 <div className="row">
@@ -108,7 +127,7 @@ const People = (props: PropsType) => {
 
             <Pagination 
                 onPageChanged = {props.onPageChanged} 
-                currentPage = {props.currentPage} 
+                currentPage = {currentPage} 
                 pages = {props.pages}
                 onPageUsers = {props.onPageUsers} 
                 onPortionPage = {props.onPortionPage}

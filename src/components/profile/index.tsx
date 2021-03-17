@@ -23,7 +23,7 @@ import {
 
 // Selectors
 import {statusSelector, postSelector, dataSelector, personSelector} from '../../redux/selectors/profile';
-import {userIdSelector} from '../../redux/selectors/auth';
+import {userIdSL} from '../../redux/selectors/auth';
 
 // Global State Type
 import {AppStateType} from '../../redux/store';
@@ -92,7 +92,7 @@ class ProfileServer extends React.Component<PropsType> {
 // Контейнерная компонента Profile
 let mapStateToProps = (state: AppStateType) => {
     return {
-        id: userIdSelector(state),
+        id: userIdSL(state),
         data: dataSelector(state),
         post: postSelector(state),
         person: personSelector(state),

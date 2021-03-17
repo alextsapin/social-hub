@@ -43,7 +43,6 @@ export const pagesArraySelector = createSelector(pagesTotalSelector, (count) => 
     return pages;
 });
 
-
 // Текущая страница
 export const currentPageSelector = (state: AppStateType) => {
     return state.people['currentPage']
