@@ -22,7 +22,6 @@ type stateType = {
 class Pagination extends React.Component<propsType, stateType> {
 
     componentDidMount() {   
-        this.props.onPageChanged(this.props.currentPage);
         this.setState({
             portionNumber: Math.ceil(this.props.currentPage / this.props.onPageUsers)
         });
@@ -111,7 +110,7 @@ class Pagination extends React.Component<propsType, stateType> {
                             this.setPortionNumberUp();
                             this.props.onPageChanged(rightPage + 1);
                         }}>
-                        <ChevronRightIcon/>
+                        +5
                     </button>
                 }
 

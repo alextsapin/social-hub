@@ -1,6 +1,6 @@
 import React from 'react';
-import ImageLoader from 'react-imageloader';
-import spinner from '../spinners/imageSpinner';
+import {Img} from 'react-image';
+import Spinner from '../spinners/imageSpinner';
 
 // IMG
 import logo from './../../images/my-logo.png';
@@ -11,8 +11,7 @@ const Footer = () => {
 			<div className="developer">
 				<p className="developer__text">Develop by</p>
 				<a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/bloodborne.gothic/">
-            	<ImageLoader className="developer__logo" src={logo} wrapper={React.createFactory('div')}
-            		preloader={spinner}></ImageLoader>
+					<Img className="developer__logo" src={[logo]} loader={<Spinner/>} alt="img"/>
 				</a>
 				<p className="developer__text developer__text_copy">2021 SOCIAL NETWORK</p>
 			</div>

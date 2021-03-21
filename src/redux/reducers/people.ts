@@ -1,8 +1,5 @@
 import {peopleAPI, followAPI, unfollowAPI} from '../../api/api';
-
 import {Dispatch} from 'redux';
-import {ThunkAction} from 'redux-thunk';
-import {AppStateType} from '../store';
 
 type InitialStateType = {
     data: Array<{
@@ -140,7 +137,6 @@ const setFilterAC = (term: string, friend: null | boolean) => {
     }
 }
 
-
 type FollowACType = {
     type: string
     id: number
@@ -237,7 +233,6 @@ const toggleFollowingAC = (isConnect: boolean, id: number): ToggleFollowingACTyp
 }
 
 type GeneralACType = FollowACType & UnfollowACType & SetUsersDataACType & setUsersCountACType &SetCurrentPageACType & ToggleIsConnectACType & ToggleFollowingACType & SetFilterACType;
-
 
 // Thunk creators
 export const getUsersTC = (page: number, size: number, term: string, friend: null | boolean) => {

@@ -3,7 +3,7 @@ import {Formik, Form, Field} from 'formik';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Person from './person';
-import Pagination from '../pagination/pagination';
+import Pagination from '../paginator/paginator';
 import Preloader from '../spinners/pageSpinner';
 import stub from '../../images/stub.png';
 import SearchIcon from '@material-ui/icons/Search';

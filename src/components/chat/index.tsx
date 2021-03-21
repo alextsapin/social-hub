@@ -19,21 +19,36 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {userIdSL} from '../../redux/selectors/auth';
 import {chatDataSelector, newMessageSelector} from '../../redux/selectors/chat';
 
-type mapDispatchPropsType = {
+const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+
+type ChatMessageType = {
+    message: string;
+    photo: string;
+    userId: number;
+    userName: string;
+}
+
+type MapDispatchPropsType = {
     setUserDataTC: (id: number) => void;
     sendMessageTC: (massage: string) => void;
 }
 
-type mapStatePropsType = {
+type MapStatePropsType = {
     id: any;
     chatData: Array<any>;
     newMessage: string;
 }
 
-type PropsType = mapStatePropsType & mapDispatchPropsType;
+type PropsType = MapStatePropsType & MapDispatchPropsType;
 
 // Презентационная компонента Chat
 const Chat = (props: PropsType) => {
+
+    React.useEffect(() => {
+        ws.addEventListener('message', (e) => {
+            console.log(e)
+        })
+    })
 
     props.setUserDataTC(props.id);
 
@@ -56,7 +71,7 @@ const Chat = (props: PropsType) => {
 }
 
 // Контейнерная компонента Chat
-let mapStateToProps = (state: AppStateType): mapStatePropsType => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         id: userIdSL(state),
         chatData: chatDataSelector(state),
