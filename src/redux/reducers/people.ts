@@ -36,7 +36,7 @@ let initialState = {
         followed: false
     }],
     onPageUsers: 20,
-    onPortionPage: 5,
+    onPortionPage: 6,
     usersTotal: 0,
     currentPage: 1,
     isConnect: false,

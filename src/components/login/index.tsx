@@ -12,7 +12,7 @@ import {withProfileRedirect} from '../../hoc/withProfileRedirect';
 import {AppStateType} from '../../redux/store';
 
 // Form
-import LoginForm from './form/form';
+import LoginForm from './form';
 
 // Selector
 import {getCaptchaUrlSelector} from '../../redux/selectors/auth';
