@@ -1,18 +1,18 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
-// STORE
-import store from "./redux/store";
-
-// Контекст
-import {Provider} from 'react-redux';
+import App from './App/App';
+import store from './App/store';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App/>
+            <App />
         </BrowserRouter>
-    </Provider>, document.getElementById('root')
+    </Provider>,
+    document.getElementById('root'),
 );
+
+reportWebVitals();

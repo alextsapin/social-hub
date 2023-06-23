@@ -1,0 +1,76 @@
+@import './bootstrap.min.css';
+@import './variables.scss';
+
+html {
+	height: 100%;
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+*, *:before, *:after, *:focus {
+    font-family: 'Open Sans', sans-serif !important;
+	box-sizing: border-box;
+    outline: none !important;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+    background: #E7EBF0;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+    padding-bottom: 50px;
+}
+
+header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 50px;
+}
+
+#content {
+    min-height: 700px;
+}
+
+footer {
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: #222222;
+    min-height: 100px;
+}
+
+.logo {
+    height: 70px;
+}
+
+img {
+    max-width: 100%;
+}
+
+// Заголовки
+.title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 35px;
+    &_first {
+        margin-top: 50px;
+        font-size: 1.5rem;
+    }
+    &_second {
+        font-size: 1.25rem;
+        margin-top: 40px;
+    }
+    &_third {
+        font-size: 1rem;
+        margin-top: 15px;
+    }
+    & a {
+        color: white;
+        &:hover {
+            color: red;
+            text-decoration: none;
+        }
+    }
+}

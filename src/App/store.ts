@@ -1,0 +1,44 @@
+/* eslint-disable camelcase */
+import { legacy_createStore, combineReducers, applyMiddleware, AnyAction } from 'redux';
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+
+import usersReducer from '../pages/Home/homeReducer';
+import authReducer from '../pages/Login/loginReducer';
+import profileReducer from '../pages/Profile/profileReducer';
+
+const rootReducer = combineReducers({
+    profile: profileReducer,
+    users: usersReducer,
+    auth: authReducer,
+});
+
+let preloadedState;
+const interState = localStorage.getItem('state');
+
+if (interState) {
+    preloadedState = JSON.parse(interState);
+}
+
+const store = legacy_createStore(rootReducer, preloadedState, applyMiddleware(thunkMiddleware));
+
+store.subscribe(() => {
+    localStorage.setItem('state', JSON.stringify(store.getState()));
+});
+
+export default store;
+
+type rootReducerType = typeof rootReducer;
+
+export type AppStateType = ReturnType<rootReducerType>;
+export type AppDispatch = ThunkDispatch<AppStateType, unknown, AnyAction>;
+
+// 1 — Что возвращает thunk
+// 2 — Тип стейта всего приложения
+// 3 — Экстра–аргументы
+// 4 — Типы всех actions
+export type AppThunkType<ReturnType = void> = ThunkAction<
+    ReturnType,
+    AppStateType,
+    unknown,
+    AnyAction
+>;

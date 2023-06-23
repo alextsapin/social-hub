@@ -1,0 +1,28 @@
+.post {
+    margin-top: 20px;
+    padding: 20px;
+    position: relative;
+    border: 1px solid #E0E0E0;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+}
+
+.button {
+    border: none;
+    background: transparent;
+}
+
+.panel {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

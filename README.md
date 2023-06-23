@@ -1,3 +1,2 @@
-# Social network
-
-Social network on react.
+# samurai
+Путь самурая на typescript.
