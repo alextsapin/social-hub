@@ -30,7 +30,7 @@ export const User = (props: UserPropsType): ReactElement => {
                 <NavLink to={`/profile/${props.id}`} className={css.name}>
                     {props.name}
                 </NavLink>
-                <p className={css.status}>{props.status !== null ? props.status : '...'}</p>
+                <p className={css.status}>{props.status ? props.status : '...'}</p>
                 {props.photo !== null ? (
                     <Img
                         className={css.avatar}

@@ -6,7 +6,7 @@ import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import Button from '@mui/material/Button';
 
 import { followTC, unFollowTC } from '../../pages/Home/homeReducer';
-import { useAppDispatch } from '../../shared/hooks';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
 import css from './Follow.module.scss';
 
@@ -19,7 +19,11 @@ type PropsType = {
 export const Follow = (props: PropsType): ReactElement => {
     const dispatch = useAppDispatch();
 
-    console.log(props);
+    const isAuth = useAppSelector(state => state.auth.isAuth);
+
+    if (!isAuth) {
+        return <div />;
+    }
 
     if (props.followed) {
         return (
@@ -32,7 +36,7 @@ export const Follow = (props: PropsType): ReactElement => {
                 variant="contained"
             >
                 <PersonAddDisabledIcon />
-                UNFOLLOW
+                <span className={css.indent}>UNFOLLOW</span>
             </Button>
         );
     }
@@ -47,7 +51,7 @@ export const Follow = (props: PropsType): ReactElement => {
             variant="contained"
         >
             <PersonAddIcon />
-            FOLLOW
+            <span className={css.indent}>FOLLOW</span>
         </Button>
     );
 };

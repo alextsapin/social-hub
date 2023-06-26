@@ -1,4 +1,8 @@
 .button {
-    display: block !important;
+    display: flex !important;
     margin: 20px auto !important;
+}
+
+.indent {
+    margin-left: 5px;
 }

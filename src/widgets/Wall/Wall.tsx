@@ -6,12 +6,7 @@ import { connect } from 'react-redux';
 
 import { AppStateType } from '../../App/store';
 import Post, { PostType } from '../../entities/Post/Post';
-import {
-    addPostTC,
-    updatePostTC,
-    deletePostTC,
-    editPostTC,
-} from '../../pages/Profile/profileReducer';
+import { addPost, updatePost, deletePost, editPost } from '../../pages/Profile/profileReducer';
 import { getNewPostTextSL, getPostBoxSL } from '../../shared/selectors/profileSelectors';
 
 import css from './css.module.scss';
@@ -19,10 +14,10 @@ import css from './css.module.scss';
 type WallType = {
     postBox: Array<PostType>;
     newPostText: string;
-    updatePostTC: (text: string) => void;
-    addPostTC: () => void;
-    editPostTC: (id: string, newText: string) => void;
-    deletePostTC: (id: string) => void;
+    updatePost: (text: string) => void;
+    addPost: () => void;
+    editPost: (id: string, newText: string) => void;
+    deletePost: (id: string) => void;
 };
 
 const Wall = (props: WallType): ReactElement => {
@@ -30,7 +25,7 @@ const Wall = (props: WallType): ReactElement => {
 
     const updatePost = (): void => {
         if (newPostElement.current) {
-            props.updatePostTC(newPostElement.current.value);
+            props.updatePost(newPostElement.current.value);
         }
     };
 
@@ -39,13 +34,13 @@ const Wall = (props: WallType): ReactElement => {
         const trimmed = props.newPostText.trim();
 
         if (trimmed) {
-            props.addPostTC();
-            props.updatePostTC('');
+            props.addPost();
+            props.updatePost('');
         }
     };
 
     const editPostHandler = (id: string, newText: string): void => {
-        props.editPostTC(id, newText);
+        props.editPost(id, newText);
     };
 
     const postJSXElements = props.postBox.map((item: PostType) => (
@@ -53,7 +48,7 @@ const Wall = (props: WallType): ReactElement => {
             key={item.id}
             id={item.id}
             message={item.message}
-            deletePost={() => props.deletePostTC(item.id)}
+            deletePost={() => props.deletePost(item.id)}
             editPost={(newText: string) => editPostHandler(item.id, newText)}
         />
     ));
@@ -98,6 +93,4 @@ const mapStateToProps = (state: AppStateType) => {
     };
 };
 
-export default connect(mapStateToProps, { addPostTC, updatePostTC, deletePostTC, editPostTC })(
-    Wall,
-);
+export default connect(mapStateToProps, { addPost, updatePost, deletePost, editPost })(Wall);
