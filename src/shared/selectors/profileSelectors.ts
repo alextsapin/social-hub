@@ -1,6 +1,6 @@
 import { AppStateType } from '../../App/store';
 import { PostType } from '../../entities/Post/Post';
-import { ProfileType } from '../../pages/Profile/profileReducer';
+import { ProfileType } from '../../pages/Profile/types';
 
 export const getNewPostTextSL = (state: AppStateType): string => {
     return state.profile.newPostText;

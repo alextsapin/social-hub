@@ -1,7 +1,13 @@
+/* eslint-disable no-debugger */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ChangeEvent } from 'react';
 
 import Button from '@material-ui/core/Button';
+import Box from '@mui/joy/Box';
+import IconButton from '@mui/joy/IconButton';
+import Textarea from '@mui/joy/Textarea';
+import Typography from '@mui/joy/Typography';
 import { connect } from 'react-redux';
 
 import { AppStateType } from '../../App/store';
@@ -21,12 +27,12 @@ type WallType = {
 };
 
 const Wall = (props: WallType): ReactElement => {
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
+    const addEmoji = (emoji: string) => () => {
+        props.updatePost(`${props.newPostText}${emoji}`);
+    };
 
-    const updatePost = (): void => {
-        if (newPostElement.current) {
-            props.updatePost(newPostElement.current.value);
-        }
+    const updatePost = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+        props.updatePost(e.currentTarget.value);
     };
 
     const addPost = (e: any): void => {
@@ -56,20 +62,41 @@ const Wall = (props: WallType): ReactElement => {
     return (
         <div>
             {props.postBox.length !== 0 ? (
-                <p className={css.title}>Записи на стене:</p>
+                <p className={css.title}>My posts:</p>
             ) : (
-                <p className={css.title}>Записей пока нет...</p>
+                <p className={css.title}>No posts yet...</p>
             )}
 
             {postJSXElements}
-            <form className="formPost">
-                <textarea
-                    ref={newPostElement}
-                    onChange={updatePost}
+            <form>
+                <Textarea
+                    placeholder="Type in here…"
+                    className={css.indent}
                     value={props.newPostText}
-                    className={css.textarea}
-                    placeholder="Мой новый пост..."
+                    onChange={e => updatePost(e)}
+                    minRows={2}
+                    maxRows={4}
+                    startDecorator={
+                        <Box sx={{ display: 'flex', gap: 0.5 }}>
+                            <IconButton variant="outlined" color="neutral" onClick={addEmoji('👍')}>
+                                👍
+                            </IconButton>
+                            <IconButton variant="outlined" color="neutral" onClick={addEmoji('😍')}>
+                                😍
+                            </IconButton>
+                            <IconButton variant="outlined" color="neutral" onClick={addEmoji('😈')}>
+                                😈
+                            </IconButton>
+                        </Box>
+                    }
+                    endDecorator={
+                        <Typography level="body3" sx={{ ml: 'auto' }}>
+                            {props.newPostText.length} character(s)
+                        </Typography>
+                    }
+                    sx={{ minWidth: 300 }}
                 />
+
                 <br />
                 <Button
                     variant="contained"
@@ -78,7 +105,7 @@ const Wall = (props: WallType): ReactElement => {
                     className="mt-2 float-right"
                     type="submit"
                 >
-                    Добавить
+                    Add
                 </Button>
             </form>
         </div>

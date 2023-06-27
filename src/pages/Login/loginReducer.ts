@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable default-param-last */
 import { AxiosError } from 'axios';
-import { Dispatch } from 'redux';
 
+import { AppThunkType } from '../../App/store';
 import { authAPI, LoginType, profileAPI } from '../../shared/api/api';
 
 type StateType = {
@@ -78,8 +78,8 @@ const setAvaLinkAC = (link: string | null): SetAvaLinkType => ({
     link,
 });
 
-export const authentication = () => {
-    return async (dispatch: Dispatch) => {
+export const authentication = (): AppThunkType => {
+    return async dispatch => {
         try {
             const res = await authAPI.authMe();
 
@@ -98,8 +98,8 @@ export const authentication = () => {
     };
 };
 
-export const loginization = (data: LoginType) => {
-    return async (dispatch: Dispatch) => {
+export const loginization = (data: LoginType): AppThunkType => {
+    return async dispatch => {
         try {
             const res = await authAPI.login(data);
 
@@ -114,8 +114,8 @@ export const loginization = (data: LoginType) => {
     };
 };
 
-export const logout = () => {
-    return async (dispatch: Dispatch) => {
+export const logout = (): AppThunkType => {
+    return async dispatch => {
         try {
             const res = await authAPI.logout();
 

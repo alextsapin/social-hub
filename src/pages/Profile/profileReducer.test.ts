@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { v1 } from 'uuid';
 
-import profileReducer, { addPost, deletePost, editPost, updatePost } from './profileReducer';
+import { profileReducer, addPost, deletePost, editPost, updatePost } from './profileReducer';
 import { StateType } from './types';
 
 let id1: string;

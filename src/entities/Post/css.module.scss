@@ -19,6 +19,9 @@
 .button {
     border: none;
     background: transparent;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .panel {

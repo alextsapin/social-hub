@@ -4,7 +4,7 @@ import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import usersReducer from '../pages/Home/homeReducer';
 import authReducer from '../pages/Login/loginReducer';
-import profileReducer from '../pages/Profile/profileReducer';
+import { profileReducer } from '../pages/Profile/profileReducer';
 
 const rootReducer = combineReducers({
     profile: profileReducer,

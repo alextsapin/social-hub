@@ -2,9 +2,9 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable default-param-last */
-import { Dispatch } from 'redux';
 import { v1 } from 'uuid';
 
+import { AppThunkType } from '../../App/store';
 import { PostType } from '../../entities/Post/Post';
 import { profileAPI } from '../../shared/api/api';
 
@@ -15,6 +15,9 @@ import {
     UpdatePostType,
     DeletePostType,
     EditPostType,
+    SetUserProfileType,
+    SetStatusType,
+    UnionType,
 } from './types';
 
 const initialState: StateType = {
@@ -28,7 +31,7 @@ const initialState: StateType = {
     userProfile: null,
 };
 
-const profileReducer = (state = initialState, action: any) => {
+export const profileReducer = (state = initialState, action: UnionType): StateType => {
     switch (action.type) {
         case 'UPDATE_POST': {
             return {
@@ -107,40 +110,35 @@ export const editPost = (id: string, message: string): EditPostType => ({
     message,
 });
 
-type SetUserProfile = {
-    type: 'SET_USER_PROFILE';
-    userProfile: ProfileType;
-};
-
-const setUserProfileAC = (userProfile: ProfileType): SetUserProfile => ({
-    type: 'SET_USER_PROFILE',
+const setUserProfileAC = (userProfile: ProfileType): SetUserProfileType => ({
+    type: 'SET_USER_PROFILE' as const,
     userProfile,
 });
 
-export const setStatusAC = (status: string) => ({
-    type: 'SET_STATUS',
+export const setStatusAC = (status: string): SetStatusType => ({
+    type: 'SET_STATUS' as const,
     status,
 });
 
 // Thunks
-export const getUserProfileTC = (id: number) => {
-    return (dispatch: Dispatch) => {
+export const getUserProfileTC = (id: number): AppThunkType => {
+    return dispatch => {
         profileAPI.getUserProfileAPI(id).then(res => {
             dispatch(setUserProfileAC(res.data));
         });
     };
 };
 
-export const getStatus = (id: number) => {
-    return async (dispatch: Dispatch) => {
+export const getStatus = (id: number): AppThunkType => {
+    return async dispatch => {
         const res = await profileAPI.getStatus(id);
 
         dispatch(setStatusAC(res.data));
     };
 };
 
-export const setStatusTC = (status: string) => {
-    return async (dispatch: Dispatch) => {
+export const setStatusTC = (status: string): AppThunkType => {
+    return async dispatch => {
         const res = await profileAPI.setStatus(status);
 
         if (res.status === 200) {
@@ -150,5 +148,3 @@ export const setStatusTC = (status: string) => {
         }
     };
 };
-
-export default profileReducer;

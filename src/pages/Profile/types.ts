@@ -49,7 +49,20 @@ export type EditPostType = {
     message: string;
 };
 
-export type SetUserProfile = {
-    type: 'SET_USER_PROFILE';
-    // userProfile: ProfileType;
+export type SetStatusType = {
+    type: 'SET_STATUS';
+    status: string | null;
 };
+
+export type SetUserProfileType = {
+    type: 'SET_USER_PROFILE';
+    userProfile: ProfileType;
+};
+
+export type UnionType =
+    | AddPostType
+    | UpdatePostType
+    | DeletePostType
+    | EditPostType
+    | SetStatusType
+    | SetUserProfileType;

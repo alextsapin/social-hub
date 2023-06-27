@@ -48,6 +48,10 @@ export const Status = ({ id }: PropsType): ReactElement => {
         }
     }
 
+    if (!newStatus) {
+        return <div />;
+    }
+
     return (
         <div className={css.status}>
             {editMode ? (

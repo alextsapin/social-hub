@@ -215,7 +215,7 @@ export const calcTotalPagesTC = (usersCount: number, pageSize: number): AppThunk
 
 // eslint-disable-next-line prettier/prettier
 export const getUsersTC = (currentPage: number, usersCount: number, pageSize: number): AppThunkType => {
-    return async (dispatch: Dispatch) => {
+    return async dispatch => {
         dispatch(setUsersAC([]));
         setCurrentPageAC(currentPage);
         try {
@@ -235,7 +235,7 @@ export const getUsersTC = (currentPage: number, usersCount: number, pageSize: nu
 };
 
 export const followTC = (id: number): AppThunkType => {
-    return async (dispatch: Dispatch) => {
+    return async dispatch => {
         dispatch(toggleIsFetchingAC(true));
         dispatch(toggleUserFollowAC(id, true));
         followAPI(id).then(() => {
@@ -247,7 +247,7 @@ export const followTC = (id: number): AppThunkType => {
 };
 
 export const unFollowTC = (id: number): AppThunkType => {
-    return async (dispatch: Dispatch) => {
+    return async dispatch => {
         dispatch(toggleIsFetchingAC(true));
         dispatch(toggleUserFollowAC(id, true));
         unFollowAPI(id).then(() => {
