@@ -31,6 +31,7 @@ export const Profile = (): ReactElement => {
     const userId = useAppSelector(state => state.auth.userId);
     const userProfile = useAppSelector(state => state.profile.userProfile);
     const isAuth = useAppSelector(state => state.auth.isAuth);
+    const status = useAppSelector(state => state.profile.status);
 
     useEffect(() => {
         if (id) {
@@ -64,33 +65,33 @@ export const Profile = (): ReactElement => {
                     <Grid item lg={9}>
                         <Paper className={css.wrap} elevation={3}>
                             <h1 className={css.name}>{userProfile?.fullName}</h1>
-                            <Status id={id} />
+                            <Status id={id} status={status} />
 
-                            <p className={css.title}>Информация о пользователе:</p>
+                            <p className={css.title}>User information:</p>
                             <TableContainer className={css.info}>
                                 <Table aria-label="customized table">
                                     <TableBody>
                                         <TableRow className={css.row}>
                                             <TableCell component="th" scope="row">
-                                                Кратко о себе
+                                                Briefly about yourself
                                             </TableCell>
                                             <TableCell>{userProfile?.aboutMe}</TableCell>
                                         </TableRow>
 
                                         <TableRow className={css.row}>
                                             <TableCell component="th" scope="row">
-                                                В поиске работы
+                                                Looking for a job?
                                             </TableCell>
                                             <TableCell>
                                                 {userProfile?.lookingForAJob === true
-                                                    ? 'Да'
-                                                    : 'Нет'}
+                                                    ? 'Yes'
+                                                    : 'No'}
                                             </TableCell>
                                         </TableRow>
 
                                         <TableRow className={css.row}>
                                             <TableCell component="th" scope="row">
-                                                Причина поиска
+                                                Reason for searching
                                             </TableCell>
                                             <TableCell>
                                                 {userProfile?.lookingForAJobDescription}

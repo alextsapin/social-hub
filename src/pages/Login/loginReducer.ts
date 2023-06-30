@@ -20,21 +20,21 @@ const initialState: StateType = {
 // eslint-disable-next-line prettier/prettier
 const authReducer = (state = initialState, action: ToggleIsAuthType| SetUserIdType | SetAvaLinkType): StateType => {
     switch (action.type) {
-        case 'TOGGLE_IS_AUTH': {
+        case 'LOGIN/TOGGLE_IS_AUTH': {
             return {
                 ...state,
                 isAuth: action.isAuth,
             };
         }
 
-        case 'SET_USER_ID': {
+        case 'LOGIN/SET_USER_ID': {
             return {
                 ...state,
                 userId: action.id,
             };
         }
 
-        case 'SET_AVATAR_LINK': {
+        case 'LOGIN/SET_AVATAR_LINK': {
             return {
                 ...state,
                 avaLink: action.link,
@@ -49,32 +49,32 @@ const authReducer = (state = initialState, action: ToggleIsAuthType| SetUserIdTy
 export default authReducer;
 
 type ToggleIsAuthType = {
-    type: 'TOGGLE_IS_AUTH';
+    type: 'LOGIN/TOGGLE_IS_AUTH';
     isAuth: boolean;
 };
 
 const toggleIsAuth = (isAuth: boolean): ToggleIsAuthType => ({
-    type: 'TOGGLE_IS_AUTH' as const,
+    type: 'LOGIN/TOGGLE_IS_AUTH' as const,
     isAuth,
 });
 
 type SetUserIdType = {
-    type: 'SET_USER_ID';
+    type: 'LOGIN/SET_USER_ID';
     id: number | null;
 };
 
 const setUserId = (id: number | null): SetUserIdType => ({
-    type: 'SET_USER_ID' as const,
+    type: 'LOGIN/SET_USER_ID' as const,
     id,
 });
 
 type SetAvaLinkType = {
-    type: 'SET_AVATAR_LINK';
+    type: 'LOGIN/SET_AVATAR_LINK';
     link: string | null;
 };
 
 const setAvaLinkAC = (link: string | null): SetAvaLinkType => ({
-    type: 'SET_AVATAR_LINK',
+    type: 'LOGIN/SET_AVATAR_LINK',
     link,
 });
 

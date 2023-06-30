@@ -40,7 +40,7 @@ const initialState: StateType = {
 
 const usersReducer = (state = initialState, action: UnionTypes): StateType => {
     switch (action.type) {
-        case 'FOLLOW': {
+        case 'HOME/FOLLOW': {
             return {
                 ...state,
                 users: state.users.map((u: UserType) =>
@@ -49,7 +49,7 @@ const usersReducer = (state = initialState, action: UnionTypes): StateType => {
             };
         }
 
-        case 'UNFOLLOW': {
+        case 'HOME/UNFOLLOW': {
             return {
                 ...state,
                 users: state.users.map((u: UserType) =>
@@ -58,42 +58,42 @@ const usersReducer = (state = initialState, action: UnionTypes): StateType => {
             };
         }
 
-        case 'SET_USERS': {
+        case 'HOME/SET_USERS': {
             return {
                 ...state,
                 users: action.users,
             };
         }
 
-        case 'SET_USERS_COUNT': {
+        case 'HOME/SET_USERS_COUNT': {
             return {
                 ...state,
                 usersCount: action.count,
             };
         }
 
-        case 'SET_CURRENT_PAGE': {
+        case 'HOME/SET_CURRENT_PAGE': {
             return {
                 ...state,
                 currentPage: action.currentPage,
             };
         }
 
-        case 'SET_PAGE_ARRAY': {
+        case 'HOME/SET_PAGE_ARRAY': {
             return {
                 ...state,
                 pageArray: action.pageArray,
             };
         }
 
-        case 'TOGGLE_IS_FETCHING': {
+        case 'HOME/TOGGLE_IS_FETCHING': {
             return {
                 ...state,
                 isFetching: action.isFetching,
             };
         }
 
-        case 'TOGGLE_USER_FOLLOW': {
+        case 'HOME/TOGGLE_USER_FOLLOW': {
             return {
                 ...state,
                 followUsers: action.isFetching
@@ -109,84 +109,84 @@ const usersReducer = (state = initialState, action: UnionTypes): StateType => {
 };
 
 type toggleIsFetchingType = {
-    type: 'TOGGLE_IS_FETCHING';
+    type: 'HOME/TOGGLE_IS_FETCHING';
     isFetching: boolean;
 };
 
 const toggleIsFetchingAC = (isFetching: boolean): toggleIsFetchingType => ({
-    type: 'TOGGLE_IS_FETCHING' as const,
+    type: 'HOME/TOGGLE_IS_FETCHING' as const,
     isFetching,
 });
 
 type toggleUserFollowType = {
-    type: 'TOGGLE_USER_FOLLOW';
+    type: 'HOME/TOGGLE_USER_FOLLOW';
     id: number;
     isFetching: boolean;
 };
 
 const toggleUserFollowAC = (id: number, isFetching: boolean): toggleUserFollowType => ({
-    type: 'TOGGLE_USER_FOLLOW' as const,
+    type: 'HOME/TOGGLE_USER_FOLLOW' as const,
     id,
     isFetching,
 });
 
 type FollowType = {
-    type: 'FOLLOW';
+    type: 'HOME/FOLLOW';
     id: number;
 };
 
 const followAC = (id: number): FollowType => ({
-    type: 'FOLLOW' as const,
+    type: 'HOME/FOLLOW' as const,
     id,
 });
 
 type UnFollowType = {
-    type: 'UNFOLLOW';
+    type: 'HOME/UNFOLLOW';
     id: number;
 };
 
 const unFollowAC = (id: number): UnFollowType => ({
-    type: 'UNFOLLOW' as const,
+    type: 'HOME/UNFOLLOW' as const,
     id,
 });
 
 type SetUsersType = {
-    type: 'SET_USERS';
+    type: 'HOME/SET_USERS';
     users: UserType[];
 };
 
 const setUsersAC = (users: UserType[]): SetUsersType => ({
-    type: 'SET_USERS' as const,
+    type: 'HOME/SET_USERS' as const,
     users,
 });
 
 type SetUsersCountType = {
-    type: 'SET_USERS_COUNT';
+    type: 'HOME/SET_USERS_COUNT';
     count: number;
 };
 
 const setUsersCountAC = (count: number): SetUsersCountType => ({
-    type: 'SET_USERS_COUNT',
+    type: 'HOME/SET_USERS_COUNT',
     count,
 });
 
 type SetCurrentPageType = {
-    type: 'SET_CURRENT_PAGE';
+    type: 'HOME/SET_CURRENT_PAGE';
     currentPage: number;
 };
 
 export const setCurrentPageAC = (currentPage: number): SetCurrentPageType => ({
-    type: 'SET_CURRENT_PAGE',
+    type: 'HOME/SET_CURRENT_PAGE',
     currentPage,
 });
 
 type SetPagesType = {
-    type: 'SET_PAGE_ARRAY';
+    type: 'HOME/SET_PAGE_ARRAY';
     pageArray: number[];
 };
 
 const setPageBoxAC = (pageArray: Array<number>): SetPagesType => ({
-    type: 'SET_PAGE_ARRAY' as const,
+    type: 'HOME/SET_PAGE_ARRAY' as const,
     pageArray,
 });
 

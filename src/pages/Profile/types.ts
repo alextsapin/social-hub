@@ -30,32 +30,32 @@ export type StateType = {
 };
 
 export type AddPostType = {
-    type: 'ADD_POST';
+    type: 'PROFILE/ADD_POST';
 };
 
 export type UpdatePostType = {
-    type: 'UPDATE_POST';
+    type: 'PROFILE/UPDATE_POST';
     post: string;
 };
 
 export type DeletePostType = {
-    type: 'DELETE_POST';
+    type: 'PROFILE/DELETE_POST';
     id: string;
 };
 
 export type EditPostType = {
-    type: 'EDIT_POST';
+    type: 'PROFILE/EDIT_POST';
     id: string;
     message: string;
 };
 
 export type SetStatusType = {
-    type: 'SET_STATUS';
+    type: 'PROFILE/SET_STATUS';
     status: string | null;
 };
 
 export type SetUserProfileType = {
-    type: 'SET_USER_PROFILE';
+    type: 'PROFILE/SET_USER_PROFILE';
     userProfile: ProfileType;
 };
 

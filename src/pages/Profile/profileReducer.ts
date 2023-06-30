@@ -23,9 +23,12 @@ import {
 const initialState: StateType = {
     status: null,
     postBox: [
-        { id: v1(), message: 'В Китае успешно проверили российские тест-системы на коронавирус.' },
-        { id: v1(), message: 'Разработана система борьбы с астеройдами.' },
-        { id: v1(), message: 'В Монголии нашли нефть.' },
+        {
+            id: v1(),
+            message: 'China has successfully tested Russian test systems for coronavirus.',
+        },
+        { id: v1(), message: 'A system for combating asteroids has been developed. ☄️' },
+        { id: v1(), message: 'Oil found in Mongolia.' },
     ],
     newPostText: '',
     userProfile: null,
@@ -33,14 +36,14 @@ const initialState: StateType = {
 
 export const profileReducer = (state = initialState, action: UnionType): StateType => {
     switch (action.type) {
-        case 'UPDATE_POST': {
+        case 'PROFILE/UPDATE_POST': {
             return {
                 ...state,
                 newPostText: action.post,
             };
         }
 
-        case 'ADD_POST': {
+        case 'PROFILE/ADD_POST': {
             const newPost = {
                 id: v1(),
                 message: state.newPostText,
@@ -52,14 +55,14 @@ export const profileReducer = (state = initialState, action: UnionType): StateTy
             };
         }
 
-        case 'DELETE_POST': {
+        case 'PROFILE/DELETE_POST': {
             return {
                 ...state,
                 postBox: [...state.postBox.filter((item: PostType) => item.id !== action.id)],
             };
         }
 
-        case 'EDIT_POST': {
+        case 'PROFILE/EDIT_POST': {
             return {
                 ...state,
                 postBox: [
@@ -70,14 +73,14 @@ export const profileReducer = (state = initialState, action: UnionType): StateTy
             };
         }
 
-        case 'SET_USER_PROFILE': {
+        case 'PROFILE/SET_USER_PROFILE': {
             return {
                 ...state,
                 userProfile: action.userProfile,
             };
         }
 
-        case 'SET_STATUS': {
+        case 'PROFILE/SET_STATUS': {
             return {
                 ...state,
                 status: action.status,
@@ -91,32 +94,32 @@ export const profileReducer = (state = initialState, action: UnionType): StateTy
 };
 
 export const addPost = (): AddPostType => ({
-    type: 'ADD_POST' as const,
+    type: 'PROFILE/ADD_POST' as const,
 });
 
 export const updatePost = (post: string): UpdatePostType => ({
-    type: 'UPDATE_POST' as const,
+    type: 'PROFILE/UPDATE_POST' as const,
     post,
 });
 
 export const deletePost = (id: string): DeletePostType => ({
-    type: 'DELETE_POST' as const,
+    type: 'PROFILE/DELETE_POST' as const,
     id,
 });
 
 export const editPost = (id: string, message: string): EditPostType => ({
-    type: 'EDIT_POST' as const,
+    type: 'PROFILE/EDIT_POST' as const,
     id,
     message,
 });
 
 const setUserProfileAC = (userProfile: ProfileType): SetUserProfileType => ({
-    type: 'SET_USER_PROFILE' as const,
+    type: 'PROFILE/SET_USER_PROFILE' as const,
     userProfile,
 });
 
 export const setStatusAC = (status: string): SetStatusType => ({
-    type: 'SET_STATUS' as const,
+    type: 'PROFILE/SET_STATUS' as const,
     status,
 });
 

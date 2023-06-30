@@ -41,7 +41,7 @@ export const SocialMedia = (props: PropsType): ReactElement => {
 
     return (
         <>
-            <p className={css.title}>Контакты:</p>
+            <p className={css.title}>Contacts:</p>
             <TableContainer className={css.info}>
                 <Table aria-label="customized table">
                     <TableBody>{data}</TableBody>

@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -10,45 +11,45 @@ import css from './status.module.scss';
 
 type PropsType = {
     id: string | undefined;
+    status: string | null;
 };
 
-export const Status = ({ id }: PropsType): ReactElement => {
+export const Status = (props: PropsType): ReactElement => {
     const dispatch = useAppDispatch();
 
     const userId = useAppSelector(state => state.auth.userId);
-    const status = useAppSelector(state => state.profile.status);
 
     const [editMode, setEditMode] = useState(false);
-    const [newStatus, setNewStatus] = useState(status);
+    const [status, setStatus] = useState(props.status);
 
     useEffect(() => {
-        if (id) {
-            dispatch(getStatus(Number(id)));
-        }
-    }, [id]);
+        dispatch(getStatus(Number(props.id)));
+    }, []);
 
     useEffect(() => {
-        setNewStatus(status);
-    }, [status]);
+        setStatus(props.status);
+    }, [props.status]);
 
     function onChangeHandler(value: string): void {
-        setNewStatus(value);
+        setStatus(value);
     }
 
     function turnOnHandler(): void {
-        setEditMode(false);
-        if (newStatus) {
-            dispatch(setStatusTC(newStatus));
+        const trimmed = status ? status.trim() : null;
+
+        if (trimmed) {
+            setEditMode(false);
+            dispatch(setStatusTC(trimmed));
         }
     }
 
     function turnOffHandler(): void {
-        if (Number(userId) === Number(id)) {
+        if (Number(userId) === Number(props.id)) {
             setEditMode(true);
         }
     }
 
-    if (!newStatus) {
+    if (!props.status) {
         return <div />;
     }
 
@@ -57,7 +58,7 @@ export const Status = ({ id }: PropsType): ReactElement => {
             {editMode ? (
                 <input
                     className={css.input}
-                    value={newStatus}
+                    value={status || ''}
                     onBlur={turnOnHandler}
                     onChange={e => onChangeHandler(e.currentTarget.value)}
                     autoFocus
