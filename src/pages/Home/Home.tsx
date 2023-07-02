@@ -15,10 +15,10 @@ import { getUsersTC, setCurrentPageAC } from './homeReducer';
 export const Home = (): ReactElement => {
     const dispatch = useAppDispatch();
 
-    const currentPage = useAppSelector(state => state.users.currentPage);
-    const usersCount = useAppSelector(state => state.users.usersCount);
-    const pageSize = useAppSelector(state => state.users.pageSize);
-    const users = useAppSelector(state => state.users.users);
+    const currentPage = useAppSelector(state => state.home.currentPage);
+    const usersCount = useAppSelector(state => state.home.usersCount);
+    const pageSize = useAppSelector(state => state.home.pageSize);
+    const users = useAppSelector(state => state.home.users);
 
     useEffect(() => {
         dispatch(getUsersTC(currentPage, usersCount, pageSize));

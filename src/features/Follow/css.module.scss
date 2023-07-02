@@ -1,6 +1,10 @@
 .button {
-    display: flex !important;
+    display:block !important;
     margin: 20px auto !important;
+}
+
+.wrap {
+    display: flex;
 }
 
 .indent {

@@ -14,8 +14,8 @@ type PaginatorPropsType = {
 };
 
 export const Paginator = (props: PaginatorPropsType): ReactElement => {
-    const currentPage = useAppSelector(state => state.users.currentPage);
-    const pages = useAppSelector(state => state.users.pageArray);
+    const currentPage = useAppSelector(state => state.home.currentPage);
+    const pages = useAppSelector(state => state.home.pageArray);
 
     const pageJSX = pages
         .map(item => (

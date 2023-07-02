@@ -49,11 +49,11 @@ export const profileAPI = {
 export const followAPI = async (id: number) => {
     const response = await instance.post(`follow/${id}`, {});
 
-    return response.data.resultCode;
+    return response.data;
 };
 
 export const unFollowAPI = async (id: number) => {
     const response = await instance.delete(`follow/${id}`);
 
-    return response.data.resultCode;
+    return response.data;
 };

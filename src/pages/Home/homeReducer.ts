@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 /* eslint-disable default-param-last */
-import { Dispatch } from 'redux';
-
 import { AppThunkType } from '../../App/store';
 import { followAPI, unFollowAPI, usersAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
@@ -19,7 +18,6 @@ export type UserType = {
 };
 
 type StateType = {
-    isFetching: boolean;
     followUsers: Array<number>;
     users: UserType[];
     usersCount: number;
@@ -29,7 +27,6 @@ type StateType = {
 };
 
 const initialState: StateType = {
-    isFetching: false,
     followUsers: [],
     users: [],
     usersCount: 0,
@@ -38,7 +35,7 @@ const initialState: StateType = {
     pageArray: [],
 };
 
-const usersReducer = (state = initialState, action: UnionTypes): StateType => {
+export const homeReducer = (state = initialState, action: UnionTypes): StateType => {
     switch (action.type) {
         case 'HOME/FOLLOW': {
             return {
@@ -86,13 +83,6 @@ const usersReducer = (state = initialState, action: UnionTypes): StateType => {
             };
         }
 
-        case 'HOME/TOGGLE_IS_FETCHING': {
-            return {
-                ...state,
-                isFetching: action.isFetching,
-            };
-        }
-
         case 'HOME/TOGGLE_USER_FOLLOW': {
             return {
                 ...state,
@@ -107,16 +97,6 @@ const usersReducer = (state = initialState, action: UnionTypes): StateType => {
         }
     }
 };
-
-type toggleIsFetchingType = {
-    type: 'HOME/TOGGLE_IS_FETCHING';
-    isFetching: boolean;
-};
-
-const toggleIsFetchingAC = (isFetching: boolean): toggleIsFetchingType => ({
-    type: 'HOME/TOGGLE_IS_FETCHING' as const,
-    isFetching,
-});
 
 type toggleUserFollowType = {
     type: 'HOME/TOGGLE_USER_FOLLOW';
@@ -191,7 +171,6 @@ const setPageBoxAC = (pageArray: Array<number>): SetPagesType => ({
 });
 
 type UnionTypes =
-    | toggleIsFetchingType
     | toggleUserFollowType
     | FollowType
     | UnFollowType
@@ -201,7 +180,7 @@ type UnionTypes =
     | SetPagesType;
 
 export const calcTotalPagesTC = (usersCount: number, pageSize: number): AppThunkType => {
-    return (dispatch: Dispatch) => {
+    return dispatch => {
         const total = Math.ceil(usersCount / pageSize);
         const pageArray = [];
 
@@ -234,28 +213,24 @@ export const getUsersTC = (currentPage: number, usersCount: number, pageSize: nu
     };
 };
 
-export const followTC = (id: number): AppThunkType => {
+export const toggleFollow = (id: number, users: UserType[]): AppThunkType => {
     return async dispatch => {
-        dispatch(toggleIsFetchingAC(true));
         dispatch(toggleUserFollowAC(id, true));
-        followAPI(id).then(() => {
-            dispatch(followAC(id));
-            dispatch(toggleIsFetchingAC(false));
-            dispatch(toggleUserFollowAC(id, false));
-        });
+        const user = users.filter(u => u.id === id);
+
+        if (!user[0].followed) {
+            const res = await followAPI(id);
+
+            if (res.resultCode === 0) {
+                dispatch(followAC(id));
+            }
+        } else {
+            const res = await unFollowAPI(id);
+
+            if (res.resultCode === 0) {
+                dispatch(unFollowAC(id));
+            }
+        }
+        dispatch(toggleUserFollowAC(id, false));
     };
 };
-
-export const unFollowTC = (id: number): AppThunkType => {
-    return async dispatch => {
-        dispatch(toggleIsFetchingAC(true));
-        dispatch(toggleUserFollowAC(id, true));
-        unFollowAPI(id).then(() => {
-            dispatch(unFollowAC(id));
-            dispatch(toggleIsFetchingAC(false));
-            dispatch(toggleUserFollowAC(id, false));
-        });
-    };
-};
-
-export default usersReducer;

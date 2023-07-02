@@ -2,13 +2,13 @@
 import { legacy_createStore, combineReducers, applyMiddleware, AnyAction } from 'redux';
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import usersReducer from '../pages/Home/homeReducer';
+import { homeReducer } from '../pages/Home/homeReducer';
 import authReducer from '../pages/Login/loginReducer';
-import { profileReducer } from '../pages/Profile/profileReducer';
+import { profileReducer } from '../pages/Profile/profile.reducer';
 
 const rootReducer = combineReducers({
     profile: profileReducer,
-    users: usersReducer,
+    home: homeReducer,
     auth: authReducer,
 });
 

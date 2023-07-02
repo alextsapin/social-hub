@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 import { AppStateType } from '../../App/store';
 import Post, { PostType } from '../../entities/Post/Post';
-import { addPost, updatePost, deletePost, editPost } from '../../pages/Profile/profileReducer';
+import { addPost, updatePost, deletePost, editPost } from '../../pages/Profile/profile.reducer';
 import { getNewPostTextSL, getPostBoxSL } from '../../shared/selectors/profileSelectors';
 
 import css from './css.module.scss';

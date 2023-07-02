@@ -5,10 +5,10 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import Button from '@mui/material/Button';
 
-import { followTC, unFollowTC } from '../../pages/Home/homeReducer';
+import { toggleFollow } from '../../pages/Home/homeReducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
-import css from './Follow.module.scss';
+import css from './css.module.scss';
 
 type PropsType = {
     id: number;
@@ -20,25 +20,10 @@ export const Follow = (props: PropsType): ReactElement => {
     const dispatch = useAppDispatch();
 
     const isAuth = useAppSelector(state => state.auth.isAuth);
+    const users = useAppSelector(state => state.home.users);
 
     if (!isAuth) {
         return <div />;
-    }
-
-    if (props.followed) {
-        return (
-            <Button
-                disabled={props.followUsers.some(id => id === props.id)}
-                className={css.button}
-                onClick={() => {
-                    dispatch(unFollowTC(props.id));
-                }}
-                variant="contained"
-            >
-                <PersonAddDisabledIcon />
-                <span className={css.indent}>UNFOLLOW</span>
-            </Button>
-        );
     }
 
     return (
@@ -46,12 +31,21 @@ export const Follow = (props: PropsType): ReactElement => {
             disabled={props.followUsers.some(id => id === props.id)}
             className={css.button}
             onClick={() => {
-                dispatch(followTC(props.id));
+                dispatch(toggleFollow(props.id, users));
             }}
             variant="contained"
         >
-            <PersonAddIcon />
-            <span className={css.indent}>FOLLOW</span>
+            {props.followed ? (
+                <div className={css.wrap}>
+                    <PersonAddDisabledIcon />
+                    <span className={css.indent}>UNFOLLOW</span>
+                </div>
+            ) : (
+                <div className={css.wrap}>
+                    <PersonAddIcon />
+                    <span className={css.indent}>FOLLOW</span>
+                </div>
+            )}
         </Button>
     );
 };

@@ -21,7 +21,7 @@ import { SocialMedia } from '../../widgets/SocialMedia/SocialMedia';
 import Wall from '../../widgets/Wall/Wall';
 
 import css from './css.module.scss';
-import { getUserProfileTC } from './profileReducer';
+import { getUserProfileTC } from './profile.reducer';
 
 export const Profile = (): ReactElement => {
     const dispatch = useAppDispatch();

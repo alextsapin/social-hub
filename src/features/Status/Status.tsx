@@ -1,10 +1,11 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { getStatus, setStatusTC } from '../../pages/Profile/profileReducer';
+import TextField from '@mui/material/TextField';
+
+import { getStatus, setStatusTC } from '../../pages/Profile/profile.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
 import css from './status.module.scss';
@@ -56,7 +57,8 @@ export const Status = (props: PropsType): ReactElement => {
     return (
         <div className={css.status}>
             {editMode ? (
-                <input
+                <TextField
+                    size="small"
                     className={css.input}
                     value={status || ''}
                     onBlur={turnOnHandler}

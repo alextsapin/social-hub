@@ -42,8 +42,8 @@ export const Login = (): ReactElement => {
 
     const formik = useFormik({
         initialValues: {
-            email: process.env.REACT_APP_API_EMAIL || '',
-            password: process.env.REACT_APP_API_PASSWORD || '',
+            email: process.env.REACT_APP_API_EMAIL || 'alextsapin@yandex.ru',
+            password: process.env.REACT_APP_API_PASSWORD || 'wXq1EbIL',
             rememberMe: false,
         },
         validationSchema: loginSchema,

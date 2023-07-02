@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 
 import { AppThunkType } from '../../App/store';
 import { authAPI, LoginType, profileAPI } from '../../shared/api/api';
+import { setCurrentPageAC } from '../Home/homeReducer';
 
 type StateType = {
     isAuth: boolean;
@@ -91,6 +92,9 @@ export const authentication = (): AppThunkType => {
                 });
             } else {
                 dispatch(toggleIsAuth(false));
+                dispatch(setUserId(null));
+                dispatch(setAvaLinkAC(null));
+                dispatch(setCurrentPageAC(1));
             }
         } catch (error) {
             console.warn(error);

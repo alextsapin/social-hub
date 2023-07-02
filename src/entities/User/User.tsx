@@ -10,8 +10,8 @@ import { NavLink } from 'react-router-dom';
 import { Follow } from '../../features/Follow/Follow';
 import { useAppSelector } from '../../shared/hooks';
 
+import css from './css.module.scss';
 import user from './user.jpg';
-import css from './User.module.scss';
 
 type UserPropsType = {
     id: number;
@@ -22,7 +22,7 @@ type UserPropsType = {
 };
 
 export const User = (props: UserPropsType): ReactElement => {
-    const followUsers = useAppSelector(state => state.users.followUsers);
+    const followUsers = useAppSelector(state => state.home.followUsers);
 
     return (
         <Grid item lg={3} md={4} sm={6} xs={12}>
