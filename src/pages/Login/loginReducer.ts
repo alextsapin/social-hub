@@ -92,7 +92,7 @@ export const authentication = (): AppThunkType => {
                 });
             } else {
                 dispatch(toggleIsAuth(false));
-                dispatch(setUserId(null));
+                // dispatch(setUserId(null));
                 dispatch(setAvaLinkAC(null));
                 dispatch(setCurrentPageAC(1));
             }

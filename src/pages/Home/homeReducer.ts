@@ -6,27 +6,20 @@ import { AppThunkType } from '../../App/store';
 import { followAPI, unFollowAPI, usersAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
 
-export type UserType = {
-    id: number;
-    name: string;
-    status: string;
-    photos: {
-        small: string | null;
-        large: string | null;
-    };
-    followed: boolean;
-};
+import {
+    FollowType,
+    HomeActionsType,
+    HomeStateType,
+    SetCurrentPageType,
+    SetPagesType,
+    SetUsersCountType,
+    SetUsersType,
+    ToggleUserFollowType,
+    UnFollowType,
+    UserType,
+} from './homeTypes';
 
-type StateType = {
-    followUsers: Array<number>;
-    users: UserType[];
-    usersCount: number;
-    pageSize: number;
-    currentPage: number;
-    pageArray: Array<number>;
-};
-
-const initialState: StateType = {
+const initialState: HomeStateType = {
     followUsers: [],
     users: [],
     usersCount: 0,
@@ -35,7 +28,7 @@ const initialState: StateType = {
     pageArray: [],
 };
 
-export const homeReducer = (state = initialState, action: UnionTypes): StateType => {
+export const homeReducer = (state = initialState, action: HomeActionsType): HomeStateType => {
     switch (action.type) {
         case 'HOME/FOLLOW': {
             return {
@@ -98,86 +91,41 @@ export const homeReducer = (state = initialState, action: UnionTypes): StateType
     }
 };
 
-type toggleUserFollowType = {
-    type: 'HOME/TOGGLE_USER_FOLLOW';
-    id: number;
-    isFetching: boolean;
-};
-
-const toggleUserFollowAC = (id: number, isFetching: boolean): toggleUserFollowType => ({
+const toggleUserFollowAC = (id: number, isFetching: boolean): ToggleUserFollowType => ({
     type: 'HOME/TOGGLE_USER_FOLLOW' as const,
     id,
     isFetching,
 });
-
-type FollowType = {
-    type: 'HOME/FOLLOW';
-    id: number;
-};
 
 const followAC = (id: number): FollowType => ({
     type: 'HOME/FOLLOW' as const,
     id,
 });
 
-type UnFollowType = {
-    type: 'HOME/UNFOLLOW';
-    id: number;
-};
-
 const unFollowAC = (id: number): UnFollowType => ({
     type: 'HOME/UNFOLLOW' as const,
     id,
 });
-
-type SetUsersType = {
-    type: 'HOME/SET_USERS';
-    users: UserType[];
-};
 
 const setUsersAC = (users: UserType[]): SetUsersType => ({
     type: 'HOME/SET_USERS' as const,
     users,
 });
 
-type SetUsersCountType = {
-    type: 'HOME/SET_USERS_COUNT';
-    count: number;
-};
-
 const setUsersCountAC = (count: number): SetUsersCountType => ({
     type: 'HOME/SET_USERS_COUNT',
     count,
 });
-
-type SetCurrentPageType = {
-    type: 'HOME/SET_CURRENT_PAGE';
-    currentPage: number;
-};
 
 export const setCurrentPageAC = (currentPage: number): SetCurrentPageType => ({
     type: 'HOME/SET_CURRENT_PAGE',
     currentPage,
 });
 
-type SetPagesType = {
-    type: 'HOME/SET_PAGE_ARRAY';
-    pageArray: number[];
-};
-
 const setPageBoxAC = (pageArray: Array<number>): SetPagesType => ({
     type: 'HOME/SET_PAGE_ARRAY' as const,
     pageArray,
 });
-
-type UnionTypes =
-    | toggleUserFollowType
-    | FollowType
-    | UnFollowType
-    | SetUsersType
-    | SetUsersCountType
-    | SetCurrentPageType
-    | SetPagesType;
 
 export const calcTotalPagesTC = (usersCount: number, pageSize: number): AppThunkType => {
     return dispatch => {

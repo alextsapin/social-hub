@@ -24,8 +24,8 @@ export type ProfileType = {
 
 export type StateType = {
     status: null | string;
-    postBox: PostType[];
-    newPostText: string;
+    posts: PostType[];
+    text: string;
     userProfile: ProfileType | null;
 };
 

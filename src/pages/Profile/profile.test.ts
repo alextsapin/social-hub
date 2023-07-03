@@ -17,7 +17,7 @@ beforeEach(() => {
 
     startState = {
         status: null,
-        postBox: [
+        posts: [
             {
                 id: id1,
                 message: 'В Китае успешно проверили российские тест-системы на коронавирус.',
@@ -25,7 +25,7 @@ beforeEach(() => {
             { id: id2, message: 'Разработана система борьбы с астеройдами.' },
             { id: id3, message: 'В Монголии нашли нефть.' },
         ],
-        newPostText: '',
+        text: '',
         userProfile: null,
     };
 });
@@ -33,23 +33,23 @@ beforeEach(() => {
 test('New post should be added', () => {
     const endState = profileReducer(startState, addPost());
 
-    expect(endState.postBox.length).toBe(4);
+    expect(endState.posts.length).toBe(4);
 });
 
 test('Post should be deleted', () => {
     const endState = profileReducer(startState, deletePost(id3));
 
-    expect(endState.postBox.length).toBe(2);
+    expect(endState.posts.length).toBe(2);
 });
 
 test('Post should be updated', () => {
     const endState = profileReducer(startState, updatePost('New text'));
 
-    expect(endState.newPostText).toBe('New text');
+    expect(endState.text).toBe('New text');
 });
 
 test('Post should be edited', () => {
     const endState = profileReducer(startState, editPost(id1, 'New text'));
 
-    expect(endState.postBox[0].message).toBe('New text');
+    expect(endState.posts[0].message).toBe('New text');
 });

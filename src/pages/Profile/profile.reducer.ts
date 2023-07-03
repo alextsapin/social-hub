@@ -22,7 +22,7 @@ import {
 
 const initialState: StateType = {
     status: null,
-    postBox: [
+    posts: [
         {
             id: v1(),
             message: 'China has successfully tested Russian test systems for coronavirus.',
@@ -30,7 +30,7 @@ const initialState: StateType = {
         { id: v1(), message: 'A system for combating asteroids has been developed. ☄️' },
         { id: v1(), message: 'Oil found in Mongolia.' },
     ],
-    newPostText: '',
+    text: '',
     userProfile: null,
 };
 
@@ -39,34 +39,34 @@ export const profileReducer = (state = initialState, action: UnionType): StateTy
         case 'PROFILE/UPDATE_POST': {
             return {
                 ...state,
-                newPostText: action.post,
+                text: action.post,
             };
         }
 
         case 'PROFILE/ADD_POST': {
             const newPost = {
                 id: v1(),
-                message: state.newPostText,
+                message: state.text,
             };
 
             return {
                 ...state,
-                postBox: [...state.postBox, newPost],
+                posts: [...state.posts, newPost],
             };
         }
 
         case 'PROFILE/DELETE_POST': {
             return {
                 ...state,
-                postBox: [...state.postBox.filter((item: PostType) => item.id !== action.id)],
+                posts: [...state.posts.filter((item: PostType) => item.id !== action.id)],
             };
         }
 
         case 'PROFILE/EDIT_POST': {
             return {
                 ...state,
-                postBox: [
-                    ...state.postBox.map((item: PostType) =>
+                posts: [
+                    ...state.posts.map((item: PostType) =>
                         item.id === action.id ? { ...item, message: action.message } : item,
                     ),
                 ],

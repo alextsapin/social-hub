@@ -25,7 +25,7 @@ export const Status = (props: PropsType): ReactElement => {
 
     useEffect(() => {
         dispatch(getStatus(Number(props.id)));
-    }, []);
+    }, [props.id]);
 
     useEffect(() => {
         setStatus(props.status);

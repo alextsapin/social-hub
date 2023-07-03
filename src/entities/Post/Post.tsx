@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import Textarea from '@mui/joy/Textarea';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
 import { Img } from 'react-image';
@@ -62,14 +63,16 @@ const Post = (props: PostType & propsType): ReactElement => {
 
             <Grid item lg={9}>
                 {edit ? (
-                    <textarea
+                    <Textarea
                         className={css.input}
                         value={text}
                         onBlur={turnOffHandler}
                         onChange={onChangeHandler}
+                        minRows={3}
+                        maxRows={4}
                     />
                 ) : (
-                    props.message
+                    <p className={css.text}>{props.message}</p>
                 )}
             </Grid>
 

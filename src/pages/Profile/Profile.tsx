@@ -18,7 +18,7 @@ import { Status } from '../../features/Status/Status';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import Preloader from '../../widgets/Preloader/Preloader';
 import { SocialMedia } from '../../widgets/SocialMedia/SocialMedia';
-import Wall from '../../widgets/Wall/Wall';
+import { Wall } from '../../widgets/Wall/Wall';
 
 import css from './css.module.scss';
 import { getUserProfileTC } from './profile.reducer';
