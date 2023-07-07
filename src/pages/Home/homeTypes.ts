@@ -14,8 +14,14 @@ export type HomeStateType = {
     users: UserType[];
     usersCount: number;
     pageSize: number;
+    sectionSize: number;
     currentPage: number;
-    pageArray: Array<number>;
+    sectionNumber: number;
+};
+
+export type SetSectionNumberType = {
+    type: 'HOME/SET_SECTION';
+    section: number;
 };
 
 export type ToggleUserFollowType = {
@@ -54,6 +60,7 @@ export type SetPagesType = {
 };
 
 export type HomeActionsType =
+    | SetSectionNumberType
     | ToggleUserFollowType
     | FollowType
     | UnFollowType

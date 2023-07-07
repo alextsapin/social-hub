@@ -10,7 +10,7 @@ import { Paginator } from '../../widgets/Paginator/Paginator';
 import Preloader from '../../widgets/Preloader/Preloader';
 
 import css from './css.module.scss';
-import { getUsersTC, setCurrentPageAC } from './homeReducer';
+import { getUsersTC } from './homeReducer';
 
 export const Home = (): ReactElement => {
     const dispatch = useAppDispatch();
@@ -21,16 +21,12 @@ export const Home = (): ReactElement => {
     const users = useAppSelector(state => state.home.users);
 
     useEffect(() => {
-        dispatch(getUsersTC(currentPage, usersCount, pageSize));
+        dispatch(getUsersTC(currentPage, pageSize));
     }, []);
 
     useEffect(() => {
-        dispatch(getUsersTC(currentPage, usersCount, pageSize));
+        dispatch(getUsersTC(currentPage, pageSize));
     }, [currentPage, usersCount]);
-
-    function pageChangeHandler(pageNumber: number): void {
-        dispatch(setCurrentPageAC(pageNumber));
-    }
 
     if (users.length === 0) {
         return <Preloader />;
@@ -61,7 +57,7 @@ export const Home = (): ReactElement => {
             <Grid container spacing={3}>
                 {usersJSX}
             </Grid>
-            <Paginator pageChange={(pageNumber: number) => pageChangeHandler(pageNumber)} />
+            <Paginator />
         </Container>
     );
 };

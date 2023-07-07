@@ -1,10 +1,16 @@
 /* eslint-disable camelcase */
-import { legacy_createStore, combineReducers, applyMiddleware, AnyAction } from 'redux';
+import { legacy_createStore, combineReducers, applyMiddleware, AnyAction, compose } from 'redux';
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { homeReducer } from '../pages/Home/homeReducer';
 import authReducer from '../pages/Login/loginReducer';
 import { profileReducer } from '../pages/Profile/profile.reducer';
+
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
 
 const rootReducer = combineReducers({
     profile: profileReducer,
@@ -19,7 +25,12 @@ if (interState) {
     preloadedState = JSON.parse(interState);
 }
 
-const store = legacy_createStore(rootReducer, preloadedState, applyMiddleware(thunkMiddleware));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = legacy_createStore(
+    rootReducer,
+    preloadedState,
+    composeEnhancers(applyMiddleware(thunkMiddleware)),
+);
 
 store.subscribe(() => {
     localStorage.setItem('state', JSON.stringify(store.getState()));

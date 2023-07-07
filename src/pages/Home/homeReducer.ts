@@ -7,11 +7,11 @@ import { followAPI, unFollowAPI, usersAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
 
 import {
+    SetSectionNumberType,
     FollowType,
     HomeActionsType,
     HomeStateType,
     SetCurrentPageType,
-    SetPagesType,
     SetUsersCountType,
     SetUsersType,
     ToggleUserFollowType,
@@ -23,13 +23,21 @@ const initialState: HomeStateType = {
     followUsers: [],
     users: [],
     usersCount: 0,
-    pageSize: 16,
     currentPage: 1,
-    pageArray: [],
+    pageSize: 16,
+    sectionNumber: 1,
+    sectionSize: 5,
 };
 
 export const homeReducer = (state = initialState, action: HomeActionsType): HomeStateType => {
     switch (action.type) {
+        case 'HOME/SET_SECTION': {
+            return {
+                ...state,
+                sectionNumber: action.section,
+            };
+        }
+
         case 'HOME/FOLLOW': {
             return {
                 ...state,
@@ -69,13 +77,6 @@ export const homeReducer = (state = initialState, action: HomeActionsType): Home
             };
         }
 
-        case 'HOME/SET_PAGE_ARRAY': {
-            return {
-                ...state,
-                pageArray: action.pageArray,
-            };
-        }
-
         case 'HOME/TOGGLE_USER_FOLLOW': {
             return {
                 ...state,
@@ -90,6 +91,11 @@ export const homeReducer = (state = initialState, action: HomeActionsType): Home
         }
     }
 };
+
+export const setSectionNumber = (section: number): SetSectionNumberType => ({
+    type: 'HOME/SET_SECTION' as const,
+    section,
+});
 
 const toggleUserFollowAC = (id: number, isFetching: boolean): ToggleUserFollowType => ({
     type: 'HOME/TOGGLE_USER_FOLLOW' as const,
@@ -122,35 +128,16 @@ export const setCurrentPageAC = (currentPage: number): SetCurrentPageType => ({
     currentPage,
 });
 
-const setPageBoxAC = (pageArray: Array<number>): SetPagesType => ({
-    type: 'HOME/SET_PAGE_ARRAY' as const,
-    pageArray,
-});
-
-export const calcTotalPagesTC = (usersCount: number, pageSize: number): AppThunkType => {
-    return dispatch => {
-        const total = Math.ceil(usersCount / pageSize);
-        const pageArray = [];
-
-        for (let i = 1; i <= total; i++) {
-            pageArray.push(i);
-        }
-
-        dispatch(setPageBoxAC(pageArray));
-    };
-};
-
 // eslint-disable-next-line prettier/prettier
-export const getUsersTC = (currentPage: number, usersCount: number, pageSize: number): AppThunkType => {
+export const getUsersTC = (currentPage: number, pageSize: number): AppThunkType => {
     return async dispatch => {
-        dispatch(setUsersAC([]));
-        setCurrentPageAC(currentPage);
+        // dispatch(setUsersAC([]));
         try {
             const res = await usersAPI.getUsers(currentPage, pageSize);
 
             if (res.status === codeSuccess) {
+                setCurrentPageAC(currentPage);
                 dispatch(setUsersAC(res.data.items));
-                dispatch(calcTotalPagesTC(usersCount, pageSize) as any);
                 dispatch(setUsersCountAC(res.data.totalCount));
             } else {
                 console.warn('Network error...');
