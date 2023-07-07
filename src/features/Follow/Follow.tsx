@@ -21,6 +21,7 @@ export const Follow = (props: PropsType): ReactElement => {
 
     const isAuth = useAppSelector(state => state.auth.isAuth);
     const users = useAppSelector(state => state.home.users);
+    const userId = useAppSelector(state => state.auth.userId);
 
     if (!isAuth) {
         return <div />;
@@ -28,7 +29,7 @@ export const Follow = (props: PropsType): ReactElement => {
 
     return (
         <Button
-            disabled={props.followUsers.some(id => id === props.id)}
+            disabled={props.followUsers.some(id => id === props.id) || userId === props.id}
             className={css.button}
             onClick={() => {
                 dispatch(toggleFollow(props.id, users));

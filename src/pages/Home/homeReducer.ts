@@ -131,7 +131,7 @@ export const setCurrentPageAC = (currentPage: number): SetCurrentPageType => ({
 // eslint-disable-next-line prettier/prettier
 export const getUsersTC = (currentPage: number, pageSize: number): AppThunkType => {
     return async dispatch => {
-        // dispatch(setUsersAC([]));
+        dispatch(setUsersAC([]));
         try {
             const res = await usersAPI.getUsers(currentPage, pageSize);
 
