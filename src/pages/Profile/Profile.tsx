@@ -23,7 +23,7 @@ import { Wall } from '../../widgets/Wall/Wall';
 import css from './css.module.scss';
 import { getUserProfileTC } from './profile.reducer';
 
-export const Profile = (): ReactElement => {
+const Profile = (): ReactElement => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -114,3 +114,5 @@ export const Profile = (): ReactElement => {
         </div>
     );
 };
+
+export default Profile;
