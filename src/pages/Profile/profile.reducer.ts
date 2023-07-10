@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -7,6 +8,7 @@ import { v1 } from 'uuid';
 import { AppThunkType } from '../../App/store';
 import { PostType } from '../../entities/Post/Post';
 import { profileAPI } from '../../shared/api/api';
+import { setAvaLinkAC } from '../Login/loginReducer';
 
 import {
     StateType,
@@ -17,6 +19,7 @@ import {
     EditPostType,
     SetUserProfileType,
     SetStatusType,
+    SetAvatarType,
     UnionType,
 } from './types';
 
@@ -31,7 +34,7 @@ const initialState: StateType = {
         { id: v1(), message: 'Oil found in Mongolia.' },
     ],
     text: '',
-    userProfile: null,
+    userProfile: {} as ProfileType,
 };
 
 export const profileReducer = (state = initialState, action: UnionType): StateType => {
@@ -87,6 +90,16 @@ export const profileReducer = (state = initialState, action: UnionType): StateTy
             };
         }
 
+        case 'PROFILE/SET_AVATAR': {
+            return {
+                ...state,
+                userProfile: {
+                    ...state.userProfile,
+                    photos: { small: action.small, large: action.large },
+                },
+            };
+        }
+
         default: {
             return state;
         }
@@ -123,7 +136,25 @@ export const setStatusAC = (status: string): SetStatusType => ({
     status,
 });
 
+export const setAvatarAC = (small: string | null, large: string | null): SetAvatarType => {
+    return {
+        type: 'PROFILE/SET_AVATAR' as const,
+        small,
+        large,
+    };
+};
+
 // Thunks
+export const setAvatarTC = (file: File): AppThunkType => {
+    return dispatch => {
+        profileAPI.setAvatarAPI(file).then(res => {
+            console.log(res.data.photos);
+            dispatch(setAvatarAC(res.data.photos.small, res.data.photos.large));
+            dispatch(setAvaLinkAC(res.data.photos.small));
+        });
+    };
+};
+
 export const getUserProfileTC = (id: number): AppThunkType => {
     return dispatch => {
         profileAPI.getUserProfileAPI(id).then(res => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import axios from 'axios';
 
@@ -34,6 +35,25 @@ export const usersAPI = {
     },
 };
 
+enum ResultCodeEnum {
+    success = 0,
+    error = 1,
+    captchaIsRequired = 10,
+}
+
+type ResponseType<D = {}, RC = ResultCodeEnum> = {
+    data: D;
+    messages: Array<string>;
+    resultCode: RC;
+};
+
+type PhotosType = {
+    photos: {
+        small: string | null;
+        large: string | null;
+    };
+};
+
 export const profileAPI = {
     async getStatus(id: number) {
         return instance.get(`profile/status/${id}`);
@@ -43,6 +63,23 @@ export const profileAPI = {
     },
     async getUserProfileAPI(id: number) {
         return instance.get(`profile/${id}`);
+    },
+    async setAvatarAPI(file: File) {
+        const formData = new FormData();
+
+        formData.append('image', file);
+
+        return instance
+            .put<ResponseType<PhotosType>>(`profile/photo`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then(response => {
+                console.log(response);
+
+                return response.data;
+            });
     },
 };
 

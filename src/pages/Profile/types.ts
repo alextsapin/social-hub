@@ -26,7 +26,7 @@ export type StateType = {
     status: null | string;
     posts: PostType[];
     text: string;
-    userProfile: ProfileType | null;
+    userProfile: ProfileType;
 };
 
 export type AddPostType = {
@@ -59,7 +59,14 @@ export type SetUserProfileType = {
     userProfile: ProfileType;
 };
 
+export type SetAvatarType = {
+    type: 'PROFILE/SET_AVATAR';
+    small: string | null;
+    large: string | null;
+};
+
 export type UnionType =
+    | SetAvatarType
     | AddPostType
     | UpdatePostType
     | DeletePostType

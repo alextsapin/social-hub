@@ -4,7 +4,6 @@ import { AxiosError } from 'axios';
 
 import { AppThunkType } from '../../App/store';
 import { authAPI, LoginType, profileAPI } from '../../shared/api/api';
-import { setCurrentPageAC } from '../Home/homeReducer';
 
 type StateType = {
     isAuth: boolean;
@@ -74,7 +73,7 @@ type SetAvaLinkType = {
     link: string | null;
 };
 
-const setAvaLinkAC = (link: string | null): SetAvaLinkType => ({
+export const setAvaLinkAC = (link: string | null): SetAvaLinkType => ({
     type: 'LOGIN/SET_AVATAR_LINK',
     link,
 });
@@ -92,9 +91,8 @@ export const authentication = (): AppThunkType => {
                 });
             } else {
                 dispatch(toggleIsAuth(false));
-                // dispatch(setUserId(null));
+                dispatch(setUserId(null));
                 dispatch(setAvaLinkAC(null));
-                dispatch(setCurrentPageAC(1));
             }
         } catch (error) {
             console.warn(error);

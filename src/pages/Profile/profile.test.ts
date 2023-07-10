@@ -2,7 +2,7 @@
 import { v1 } from 'uuid';
 
 import { profileReducer, addPost, deletePost, editPost, updatePost } from './profile.reducer';
-import { StateType } from './types';
+import { ProfileType, StateType } from './types';
 
 let id1: string;
 let id2: string;
@@ -26,7 +26,7 @@ beforeEach(() => {
             { id: id3, message: 'В Монголии нашли нефть.' },
         ],
         text: '',
-        userProfile: null,
+        userProfile: {} as ProfileType,
     };
 });
 

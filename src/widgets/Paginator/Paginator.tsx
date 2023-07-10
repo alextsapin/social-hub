@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-magic-numbers */
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import { v1 } from 'uuid';
@@ -19,6 +20,7 @@ export const Paginator = (): ReactElement => {
 
     const currentPage = useAppSelector(getСurrentPageSL);
     const sectionSize = useAppSelector(state => state.home.sectionSize);
+    const pageSize = useAppSelector(state => state.home.pageSize);
     const pages = useAppSelector(createPageArraySL);
     const sectionNumber = useAppSelector(state => state.home.sectionNumber);
     const sectionTotal = useAppSelector(calcTotalSectionSL);
@@ -35,6 +37,11 @@ export const Paginator = (): ReactElement => {
     function changeSection(delta: number): void {
         dispatch(setSectionNumber(sectionNumber + delta));
     }
+
+    useEffect(() => {
+        dispatch(setSectionNumber(Math.ceil(currentPage / sectionSize)));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     return (
         <div className={css.wrap}>

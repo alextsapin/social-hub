@@ -13,7 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import user from '../../entities/User/user.jpg';
+import { Avatar } from '../../features/Avatar/Avatar';
 import { Status } from '../../features/Status/Status';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import Preloader from '../../widgets/Preloader/Preloader';
@@ -45,7 +45,7 @@ const Profile = (): ReactElement => {
         }
     }, [isAuth]);
 
-    if (userProfile === null) {
+    if (Object.keys(userProfile).length === 0) {
         return <Preloader />;
     }
 
@@ -54,17 +54,11 @@ const Profile = (): ReactElement => {
             <Container fixed>
                 <Grid container spacing={2}>
                     <Grid item lg={3}>
-                        <Paper className={css.wrap} elevation={3}>
-                            {userProfile?.photos.large !== null ? (
-                                <img src={userProfile?.photos.large} alt="img" />
-                            ) : (
-                                <img src={user} alt="img" />
-                            )}
-                        </Paper>
+                        <Avatar id={id} photo={userProfile.photos.large} />
                     </Grid>
                     <Grid item lg={9}>
                         <Paper className={css.wrap} elevation={3}>
-                            <h1 className={css.name}>{userProfile?.fullName}</h1>
+                            <h1 className={css.name}>{userProfile.fullName}</h1>
                             <Status id={id} status={status} />
 
                             <p className={css.title}>User information:</p>
@@ -75,7 +69,7 @@ const Profile = (): ReactElement => {
                                             <TableCell component="th" scope="row">
                                                 Briefly about yourself
                                             </TableCell>
-                                            <TableCell>{userProfile?.aboutMe}</TableCell>
+                                            <TableCell>{userProfile.aboutMe}</TableCell>
                                         </TableRow>
 
                                         <TableRow className={css.row}>
@@ -83,9 +77,7 @@ const Profile = (): ReactElement => {
                                                 Looking for a job?
                                             </TableCell>
                                             <TableCell>
-                                                {userProfile?.lookingForAJob === true
-                                                    ? 'Yes'
-                                                    : 'No'}
+                                                {userProfile.lookingForAJob === true ? 'Yes' : 'No'}
                                             </TableCell>
                                         </TableRow>
 
@@ -94,13 +86,13 @@ const Profile = (): ReactElement => {
                                                 Reason for searching
                                             </TableCell>
                                             <TableCell>
-                                                {userProfile?.lookingForAJobDescription}
+                                                {userProfile.lookingForAJobDescription}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            <SocialMedia contacts={userProfile?.contacts} />
+                            <SocialMedia contacts={userProfile.contacts} />
                         </Paper>
 
                         {userId === Number(id) && (
