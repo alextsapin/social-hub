@@ -10,6 +10,7 @@ export type UserType = {
 };
 
 export type HomeStateType = {
+    isFetching: boolean;
     followUsers: Array<number>;
     users: UserType[];
     usersCount: number;
@@ -17,6 +18,11 @@ export type HomeStateType = {
     sectionSize: number;
     currentPage: number;
     sectionNumber: number;
+};
+
+export type ToggleIsFetching = {
+    type: 'HOME/TOGGLE_IS_FETCHING';
+    isFetching: boolean;
 };
 
 export type SetSectionNumberType = {
@@ -60,6 +66,7 @@ export type SetPagesType = {
 };
 
 export type HomeActionsType =
+    | ToggleIsFetching
     | SetSectionNumberType
     | ToggleUserFollowType
     | FollowType

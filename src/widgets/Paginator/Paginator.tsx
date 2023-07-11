@@ -5,7 +5,7 @@ import React, { ReactElement, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { v1 } from 'uuid';
 
-import { setCurrentPageAC, setSectionNumber } from '../../pages/Home/homeReducer';
+import { setCurrentPageAC, setSectionNumber } from '../../pages/Home/home.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import {
     calcTotalSectionSL,

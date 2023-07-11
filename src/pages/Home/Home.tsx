@@ -9,8 +9,8 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import { Paginator } from '../../widgets/Paginator/Paginator';
 import Preloader from '../../widgets/Preloader/Preloader';
 
-import css from './css.module.scss';
-import { getUsersTC } from './homeReducer';
+import css from './home.module.scss';
+import { getUsersTC } from './home.reducer';
 
 export const Home = (): ReactElement => {
     const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ export const Home = (): ReactElement => {
     const usersCount = useAppSelector(state => state.home.usersCount);
     const pageSize = useAppSelector(state => state.home.pageSize);
     const users = useAppSelector(state => state.home.users);
+    const isFetching = useAppSelector(state => state.home.isFetching);
 
     useEffect(() => {
         dispatch(getUsersTC(currentPage, pageSize));
@@ -28,7 +29,7 @@ export const Home = (): ReactElement => {
         dispatch(getUsersTC(currentPage, pageSize));
     }, [currentPage, usersCount]);
 
-    if (users.length === 0) {
+    if (isFetching) {
         return <Preloader />;
     }
 

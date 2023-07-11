@@ -2,7 +2,7 @@
 import { legacy_createStore, combineReducers, applyMiddleware, AnyAction, compose } from 'redux';
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { homeReducer } from '../pages/Home/homeReducer';
+import { homeReducer } from '../pages/Home/home.reducer';
 import authReducer from '../pages/Login/loginReducer';
 import { profileReducer } from '../pages/Profile/profile.reducer';
 

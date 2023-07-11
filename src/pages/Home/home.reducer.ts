@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 /* eslint-disable default-param-last */
@@ -7,6 +6,7 @@ import { followAPI, unFollowAPI, usersAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
 
 import {
+    ToggleIsFetching,
     SetSectionNumberType,
     FollowType,
     HomeActionsType,
@@ -17,9 +17,10 @@ import {
     ToggleUserFollowType,
     UnFollowType,
     UserType,
-} from './homeTypes';
+} from './home.types';
 
 const initialState: HomeStateType = {
+    isFetching: false,
     followUsers: [],
     users: [],
     usersCount: 0,
@@ -31,10 +32,10 @@ const initialState: HomeStateType = {
 
 export const homeReducer = (state = initialState, action: HomeActionsType): HomeStateType => {
     switch (action.type) {
-        case 'HOME/SET_SECTION': {
+        case 'HOME/TOGGLE_IS_FETCHING': {
             return {
                 ...state,
-                sectionNumber: action.section,
+                isFetching: action.isFetching,
             };
         }
 
@@ -77,6 +78,13 @@ export const homeReducer = (state = initialState, action: HomeActionsType): Home
             };
         }
 
+        case 'HOME/SET_SECTION': {
+            return {
+                ...state,
+                sectionNumber: action.section,
+            };
+        }
+
         case 'HOME/TOGGLE_USER_FOLLOW': {
             return {
                 ...state,
@@ -92,9 +100,9 @@ export const homeReducer = (state = initialState, action: HomeActionsType): Home
     }
 };
 
-export const setSectionNumber = (section: number): SetSectionNumberType => ({
-    type: 'HOME/SET_SECTION' as const,
-    section,
+const toggleIsFetching = (isFetching: boolean): ToggleIsFetching => ({
+    type: 'HOME/TOGGLE_IS_FETCHING' as const,
+    isFetching,
 });
 
 const toggleUserFollowAC = (id: number, isFetching: boolean): ToggleUserFollowType => ({
@@ -128,10 +136,15 @@ export const setCurrentPageAC = (currentPage: number): SetCurrentPageType => ({
     currentPage,
 });
 
+export const setSectionNumber = (section: number): SetSectionNumberType => ({
+    type: 'HOME/SET_SECTION' as const,
+    section,
+});
+
 // eslint-disable-next-line prettier/prettier
 export const getUsersTC = (currentPage: number, pageSize: number): AppThunkType => {
     return async dispatch => {
-        dispatch(setUsersAC([]));
+        dispatch(toggleIsFetching(true));
         try {
             const res = await usersAPI.getUsers(currentPage, pageSize);
 
@@ -144,6 +157,8 @@ export const getUsersTC = (currentPage: number, pageSize: number): AppThunkType 
             }
         } catch {
             console.warn('Get users error...');
+        } finally {
+            dispatch(toggleIsFetching(false));
         }
     };
 };
@@ -154,18 +169,29 @@ export const toggleFollow = (id: number, users: UserType[]): AppThunkType => {
         const user = users.filter(u => u.id === id);
 
         if (!user[0].followed) {
-            const res = await followAPI(id);
+            try {
+                const res = await followAPI(id);
 
-            if (res.resultCode === 0) {
-                dispatch(followAC(id));
+                if (res.resultCode === 0) {
+                    dispatch(followAC(id));
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                dispatch(toggleUserFollowAC(id, false));
             }
         } else {
-            const res = await unFollowAPI(id);
+            try {
+                const res = await unFollowAPI(id);
 
-            if (res.resultCode === 0) {
-                dispatch(unFollowAC(id));
+                if (res.resultCode === 0) {
+                    dispatch(unFollowAC(id));
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                dispatch(toggleUserFollowAC(id, false));
             }
         }
-        dispatch(toggleUserFollowAC(id, false));
     };
 };

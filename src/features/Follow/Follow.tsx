@@ -5,7 +5,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import Button from '@mui/material/Button';
 
-import { toggleFollow } from '../../pages/Home/homeReducer';
+import { toggleFollow } from '../../pages/Home/home.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
 import css from './css.module.scss';

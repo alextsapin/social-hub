@@ -33,8 +33,6 @@ export const Avatar = (props: PropsType): ReactElement => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0];
 
-            console.log('file', file);
-
             dispatch(setAvatarTC(file));
         }
     };

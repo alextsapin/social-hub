@@ -136,7 +136,7 @@ export const setStatusAC = (status: string): SetStatusType => ({
     status,
 });
 
-export const setAvatarAC = (small: string | null, large: string | null): SetAvatarType => {
+export const setAvatarSuccess = (small: string | null, large: string | null): SetAvatarType => {
     return {
         type: 'PROFILE/SET_AVATAR' as const,
         small,
@@ -149,7 +149,7 @@ export const setAvatarTC = (file: File): AppThunkType => {
     return dispatch => {
         profileAPI.setAvatarAPI(file).then(res => {
             console.log(res.data.photos);
-            dispatch(setAvatarAC(res.data.photos.small, res.data.photos.large));
+            dispatch(setAvatarSuccess(res.data.photos.small, res.data.photos.large));
             dispatch(setAvaLinkAC(res.data.photos.small));
         });
     };
