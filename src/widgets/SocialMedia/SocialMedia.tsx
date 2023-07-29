@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React, { ReactElement } from 'react';
 
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -34,7 +34,11 @@ export const SocialMedia = (props: PropsType): ReactElement => {
                 {el}
             </TableCell>
             <TableCell>
-                {Object.values(props.contacts)[index] ? Object.values(props.contacts)[index] : '44'}
+                {Object.values(props.contacts)[index] ? (
+                    Object.values(props.contacts)[index]
+                ) : (
+                    <NotInterestedIcon />
+                )}
             </TableCell>
         </TableRow>
     ));

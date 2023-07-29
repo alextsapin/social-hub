@@ -22,7 +22,8 @@ export type ProfileType = {
     };
 };
 
-export type StateType = {
+export type ProfileState = {
+    isUploadAva: boolean;
     status: null | string;
     posts: PostType[];
     text: string;
@@ -59,6 +60,11 @@ export type SetUserProfileType = {
     userProfile: ProfileType;
 };
 
+export type ToggleIsUpload = {
+    type: 'PROFILE/TOGGLE_UPLOAD_AVA';
+    isUploadAva: boolean;
+};
+
 export type SetAvatarType = {
     type: 'PROFILE/SET_AVATAR';
     small: string | null;
@@ -66,6 +72,7 @@ export type SetAvatarType = {
 };
 
 export type UnionType =
+    | ToggleIsUpload
     | SetAvatarType
     | AddPostType
     | UpdatePostType

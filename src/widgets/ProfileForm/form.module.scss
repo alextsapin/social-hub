@@ -1,0 +1,14 @@
+.form {
+    margin-top: 30px;
+}
+
+.row {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+}

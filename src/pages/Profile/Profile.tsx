@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/destructuring-assignment */
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -17,6 +17,7 @@ import { Avatar } from '../../features/Avatar/Avatar';
 import { Status } from '../../features/Status/Status';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import Preloader from '../../widgets/Preloader/Preloader';
+import { ProfileForm } from '../../widgets/ProfileForm/ProfileForm';
 import { SocialMedia } from '../../widgets/SocialMedia/SocialMedia';
 import { Wall } from '../../widgets/Wall/Wall';
 
@@ -32,6 +33,8 @@ const Profile = (): ReactElement => {
     const userProfile = useAppSelector(state => state.profile.userProfile);
     const isAuth = useAppSelector(state => state.auth.isAuth);
     const status = useAppSelector(state => state.profile.status);
+
+    const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -92,7 +95,11 @@ const Profile = (): ReactElement => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            <SocialMedia contacts={userProfile.contacts} />
+                            {editMode ? (
+                                <SocialMedia contacts={userProfile.contacts} />
+                            ) : (
+                                <ProfileForm contacts={userProfile.contacts} />
+                            )}
                         </Paper>
 
                         {userId === Number(id) && (

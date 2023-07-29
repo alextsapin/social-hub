@@ -3,15 +3,17 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable default-param-last */
+import { AxiosError } from 'axios';
 import { v1 } from 'uuid';
 
 import { AppThunkType } from '../../App/store';
 import { PostType } from '../../entities/Post/Post';
 import { profileAPI } from '../../shared/api/api';
+import { codeSuccess } from '../../shared/constants';
 import { setAvaLinkAC } from '../Login/loginReducer';
 
 import {
-    StateType,
+    ProfileState,
     ProfileType,
     AddPostType,
     UpdatePostType,
@@ -20,10 +22,12 @@ import {
     SetUserProfileType,
     SetStatusType,
     SetAvatarType,
+    ToggleIsUpload,
     UnionType,
 } from './types';
 
-const initialState: StateType = {
+const initialState: ProfileState = {
+    isUploadAva: false,
     status: null,
     posts: [
         {
@@ -37,8 +41,15 @@ const initialState: StateType = {
     userProfile: {} as ProfileType,
 };
 
-export const profileReducer = (state = initialState, action: UnionType): StateType => {
+export const profileReducer = (state = initialState, action: UnionType): ProfileState => {
     switch (action.type) {
+        case 'PROFILE/TOGGLE_UPLOAD_AVA': {
+            return {
+                ...state,
+                isUploadAva: action.isUploadAva,
+            };
+        }
+
         case 'PROFILE/UPDATE_POST': {
             return {
                 ...state,
@@ -136,6 +147,11 @@ export const setStatusAC = (status: string): SetStatusType => ({
     status,
 });
 
+export const toggleIsUpload = (isUploadAva: boolean): ToggleIsUpload => ({
+    type: 'PROFILE/TOGGLE_UPLOAD_AVA' as const,
+    isUploadAva,
+});
+
 export const setAvatarSuccess = (small: string | null, large: string | null): SetAvatarType => {
     return {
         type: 'PROFILE/SET_AVATAR' as const,
@@ -146,12 +162,24 @@ export const setAvatarSuccess = (small: string | null, large: string | null): Se
 
 // Thunks
 export const setAvatarTC = (file: File): AppThunkType => {
-    return dispatch => {
-        profileAPI.setAvatarAPI(file).then(res => {
-            console.log(res.data.photos);
-            dispatch(setAvatarSuccess(res.data.photos.small, res.data.photos.large));
-            dispatch(setAvaLinkAC(res.data.photos.small));
-        });
+    return async dispatch => {
+        dispatch(toggleIsUpload(true));
+        try {
+            const res = await profileAPI.setAvatarAPI(file);
+
+            if (res.resultCode === 0) {
+                dispatch(setAvatarSuccess(res.data.photos.small, res.data.photos.large));
+                dispatch(setAvaLinkAC(res.data.photos.small));
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                console.warn(error.message);
+            } else {
+                console.warn('Unexpected error...');
+            }
+        } finally {
+            dispatch(toggleIsUpload(false));
+        }
     };
 };
 

@@ -54,7 +54,27 @@ type PhotosType = {
     };
 };
 
+export type ProfileData = {
+    userId: number | null;
+    lookingForAJob: boolean | null;
+    lookingForAJobDescription: string | null;
+    fullName: string | null;
+    contacts: {
+        github: string | null;
+        vk: string | null;
+        facebook: string | null;
+        instagram: string | null;
+        twitter: string | null;
+        website: string | null;
+        youtube: string | null;
+        mainLink: string | null;
+    };
+};
+
 export const profileAPI = {
+    async updateProfile(data: ProfileData) {
+        return instance.put(`profile/`, data);
+    },
     async getStatus(id: number) {
         return instance.get(`profile/status/${id}`);
     },
@@ -76,8 +96,6 @@ export const profileAPI = {
                 },
             })
             .then(response => {
-                console.log(response);
-
                 return response.data;
             });
     },

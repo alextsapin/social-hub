@@ -2,13 +2,13 @@
 import { v1 } from 'uuid';
 
 import { profileReducer, addPost, deletePost, editPost, updatePost } from './profile.reducer';
-import { ProfileType, StateType } from './types';
+import { ProfileType, ProfileState } from './types';
 
 let id1: string;
 let id2: string;
 let id3: string;
 
-let startState: StateType;
+let startState: ProfileState;
 
 beforeEach(() => {
     id1 = v1();
@@ -16,6 +16,7 @@ beforeEach(() => {
     id3 = v1();
 
     startState = {
+        isUploadAva: false,
         status: null,
         posts: [
             {
