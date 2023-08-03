@@ -94,7 +94,7 @@ export const Wall = (): ReactElement => {
                 <br />
                 <Button
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     onClick={addPostHandler}
                     className="mt-2 float-right"
                     type="submit"

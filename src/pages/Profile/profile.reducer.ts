@@ -10,6 +10,7 @@ import { AppThunkType } from '../../App/store';
 import { PostType } from '../../entities/Post/Post';
 import { profileAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
+import { ValuesType } from '../../widgets/ProfileForm/ProfileForm';
 import { setAvaLinkAC } from '../Login/loginReducer';
 
 import {
@@ -188,6 +189,36 @@ export const getUserProfileTC = (id: number): AppThunkType => {
         profileAPI.getUserProfileAPI(id).then(res => {
             dispatch(setUserProfileAC(res.data));
         });
+    };
+};
+
+export const updateProfile = (data: ValuesType): AppThunkType => {
+    return async dispatch => {
+        try {
+            const res = await profileAPI.updateProfile({
+                userId: data.userId,
+                fullName: data.fullName,
+                aboutMe: data.aboutMe,
+                lookingForAJob: data.lookingForAJob,
+                lookingForAJobDescription: data.lookingForAJobDescription,
+                contacts: {
+                    facebook: data.facebook,
+                    github: data.github,
+                    instagram: data.instagram,
+                    mainLink: null,
+                    twitter: data.twitter,
+                    vk: data.vk,
+                    website: data.website,
+                    youtube: data.youtube,
+                },
+            });
+
+            console.log(res);
+
+            dispatch(getUserProfileTC(data.userId));
+        } catch {
+            console.warn('444');
+        }
     };
 };
 

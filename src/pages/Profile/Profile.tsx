@@ -3,14 +3,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { ReactElement, useEffect, useState } from 'react';
 
+import { Tooltip } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CancelIcon from '@mui/icons-material/Cancel';
+import EditIcon from '@mui/icons-material/Edit';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { Avatar } from '../../features/Avatar/Avatar';
@@ -53,64 +52,47 @@ const Profile = (): ReactElement => {
     }
 
     return (
-        <div id="content">
-            <Container fixed>
-                <Grid container spacing={2}>
-                    <Grid item lg={3}>
-                        <Avatar id={id} photo={userProfile.photos.large} />
-                    </Grid>
-                    <Grid item lg={9}>
-                        <Paper className={css.wrap} elevation={3}>
-                            <h1 className={css.name}>{userProfile.fullName}</h1>
-                            <Status id={id} status={status} />
-
-                            <p className={css.title}>User information:</p>
-                            <TableContainer className={css.info}>
-                                <Table aria-label="customized table">
-                                    <TableBody>
-                                        <TableRow className={css.row}>
-                                            <TableCell component="th" scope="row">
-                                                Briefly about yourself
-                                            </TableCell>
-                                            <TableCell>{userProfile.aboutMe}</TableCell>
-                                        </TableRow>
-
-                                        <TableRow className={css.row}>
-                                            <TableCell component="th" scope="row">
-                                                Looking for a job?
-                                            </TableCell>
-                                            <TableCell>
-                                                {userProfile.lookingForAJob === true ? 'Yes' : 'No'}
-                                            </TableCell>
-                                        </TableRow>
-
-                                        <TableRow className={css.row}>
-                                            <TableCell component="th" scope="row">
-                                                Reason for searching
-                                            </TableCell>
-                                            <TableCell>
-                                                {userProfile.lookingForAJobDescription}
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                            {editMode ? (
-                                <SocialMedia contacts={userProfile.contacts} />
-                            ) : (
-                                <ProfileForm contacts={userProfile.contacts} />
-                            )}
-                        </Paper>
-
-                        {userId === Number(id) && (
-                            <Paper className={`${css.wrap} ${css.top}`} elevation={3}>
-                                <Wall />
-                            </Paper>
-                        )}
-                    </Grid>
+        <Container fixed>
+            <Grid container spacing={2}>
+                <Grid item lg={3}>
+                    <Avatar id={id} photo={userProfile.photos.large} />
                 </Grid>
-            </Container>
-        </div>
+                <Grid item lg={9}>
+                    <Paper className={css.wrap} elevation={3}>
+                        <h1 className={css.name}>{userProfile.fullName}</h1>
+                        <Status id={id} status={status} />
+
+                        <div className={css.block}>
+                            <p className={css.title}>User information:</p>
+                            {!editMode && (
+                                <Tooltip title="Edit profile">
+                                    <Button
+                                        onClick={() => setEditMode(true)}
+                                        variant="contained"
+                                        color="primary"
+                                        size="small"
+                                    >
+                                        <EditIcon />
+                                    </Button>
+                                </Tooltip>
+                            )}
+                        </div>
+
+                        {editMode ? (
+                            <ProfileForm userProfile={userProfile} setEditMode={setEditMode} />
+                        ) : (
+                            <SocialMedia userProfile={userProfile} />
+                        )}
+                    </Paper>
+
+                    {userId === Number(id) && (
+                        <Paper className={`${css.wrap} ${css.top}`} elevation={3}>
+                            <Wall />
+                        </Paper>
+                    )}
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

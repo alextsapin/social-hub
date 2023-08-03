@@ -3,9 +3,9 @@ import { PostType } from '../../entities/Post/Post';
 export type ProfileType = {
     userId: number;
     fullName: string;
-    aboutMe: string;
+    aboutMe: string | null;
     lookingForAJob: boolean;
-    lookingForAJobDescription: string;
+    lookingForAJobDescription: string | null;
     contacts: {
         facebook: string | null;
         github: string | null;

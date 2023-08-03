@@ -56,9 +56,11 @@ type PhotosType = {
 
 export type ProfileData = {
     userId: number | null;
+    fullName: string | null;
+    aboutMe: string | null;
     lookingForAJob: boolean | null;
     lookingForAJobDescription: string | null;
-    fullName: string | null;
+
     contacts: {
         github: string | null;
         vk: string | null;
@@ -73,7 +75,7 @@ export type ProfileData = {
 
 export const profileAPI = {
     async updateProfile(data: ProfileData) {
-        return instance.put(`profile/`, data);
+        return instance.put(`profile`, data);
     },
     async getStatus(id: number) {
         return instance.get(`profile/status/${id}`);

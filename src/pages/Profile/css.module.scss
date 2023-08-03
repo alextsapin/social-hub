@@ -10,6 +10,13 @@
     margin-bottom: 15px;
 }
 
+.block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .top {
     margin-top: 15px;
 }
@@ -23,6 +30,8 @@
 }
 
 .row {
+    display: grid;
+    grid-template-columns: 1.5fr 4fr;
     &:nth-of-type(odd) {
         background: #F5F5F5;
     }
