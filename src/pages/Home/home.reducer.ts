@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
-/* eslint-disable no-plusplus */
 /* eslint-disable default-param-last */
+import { AxiosError } from 'axios';
+
+import { setError } from '../../App/App.reducer';
 import { AppThunkType } from '../../App/store';
 import { followAPI, unFollowAPI, usersAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
@@ -153,10 +154,14 @@ export const getUsersTC = (currentPage: number, pageSize: number): AppThunkType 
                 dispatch(setUsersAC(res.data.items));
                 dispatch(setUsersCountAC(res.data.totalCount));
             } else {
-                console.warn('Network error...');
+                dispatch(setError(res.data.error));
             }
-        } catch {
-            console.warn('Get users error...');
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
         } finally {
             dispatch(toggleIsFetching(false));
         }
@@ -174,9 +179,15 @@ export const toggleFollow = (id: number, users: UserType[]): AppThunkType => {
 
                 if (res.resultCode === 0) {
                     dispatch(followAC(id));
+                } else {
+                    dispatch(setError(res.messages[0]));
                 }
             } catch (error) {
-                console.log(error);
+                if (error instanceof AxiosError) {
+                    dispatch(setError(error.message));
+                } else {
+                    dispatch(setError('Unexpected error...'));
+                }
             } finally {
                 dispatch(toggleUserFollowAC(id, false));
             }
@@ -186,9 +197,15 @@ export const toggleFollow = (id: number, users: UserType[]): AppThunkType => {
 
                 if (res.resultCode === 0) {
                     dispatch(unFollowAC(id));
+                } else {
+                    dispatch(setError(res.messages[0]));
                 }
             } catch (error) {
-                console.log(error);
+                if (error instanceof AxiosError) {
+                    dispatch(setError(error.message));
+                } else {
+                    dispatch(setError('Unexpected error...'));
+                }
             } finally {
                 dispatch(toggleUserFollowAC(id, false));
             }

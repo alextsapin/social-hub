@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
 /* eslint-disable default-param-last */
 import { AxiosError } from 'axios';
 
+import { setError } from '../../App/App.reducer';
 import { AppThunkType } from '../../App/store';
 import { authAPI, LoginType, profileAPI } from '../../shared/api/api';
 
@@ -90,12 +90,17 @@ export const authentication = (): AppThunkType => {
                     dispatch(setAvaLinkAC(res.data.photos.small));
                 });
             } else {
+                dispatch(setError(res.data.messages[0]));
                 dispatch(toggleIsAuth(false));
                 dispatch(setUserId(null));
                 dispatch(setAvaLinkAC(null));
             }
         } catch (error) {
-            console.warn(error);
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
         }
     };
 };
@@ -109,9 +114,14 @@ export const loginization = (data: LoginType): AppThunkType => {
                 dispatch(toggleIsAuth(true));
             } else {
                 dispatch(toggleIsAuth(false));
+                dispatch(setError(res.data.messages[0]));
             }
         } catch (error) {
-            console.warn(error);
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
         }
     };
 };
@@ -125,12 +135,14 @@ export const logout = (): AppThunkType => {
                 dispatch(toggleIsAuth(false));
                 dispatch(setUserId(null));
                 dispatch(setAvaLinkAC(null));
+            } else {
+                dispatch(setError(res.data.messages[0]));
             }
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.warn(error.message);
+                dispatch(setError(error.message));
             } else {
-                console.warn('Unexpected error...');
+                dispatch(setError('Unexpected error...'));
             }
         }
     };

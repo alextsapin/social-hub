@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 import { AppStateType } from '../../App/store';
 
-import css from './css.module.scss';
+import css from './post.module.scss';
 
 export type PostType = {
     id: string;

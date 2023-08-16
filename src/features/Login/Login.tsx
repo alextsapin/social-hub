@@ -4,7 +4,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import Tooltip from '@mui/material/Tooltip';
 import { NavLink } from 'react-router-dom';
 
-import css from './Login.module.scss';
+import css from './login.module.scss';
 
 export const Login = (): ReactElement => {
     return (

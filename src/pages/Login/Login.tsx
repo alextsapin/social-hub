@@ -13,8 +13,8 @@ import * as yup from 'yup';
 import { maxPass, minPass } from '../../shared/constants';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
-import css from './css.module.scss';
-import { loginization } from './loginReducer';
+import css from './login.module.scss';
+import { loginization } from './login.reducer';
 
 type FormValuesType = {
     email: string;

@@ -6,12 +6,13 @@
 import { AxiosError } from 'axios';
 import { v1 } from 'uuid';
 
+import { setError } from '../../App/App.reducer';
 import { AppThunkType } from '../../App/store';
 import { PostType } from '../../entities/Post/Post';
 import { profileAPI } from '../../shared/api/api';
 import { codeSuccess } from '../../shared/constants';
 import { ValuesType } from '../../widgets/ProfileForm/ProfileForm';
-import { setAvaLinkAC } from '../Login/loginReducer';
+import { setAvaLinkAC } from '../Login/login.reducer';
 
 import {
     ProfileState,
@@ -214,10 +215,11 @@ export const updateProfile = (data: ValuesType): AppThunkType => {
             });
 
             console.log(res);
+            dispatch(setError(res.data.messages[0]));
 
             dispatch(getUserProfileTC(data.userId));
         } catch {
-            console.warn('444');
+            dispatch(setError('error'));
         }
     };
 };

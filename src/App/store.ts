@@ -3,8 +3,10 @@ import { legacy_createStore, combineReducers, applyMiddleware, AnyAction, compos
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { homeReducer } from '../pages/Home/home.reducer';
-import authReducer from '../pages/Login/loginReducer';
+import authReducer from '../pages/Login/login.reducer';
 import { profileReducer } from '../pages/Profile/profile.reducer';
+
+import { AppReducer } from './App.reducer';
 
 declare global {
     interface Window {
@@ -13,6 +15,7 @@ declare global {
 }
 
 const rootReducer = combineReducers({
+    App: AppReducer,
     profile: profileReducer,
     home: homeReducer,
     auth: authReducer,

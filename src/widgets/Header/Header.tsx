@@ -11,8 +11,9 @@ import { NavLink } from 'react-router-dom';
 
 import { Login } from '../../features/Login/Login';
 import { Logout } from '../../features/Logout/Logout';
-import { authentication } from '../../pages/Login/loginReducer';
+import { authentication } from '../../pages/Login/login.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { Error } from '../Error/Error';
 
 import css from './css.module.scss';
 import logo from './logo.png';
@@ -34,6 +35,7 @@ export const Header = (): ReactElement => {
 
     return (
         <AppBar position="static">
+            <Error />
             <Container fixed>
                 <div className={css.wrapper}>
                     <NavLink to="/">

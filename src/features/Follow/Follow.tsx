@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { toggleFollow } from '../../pages/Home/home.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
-import css from './css.module.scss';
+import css from './follow.module.scss';
 
 type PropsType = {
     id: number;

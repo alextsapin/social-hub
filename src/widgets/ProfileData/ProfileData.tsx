@@ -17,7 +17,7 @@ type PropsType = {
     userProfile: ProfileType;
 };
 
-export const SocialMedia = (props: PropsType): ReactElement => {
+export const ProfileData = (props: PropsType): ReactElement => {
     const keys = Object.keys(props.userProfile.contacts).filter(el => el !== 'mainLink');
 
     const data = keys.map((el: string, index: number) => (

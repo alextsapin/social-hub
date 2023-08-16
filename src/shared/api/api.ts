@@ -60,7 +60,6 @@ export type ProfileData = {
     aboutMe: string | null;
     lookingForAJob: boolean | null;
     lookingForAJobDescription: string | null;
-
     contacts: {
         github: string | null;
         vk: string | null;

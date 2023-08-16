@@ -10,8 +10,8 @@ import { NavLink } from 'react-router-dom';
 import { Follow } from '../../features/Follow/Follow';
 import { useAppSelector } from '../../shared/hooks';
 
-import css from './css.module.scss';
 import user from './user.jpg';
+import css from './user.module.scss';
 
 type UserPropsType = {
     id: number;

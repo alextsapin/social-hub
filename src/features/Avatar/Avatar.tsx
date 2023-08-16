@@ -1,30 +1,15 @@
 /* eslint-disable no-magic-numbers */
-/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {
-    ReactElement,
-    useState,
-    useEffect,
-    ChangeEvent,
-    useRef,
-    useLayoutEffect,
-} from 'react';
+import React, { ReactElement, ChangeEvent } from 'react';
 
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Button, IconButton } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import { Button } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
-import TextField from '@mui/material/TextField';
 import { Img } from 'react-image';
 
 import user from '../../entities/User/user.jpg';
-import { getStatus, setAvatarTC, setStatusTC } from '../../pages/Profile/profile.reducer';
-import { profileAPI } from '../../shared/api/api';
+import { setAvatarTC } from '../../pages/Profile/profile.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
 import css from './avatar.module.scss';

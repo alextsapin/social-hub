@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-promise-executor-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -9,11 +8,11 @@
 import React, { ReactElement } from 'react';
 
 import { Checkbox, FormControlLabel, Tooltip } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import EditIcon from '@mui/icons-material/Edit';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import SaveIcon from '@mui/icons-material/Save';
+import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';

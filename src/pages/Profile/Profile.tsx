@@ -16,8 +16,8 @@ import { Avatar } from '../../features/Avatar/Avatar';
 import { Status } from '../../features/Status/Status';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import Preloader from '../../widgets/Preloader/Preloader';
+import { ProfileData } from '../../widgets/ProfileData/ProfileData';
 import { ProfileForm } from '../../widgets/ProfileForm/ProfileForm';
-import { SocialMedia } from '../../widgets/SocialMedia/SocialMedia';
 import { Wall } from '../../widgets/Wall/Wall';
 
 import css from './css.module.scss';
@@ -81,7 +81,7 @@ const Profile = (): ReactElement => {
                         {editMode ? (
                             <ProfileForm userProfile={userProfile} setEditMode={setEditMode} />
                         ) : (
-                            <SocialMedia userProfile={userProfile} />
+                            <ProfileData userProfile={userProfile} />
                         )}
                     </Paper>
 

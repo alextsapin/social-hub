@@ -22,11 +22,27 @@ export const Home = (): ReactElement => {
     const isFetching = useAppSelector(state => state.home.isFetching);
 
     useEffect(() => {
-        dispatch(getUsersTC(currentPage, pageSize));
+        let isCancelled = false;
+
+        if (!isCancelled) {
+            dispatch(getUsersTC(currentPage, pageSize));
+        }
+
+        return () => {
+            isCancelled = true;
+        };
     }, []);
 
     useEffect(() => {
-        dispatch(getUsersTC(currentPage, pageSize));
+        let isCancelled = false;
+
+        if (!isCancelled) {
+            dispatch(getUsersTC(currentPage, pageSize));
+        }
+
+        return () => {
+            isCancelled = true;
+        };
     }, [currentPage, usersCount]);
 
     if (isFetching) {
