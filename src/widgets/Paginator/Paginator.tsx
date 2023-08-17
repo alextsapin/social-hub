@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-magic-numbers */
 import React, { ReactElement, useEffect } from 'react';
 
@@ -13,14 +13,13 @@ import {
     getСurrentPageSL,
 } from '../../shared/selectors/home.selector';
 
-import css from './css.module.scss';
+import css from './paginator.module.scss';
 
 export const Paginator = (): ReactElement => {
     const dispatch = useAppDispatch();
 
     const currentPage = useAppSelector(getСurrentPageSL);
     const sectionSize = useAppSelector(state => state.home.sectionSize);
-    const pageSize = useAppSelector(state => state.home.pageSize);
     const pages = useAppSelector(createPageArraySL);
     const sectionNumber = useAppSelector(state => state.home.sectionNumber);
     const sectionTotal = useAppSelector(calcTotalSectionSL);
@@ -40,12 +39,28 @@ export const Paginator = (): ReactElement => {
 
     useEffect(() => {
         dispatch(setSectionNumber(Math.ceil(currentPage / sectionSize)));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     return (
         <div className={css.wrap}>
             <div className={css.paginator}>
+                {
+                    // В начало
+                    sectionNumber > 1 && (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            key={v1()}
+                            onClick={() => {
+                                changeSection(1);
+                                changePage(1);
+                            }}
+                        >
+                            1
+                        </Button>
+                    )
+                }
                 {
                     // - 500 страниц
                     sectionNumber - 100 > 1 && (
@@ -63,7 +78,6 @@ export const Paginator = (): ReactElement => {
                         </Button>
                     )
                 }
-
                 {
                     // - 100 страниц
                     sectionNumber - 20 > 1 && (
@@ -81,7 +95,6 @@ export const Paginator = (): ReactElement => {
                         </Button>
                     )
                 }
-
                 {
                     // - 5 страниц
                     sectionNumber > 1 && (
@@ -99,7 +112,6 @@ export const Paginator = (): ReactElement => {
                         </Button>
                     )
                 }
-
                 {pages
                     .filter(page => Number(page) >= leftPage && Number(page) <= rightPage)
                     .map(page => (
@@ -113,7 +125,6 @@ export const Paginator = (): ReactElement => {
                             {page}
                         </Button>
                     ))}
-
                 {
                     // + 5 страниц
                     sectionNumber < sectionTotal && (
@@ -131,7 +142,6 @@ export const Paginator = (): ReactElement => {
                         </Button>
                     )
                 }
-
                 {
                     // + 100 страниц
                     sectionNumber + 20 < sectionTotal && (
@@ -149,7 +159,6 @@ export const Paginator = (): ReactElement => {
                         </Button>
                     )
                 }
-
                 {
                     // + 500 страниц
                     sectionNumber + 100 < sectionTotal && (
@@ -164,6 +173,22 @@ export const Paginator = (): ReactElement => {
                             }}
                         >
                             +500
+                        </Button>
+                    )
+                }
+                {
+                    // В конец
+                    sectionNumber !== sectionTotal && (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            key={v1()}
+                            onClick={() => {
+                                changePage(pages[pages.length - 1]);
+                            }}
+                        >
+                            {pages[pages.length - 1]}
                         </Button>
                     )
                 }

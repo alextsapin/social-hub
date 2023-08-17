@@ -26,11 +26,27 @@ export const Header = (): ReactElement => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(authentication());
+        let isCancelled = false;
+
+        if (!isCancelled) {
+            dispatch(authentication());
+        }
+
+        return () => {
+            isCancelled = true;
+        };
     }, []);
 
     useEffect(() => {
-        dispatch(authentication());
+        let isCancelled = false;
+
+        if (!isCancelled) {
+            dispatch(authentication());
+        }
+
+        return () => {
+            isCancelled = true;
+        };
     }, [isAuth]);
 
     return (

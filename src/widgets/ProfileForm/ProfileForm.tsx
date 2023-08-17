@@ -22,7 +22,7 @@ import TextField from '@mui/material/TextField';
 import { Formik, Field, Form, useFormik } from 'formik';
 
 import { updateProfile } from '../../pages/Profile/profile.reducer';
-import { ProfileType } from '../../pages/Profile/types';
+import { ProfileType } from '../../pages/Profile/profile.types';
 import { useAppDispatch } from '../../shared/hooks';
 
 import css from './form.module.scss';

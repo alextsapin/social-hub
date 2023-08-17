@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/destructuring-assignment */
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import { Tooltip } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import CancelIcon from '@mui/icons-material/Cancel';
 import EditIcon from '@mui/icons-material/Edit';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -20,7 +18,7 @@ import { ProfileData } from '../../widgets/ProfileData/ProfileData';
 import { ProfileForm } from '../../widgets/ProfileForm/ProfileForm';
 import { Wall } from '../../widgets/Wall/Wall';
 
-import css from './css.module.scss';
+import css from './profile.module.scss';
 import { getUserProfileTC } from './profile.reducer';
 
 const Profile = (): ReactElement => {
@@ -64,7 +62,7 @@ const Profile = (): ReactElement => {
 
                         <div className={css.block}>
                             <p className={css.title}>User information:</p>
-                            {!editMode && (
+                            {!editMode && Number(id) === userId && (
                                 <Tooltip title="Edit profile">
                                     <Button
                                         onClick={() => setEditMode(true)}

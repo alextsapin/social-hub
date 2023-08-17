@@ -10,8 +10,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 
-import css from '../../pages/Profile/css.module.scss';
-import { ProfileType } from '../../pages/Profile/types';
+import css from '../../pages/Profile/profile.module.scss';
+import { ProfileType } from '../../pages/Profile/profile.types';
 
 type PropsType = {
     userProfile: ProfileType;

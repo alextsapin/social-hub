@@ -2,7 +2,7 @@
 import { v1 } from 'uuid';
 
 import { profileReducer, addPost, deletePost, editPost, updatePost } from './profile.reducer';
-import { ProfileType, ProfileState } from './types';
+import { ProfileType, ProfileState } from './profile.types';
 
 let id1: string;
 let id2: string;

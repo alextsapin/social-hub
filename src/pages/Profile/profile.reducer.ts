@@ -26,7 +26,7 @@ import {
     SetAvatarType,
     ToggleIsUpload,
     UnionType,
-} from './types';
+} from './profile.types';
 
 const initialState: ProfileState = {
     isUploadAva: false,
@@ -172,12 +172,14 @@ export const setAvatarTC = (file: File): AppThunkType => {
             if (res.resultCode === 0) {
                 dispatch(setAvatarSuccess(res.data.photos.small, res.data.photos.large));
                 dispatch(setAvaLinkAC(res.data.photos.small));
+            } else {
+                dispatch(setError(res.messages[0]));
             }
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.warn(error.message);
+                dispatch(setError(error.message));
             } else {
-                console.warn('Unexpected error...');
+                dispatch(setError('Unexpected error...'));
             }
         } finally {
             dispatch(toggleIsUpload(false));
@@ -186,10 +188,18 @@ export const setAvatarTC = (file: File): AppThunkType => {
 };
 
 export const getUserProfileTC = (id: number): AppThunkType => {
-    return dispatch => {
-        profileAPI.getUserProfileAPI(id).then(res => {
+    return async dispatch => {
+        try {
+            const res = await profileAPI.getUserProfileAPI(id);
+
             dispatch(setUserProfileAC(res.data));
-        });
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
+        }
     };
 };
 
@@ -214,32 +224,53 @@ export const updateProfile = (data: ValuesType): AppThunkType => {
                 },
             });
 
-            console.log(res);
-            dispatch(setError(res.data.messages[0]));
-
-            dispatch(getUserProfileTC(data.userId));
-        } catch {
-            dispatch(setError('error'));
+            if (res.data.resultCode === 0) {
+                dispatch(getUserProfileTC(data.userId));
+            } else {
+                dispatch(setError(res.data.messages[0]));
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
         }
     };
 };
 
 export const getStatus = (id: number): AppThunkType => {
     return async dispatch => {
-        const res = await profileAPI.getStatus(id);
+        try {
+            const res = await profileAPI.getStatus(id);
 
-        dispatch(setStatusAC(res.data));
+            dispatch(setStatusAC(res.data));
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
+        }
     };
 };
 
 export const setStatusTC = (status: string): AppThunkType => {
     return async dispatch => {
-        const res = await profileAPI.setStatus(status);
+        try {
+            const res = await profileAPI.setStatus(status);
 
-        if (res.status === 200) {
-            dispatch(setStatusAC(status));
-        } else {
-            console.warn('Network error...');
+            if (res.data.resultCode === 0) {
+                dispatch(setStatusAC(status));
+            } else {
+                dispatch(setError(res.data.messages[0]));
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
         }
     };
 };

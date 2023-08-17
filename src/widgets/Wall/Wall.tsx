@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 import React, { ReactElement, ChangeEvent, MouseEvent } from 'react';
@@ -13,7 +12,7 @@ import Post, { PostType } from '../../entities/Post/Post';
 import { addPost, updatePost, deletePost, editPost } from '../../pages/Profile/profile.reducer';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 
-import css from './css.module.scss';
+import css from './wall.module.scss';
 
 export const Wall = (): ReactElement => {
     const dispatch = useAppDispatch();
