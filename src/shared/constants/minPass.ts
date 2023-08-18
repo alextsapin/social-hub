@@ -1,1 +1,1 @@
-export const minPass = 6;
+export const minPass = 3;

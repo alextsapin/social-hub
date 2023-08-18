@@ -27,6 +27,9 @@ export const authAPI = {
     async logout() {
         return instance.delete(`auth/login`);
     },
+    async getCaptcha() {
+        return instance.get(`/security/get-captcha-url`);
+    },
 };
 
 export const usersAPI = {

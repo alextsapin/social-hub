@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import { User } from '../../entities/User/User';
+import { SearchForm } from '../../features/SearchForm/SearchForm';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import { Paginator } from '../../widgets/Paginator/Paginator';
 import Preloader from '../../widgets/Preloader/Preloader';
@@ -71,6 +72,13 @@ export const Home = (): ReactElement => {
                 </span>{' '}
                 пользователей
             </h1>
+            <SearchForm />
+
+            <br />
+            <br />
+            <br />
+            <br />
+
             <Grid container spacing={3}>
                 {usersJSX}
             </Grid>

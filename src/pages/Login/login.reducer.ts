@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable default-param-last */
 import { AxiosError } from 'axios';
 
@@ -9,16 +10,18 @@ type StateType = {
     isAuth: boolean;
     userId: null | number;
     avaLink: null | string;
+    captchaUrl: null | string;
 };
 
 const initialState: StateType = {
     isAuth: false,
     userId: null,
     avaLink: null,
+    captchaUrl: null,
 };
 
 // eslint-disable-next-line prettier/prettier
-const authReducer = (state = initialState, action: ToggleIsAuthType| SetUserIdType | SetAvaLinkType): StateType => {
+const authReducer = (state = initialState, action: ToggleIsAuthType| SetUserIdType | SetAvaLinkType | GetCaptchaSuccess): StateType => {
     switch (action.type) {
         case 'LOGIN/TOGGLE_IS_AUTH': {
             return {
@@ -38,6 +41,13 @@ const authReducer = (state = initialState, action: ToggleIsAuthType| SetUserIdTy
             return {
                 ...state,
                 avaLink: action.link,
+            };
+        }
+
+        case 'LOGIN/SET_CAPTCHA': {
+            return {
+                ...state,
+                captchaUrl: action.url,
             };
         }
 
@@ -78,6 +88,16 @@ export const setAvaLinkAC = (link: string | null): SetAvaLinkType => ({
     link,
 });
 
+type GetCaptchaSuccess = {
+    type: 'LOGIN/SET_CAPTCHA';
+    url: string | null;
+};
+
+export const getCaptchaSuccess = (url: string | null): GetCaptchaSuccess => ({
+    type: 'LOGIN/SET_CAPTCHA',
+    url,
+});
+
 export const authentication = (): AppThunkType => {
     return async dispatch => {
         try {
@@ -110,8 +130,16 @@ export const loginization = (data: LoginType): AppThunkType => {
         try {
             const res = await authAPI.login(data);
 
+            if (res.data.messages[0]) {
+                dispatch(setError(res.data.messages[0]));
+            }
+
             if (res.data.resultCode === 0) {
                 dispatch(toggleIsAuth(true));
+            } else if (res.data.resultCode === 10) {
+                const res = await authAPI.getCaptcha();
+
+                dispatch(getCaptchaSuccess(res.data.url));
             } else {
                 dispatch(toggleIsAuth(false));
                 dispatch(setError(res.data.messages[0]));
@@ -138,6 +166,22 @@ export const logout = (): AppThunkType => {
             } else {
                 dispatch(setError(res.data.messages[0]));
             }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                dispatch(setError(error.message));
+            } else {
+                dispatch(setError('Unexpected error...'));
+            }
+        }
+    };
+};
+
+export const getCaptcha = (): AppThunkType => {
+    return async dispatch => {
+        try {
+            const res = await authAPI.getCaptcha();
+
+            dispatch(getCaptchaSuccess(res.data.url));
         } catch (error) {
             if (error instanceof AxiosError) {
                 dispatch(setError(error.message));
