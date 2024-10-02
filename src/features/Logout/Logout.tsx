@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { logout } from '../../pages/Login/login.reducer';
 import { useAppDispatch } from '../../shared/hooks';
 
-import css from './logout.module.scss';
+import css from './Logout.module.scss';
 
 export const Logout = (): ReactElement => {
     const dispatch = useAppDispatch();
